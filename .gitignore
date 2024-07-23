@@ -1,0 +1,9 @@
+venv
+*venv
+.venv
+/venv
+db.sqlite3
+static
+.static
+/static
+*__pycache__
