@@ -1,0 +1,142 @@
+{% extends "app/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+<body class="bg-theme bg-theme1">
+
+<!-- start loader -->
+   <div id="pageloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner" ><div class="loader"></div></div></div></div>
+   <!-- end loader -->
+
+<!-- Start wrapper-->
+
+<div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      {% block content %}
+    
+{% comment %} <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content  bg-primary bg-gradient">
+      <div class="modal-header">
+        <h5 class="modal-title text-black" id="exampleModalLabel">Update</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action=""  id="myForm" >
+
+          {% csrf_token %}
+
+
+          <div class="form-group">
+            <input name="id" type="text" id="myId" style="width:10px; height:2px;border:none;outline:none;" class="bg-primary bg-radiant text-primary">
+            <div class="form-group">
+              <label for="message-text" class="col-form-label text-black">Status:</label>
+              <div class="input-group mb-10">
+                <label class="input-group-text" for="inputGroupSelect01"></label>
+                <select id="select" name="option" class="form-select" >
+                  <option disabled selected>Choose...</option>
+                  <option class="bg-transparent" value="Pending">Pending</option>
+                  <option class="bg-transparent" value="Processing">Processing</option>
+                  <option class="bg-transparent" value="On Hold">On Hold</option>
+                  <option class="bg-transparent" value="In transit">In transit</option>
+                  <option class="bg-transparent" value="Delivered">Delivered</option>
+                </select>
+              </div>
+            </div>
+            <label for="recipient-name" class="col-form-label text-black">Recipient Name:</label>
+            <input type="text" class="form-control"  id="recipient_name">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label text-black">Mobile No:</label>
+            <input type="text" class="form-control" name="mobile_no" id="mobile_no">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label text-black">Recipient Address:</label>
+            <input type="text" name="r_address" class="form-control"  id="r_address">
+          </div>
+          <div class="form-group">
+            <label for="country" class="col-form-label text-black">Recipient Country:</label>
+            <input type="text" class="form-control" name="country"  id="country" name="country">
+          </div>
+          <div class="form-group">
+            <label for="Location" class="col-form-label text-black">Current Location:</label>
+            <input type="text" class="form-control"  id="current_location" name="current_location">
+          </div>
+          <div class="form-group">
+            <label for="eta" class="col-form-label text-black">ETA:</label>
+            <input name="eta" type="text" class="form-control"  id="eta">
+          </div>
+         
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+        </div>
+      </div>
+        </form>
+      </div> {% endcomment %}
+      
+</div>
+    
+         <div class="col-lg- 9">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Transaction History</h5>
+              
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      
+                      <th scope="col">Tr No</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Transaction Type</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Mode of Payment</th>
+                      <th scope="col">Status</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if parcels %}
+                    {% for parcel in parcels %}
+                    <tr>
+                      
+                        <td>{{parcel.tracking_no}}</td>
+                        <td>{{parcel.recipient_fname}} {{parcel.recipient_lname}}</td>
+                        <td>{{parcel.eta}}</td>
+                        <td>{{parcel.eta}}</td>
+                        <td>{{parcel.status}}</td>
+                        <td ><a href=""><button class="btn btn-primary"  style="font-size:10px; background-color: #28a745; color:white;" type="button" >View</button></a><button id="openBtn" class="btn btn-primary openBtn" style="background-color: #fd7e14;font-size:10px; color:white;" type="button" data-toggle="modal"
+                          onclick=openModal({{parcel.id}}) data-parcel-id="{{parcel.id}}">Update</button></td>
+                      
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                      <td colspan="6" class="text-center"><p>No Transaction</p><td>
+                    </tr>
+                    {% endif %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!--End Row-->
+      </div>
+
+
+      
+    </div><!--End Row-->
+    {% endblock content %}
+	
+
+</body>
+</html>
