@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import dashboard, deposit_withdraw, transaction_history, copy_trading, plans, settings
+from .views import dashboard, deposit_withdraw, referral, transaction_history, copy_trading, plans, settings
 
 
 urlpatterns = [
@@ -9,4 +9,5 @@ urlpatterns = [
     path('accounts/wallet/copy-trading', copy_trading, name='copytrading'),
     path('accounts/wallet/plans', plans, name='plans'),
     path('accounts/wallet/settings', settings, name='settings'),
+    path('accounts/wallet/referrals', referral, name='referral'),
 ]
