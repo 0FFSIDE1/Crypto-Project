@@ -87,7 +87,7 @@
         </a>
       </li>
       <li>
-        <a href="">
+        <a href="{% url "referral" %}">
           <i class="zmdi zmdi-lock"></i> <span>Invite Friends</span>
         </a>
       </li>
@@ -165,6 +165,72 @@
     <div class="container-fluid">
 
   <!--Start Dashboard Content-->
+   <!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+  
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+  {
+  "symbols": [
+    {
+      "proName": "FOREXCOM:SPXUSD",
+      "title": "S&P 500 Index"
+    },
+    {
+      "proName": "FOREXCOM:NSXUSD",
+      "title": "US 100 Cash CFD"
+    },
+    {
+      "proName": "FX_IDC:EURUSD",
+      "title": "EUR to USD"
+    },
+    {
+      "proName": "BITSTAMP:BTCUSD",
+      "title": "Bitcoin"
+    },
+    {
+      "proName": "BITSTAMP:ETHUSD",
+      "title": "Ethereum"
+    },
+    {
+      "description": "NVIDA",
+      "proName": "NASDAQ:NVDA"
+    },
+    {
+      "description": "",
+      "proName": "NASDAQ:TSLA"
+    },
+    {
+      "description": "",
+      "proName": "NASDAQ:AAPL"
+    },
+    {
+      "description": "",
+      "proName": "NASDAQ:GOOGL"
+    },
+    {
+      "description": "",
+      "proName": "CRYPTOCAP:TOTAL3"
+    },
+    {
+      "description": "",
+      "proName": "NASDAQ:META"
+    },
+    {
+      "description": "",
+      "proName": "NASDAQ:AMD"
+    }
+  ],
+  "showSymbolLogo": true,
+  "isTransparent": false,
+  "displayMode": "adaptive",
+  "colorTheme": "dark",
+  "locale": "en"
+}
+  </script>
+</div>
+<!-- TradingView Widget END -->
+
 
 	{% block content %}{% endblock content %}
   
@@ -182,8 +248,7 @@
     <!--End Back To Top Button-->
 	
 	<!--Start footer-->
-	
-	
+  
   <!--start color switcher-->
    <div class="right-sidebar">
     <div class="switcher-icon">
@@ -221,7 +286,6 @@
      </div>
    </div>
   <!--end color switcher-->
-   
   </div><!--End wrapper-->
   {% comment %} <footer style="border-top: 1px solid gray; padding-top:20px;">
     <div class="container">
