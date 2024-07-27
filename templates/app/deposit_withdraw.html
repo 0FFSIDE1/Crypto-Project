@@ -67,29 +67,31 @@
                 </h5> 
               </div>
               <div class="table-responsive">
-                <table class="table align-items-center">
+                <table class="table table-sm table-hover align-items-center">
                   <tbody>
+                    {% for wallet in wallets %}
                     <tr>
-                      <td><i class="fa fa-circle text-white mr-2"></i> Bitcoin</td>
-                      <td><button class="btn btn-success" style="width:100%; height:20%" type="submit">Deposit BTC</button></td>
-                                      <td class="text-wrap">Processing Time: Instant - 30 minutes Fee: 0%</td>
+                      <td><i class="fa fa-circle text-white mr-2"></i>{{wallet.wallet_name}}</td>
+                      <td><button class="btn btn-success" style="width:100%; height:20%" type="submit">Deposit {{wallet.wallet_slug}}</button></td>
+                                      <td>Processing Time: Instant - 30 minutes <br>Fee: 0%</td>
                     </tr>
-                    <tr>
+                    {% endfor %}
+                    {% comment %} <tr>
                       <td><i class="fa fa-circle text-light-1 mr-2"></i>USDT</td>
                       <td><button class="btn btn-success" style="width:100%; height:20%" type="submit">Deposit BTC</button></td>
-                                      <td class="text-wrap">Processing Time: Instant - 30 minutes Fee: 0%</td>
+                                      <td>Processing Time: Instant - 30 minutes <br>Fee: 0%</td>
                     </tr>
                     <tr>
                       <td><i class="fa fa-circle text-light-2 mr-2"></i>Ethereum</td>
                       <td><button class="btn btn-success" style="width:100%; height:20%" type="submit">Deposit BTC</button></td>
-                                      <td class="text-wrap">Processing Time: Instant - 30 minutes Fee: 0%</td>
+                                      <td>Processing Time: Instant - 30 minutes<br> Fee: 0%</td>
                     </tr>
                     <tr>
                       <td><i class="fa fa-circle text-light-3 mr-2"></i>Other</td>
-                      <td><button class="btn btn-success" style="width:100%; height:20%" type="submit">Deposit BTC</button></td>
-                                      <td class="text-wrap">Processing Time: Instant - 30 minutes Fee: 0%</td>
+                      <td><button class="btn btn-success" style="width:100%; height:20%" type="submit">Bank/Zelle/Cashapp</button></td>
+                                      <td>Processing Time: Instant - 30 minutes <br>Fee: 0%</td>
                     </tr>
-                  </tbody>
+                  </tbody> {% endcomment %}
                 </table>
               </div>
             </div>
