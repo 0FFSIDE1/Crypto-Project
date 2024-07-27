@@ -9,9 +9,10 @@ async def dashboard(request):
 
 def deposit_withdraw(request):
     context = {
-        'wallets': Wallet.objects.all()
-    }
+        'wallets': Wallet.objects.all(),
+        'banks': BankAccount.objects.all()
 
+    }
     return render(request, 'app/deposit_withdraw.html', context)
 
 async def transaction_history(request):

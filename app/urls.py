@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import dashboard, deposit_withdraw, referral, transaction_history, copy_trading, plans, settings
+from .views import *
 
 
 urlpatterns = [
