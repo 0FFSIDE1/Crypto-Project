@@ -1,13 +1,18 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from .models import *
 
 # Create your views here.
 
 async def dashboard(request):
     return render(request, 'app/index.html')
 
-async def deposit_withdraw(request):
-    return render(request, 'app/deposit_withdraw.html')
+def deposit_withdraw(request):
+    context = {
+        'wallets': Wallet.objects.all()
+    }
+
+    return render(request, 'app/deposit_withdraw.html', context)
 
 async def transaction_history(request):
     return render(request, 'app/transaction.html')
