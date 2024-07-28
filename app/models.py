@@ -1,3 +1,4 @@
+from uuid import uuid4
 from django.db import models
 
 # Create your models here.
@@ -64,3 +65,16 @@ class Transaction(models.Model):
     transactionAmount = models.IntegerField(default=None, blank=False, null=False)
     def __str__(self) -> str:
         return f"{self.name} by {self.user}"
+    
+class TransactionHistory(models.Model):
+    tr_no = models.UUIDField(primary_key=True)
+    data_created = models.DateField(auto_now=True)
+    transaction_type = models.CharField(max_length=10, default=None, blank=True, null=False)
+    amount = models.CharField(max_length=100, default=None, blank=True)
+    choices = (('Pending', 'Pending'), ('Failed', 'Failed'), ('Completed', 'Completed'))
+    payment_method = models.CharField(max_length=20, default=None, blank=False, null=False)
+    status = models.CharField(max_length=10, choices=choices, default='Pending')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='transaction', blank=True)
+    def __str__(self) -> str:
+        return f"{self.transaction_type} by {self.user}"
+    

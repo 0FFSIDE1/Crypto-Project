@@ -147,6 +147,16 @@
   .carddiv:hover::before{
     transform: rotate(-90deg) scaleX(0.6) scaleY(0.97);
   }
+
+  .modal-content {
+    background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(0,0,0,0.7));
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  
+  
+  
 </style>
   
 </head>
@@ -448,7 +458,7 @@
 
 
 
-
+{% comment %} 
     document.querySelectorAll('.view-btn').forEach(button => {
       button.addEventListener('click', function(){
         const id = this.getAttribute('data-user-id');
@@ -529,5 +539,41 @@
 
       
   
- </script>
 
+ {% endcomment %}
+ document.querySelectorAll('.investBtn').forEach(button => {
+  button.addEventListener('click', function() {
+    const pk = this.getAttribute('data-plan-id');
+    console.log(pk);
+
+    fetch(`/accounts/wallet/${pk}/plan`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok!');
+        }
+        console.log('Response is ok');
+        return response.json();
+      })
+      .then(data => {
+        if (data) {
+          const name_input = document.getElementById('plan');
+          const profit_input = document.getElementById('roi');
+
+          if (name_input && profit_input) {
+            // Set value
+            name_input.value = data.name || '';
+            profit_input.value = `${data.profit}%` || '';
+            name_input.readOnly = true;
+            profit_input.readOnly = true;
+          } else {
+            console.error('Input elements not found');
+          }
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  });
+});
+
+</script>

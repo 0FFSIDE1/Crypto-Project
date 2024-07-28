@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.views import View
 from .models import *
+from asgiref.sync import sync_to_async
 
 # Create your views here.
 
@@ -26,6 +28,14 @@ def plans(request):
         'plans': Plan.objects.all()
     }
     return render(request, 'app/plan&pricing.html', context)
+
+def get_plan(request, pk):
+    plan = Plan.objects.get(pk=pk)
+    data = {
+        'name': plan.planName,
+        'profit': plan.profit
+    }
+    return JsonResponse(data, safe=True)
 
 async def settings(request):
     return render(request, 'app/settings.html')
