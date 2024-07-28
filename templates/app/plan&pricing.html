@@ -12,58 +12,40 @@
    <!-- end loader -->
 
 
-<div class="clearfix"></div>
+<div class="clearfix"></div>  
 	
   <div class="content-wrapper">
     <div class="container-fluid" >
       {% block content %}
       <div class="row">
+        {% for plan in plans %}
         <div class="col-lg-4">
-          <div class="card">
-            <div class="parent">
-              <div class="div1"> hh</div>
-              <div class="div2"> hh</div>
-              <div class="div3"> hh</div>
-              <div class="div4"> hh</div>
-              <div class="div5"> hh</div>
-              <div class="div6">hh </div>
-              <div class="div7"> hh</div>
-              <div class="div8"> hh</div>
-              <div class="div9"> hhh</div>
-              </div></div>
+          <div class="carddiv">
+            <p class="heading">
+              {{plan.planName}} Plan
+            </p>
+            <ul   style="padding: 0px; margin:0px; list-style-type: None; display:flex; flex-direction:column; flex-wrap: wrap; gap:12px;">
+              <li>Minimum Deposit <span class="text-success">💲{{plan.minPrice}}</span></li>
+              <li>Maximum Deposit <span  class="text-success">💲{{plan.maxPrice}}</span></li>
+              <li>10% Trade Commission</li>
+              <li>24/7 Customer Support</li>
+            <ul>
+            
+              <button type="button" class="button">
+                <span class="button__text">Buy Plan</span>
+                <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
+              </button>
+          </div>
+
         </div>
-        <div class="col-lg-4">
-          <div class="card">
-            <div class="parent">
-              <div class="div1"> hh</div>
-              <div class="div2"> hh</div>
-              <div class="div3"> hh</div>
-              <div class="div4"> hh</div>
-              <div class="div5"> hh</div>
-              <div class="div6">hh </div>
-              <div class="div7"> hh</div>
-              <div class="div8"> hh</div>
-              <div class="div9"> hhh</div>
-              </div></div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card">
-            <div class="parent">
-              <div class="div1"> hh</div>
-              <div class="div2"> hh</div>
-              <div class="div3"> hh</div>
-              <div class="div4"> hh</div>
-              <div class="div5"> hh</div>
-              <div class="div6">hh </div>
-              <div class="div7"> hh</div>
-              <div class="div8"> hh</div>
-              <div class="div9"> hhh</div>
-              </div></div>
-        </div>
+        {% endfor %}
       
       </div>
+    </div>
+      
+  </div>
             
-        
+     
 	  {% endblock content %}
 	  <!--start overlay-->
   
