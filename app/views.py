@@ -21,8 +21,11 @@ async def transaction_history(request):
 async def copy_trading(request):
     return render(request, 'app/copytrading.html')
 
-async def plans(request):
-    return render(request, 'app/plan&pricing.html')
+def plans(request):
+    context = {
+        'plans': Plan.objects.all()
+    }
+    return render(request, 'app/plan&pricing.html', context)
 
 async def settings(request):
     return render(request, 'app/settings.html')
