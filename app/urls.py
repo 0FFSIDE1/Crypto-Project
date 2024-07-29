@@ -11,4 +11,5 @@ urlpatterns = [
     path('accounts/wallet/settings', settings, name='settings'),
     path('accounts/wallet/referrals', referral, name='referral'),
     path('accounts/wallet/<int:pk>/plan', get_plan, name='get-plan'),
+    path('accounts/wallet/<str:pk>/deposit', deposit, name='deposit'),
 ]

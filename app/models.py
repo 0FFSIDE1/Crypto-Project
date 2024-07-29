@@ -1,4 +1,5 @@
 from uuid import uuid4
+import uuid
 from django.db import models
 
 # Create your models here.
@@ -45,7 +46,8 @@ class Wallet(models.Model):
     wallet_name = models.CharField(max_length=10, default=None, blank=False)
     wallet_slug = models.CharField(max_length=10, default=None, blank=True, null=True)
     wallet_address = models.CharField(max_length=100, default=None, blank=True, null=True)
-    img = models.ImageField(upload_to='wallet', blank=True, null=True)
+    logo_img = models.ImageField(upload_to='wallet', blank=True, null=True)
+    qrcode_img = models.ImageField(upload_to='wallet', blank=True, null=True)
     def __str__(self) -> str:
         return f'{self.wallet_name} | {self.wallet_slug}'
 
@@ -57,24 +59,17 @@ class BankAccount(models.Model):
     accout_no = models.CharField(max_length=20, default=None)
     def __str__(self) -> str:
         return f'{self.bank_name} | {self.owner}'
-
-class Transaction(models.Model):
-    name = models.CharField(max_length=10, default=None, null=False, blank=False)
-    plan = models.ForeignKey(Plan, on_delete=models.CASCADE, related_name='plan')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='users')
-    transactionAmount = models.IntegerField(default=None, blank=False, null=False)
-    def __str__(self) -> str:
-        return f"{self.name} by {self.user}"
-    
+ 
 class TransactionHistory(models.Model):
-    tr_no = models.UUIDField(primary_key=True)
+    tr_no = models.CharField(max_length=200, primary_key=True, default=uuid.uuid4)
     data_created = models.DateField(auto_now=True)
     transaction_type = models.CharField(max_length=10, default=None, blank=True, null=False)
     amount = models.CharField(max_length=100, default=None, blank=True)
     choices = (('Pending', 'Pending'), ('Failed', 'Failed'), ('Completed', 'Completed'))
     payment_method = models.CharField(max_length=20, default=None, blank=False, null=False)
     status = models.CharField(max_length=10, choices=choices, default='Pending')
+    deposit_img = models.ImageField(upload_to='wallet', blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='transaction', blank=True)
     def __str__(self) -> str:
-        return f"{self.transaction_type} by {self.user}"
+        return f"{self.data_created} |{self.transaction_type} by {self.user}"
     

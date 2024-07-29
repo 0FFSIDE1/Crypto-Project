@@ -72,7 +72,7 @@
                     {% for wallet in wallets %}
                     <tr>
                       <td><i class="fa fa-circle text-white mr-2"></i>{{wallet.wallet_name}}</td>
-                      <td><button class="btn btn-success" style="width:100%; height:20%" type="submit">Deposit {{wallet.wallet_slug}}</button></td>
+                      <td><a href="{% url "deposit" wallet.wallet_name %}"><button class="btn btn-success" style="width:100%; height:20%" type="submit">Deposit {{wallet.wallet_slug}}</button></a></td>
                                       <td>Processing Time: Instant - 30 minutes <br>Fee: 0%</td>
                     </tr>
                     {% endfor %}

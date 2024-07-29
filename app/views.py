@@ -17,6 +17,14 @@ def deposit_withdraw(request):
     }
     return render(request, 'app/deposit_withdraw.html', context)
 
+def deposit(request, pk):
+    wallets = Wallet.objects.get(wallet_name=pk)
+    context ={
+        "wallet": wallets
+    }
+    return render(request,'app/deposit.html', context)
+
+
 async def transaction_history(request):
     return render(request, 'app/transaction.html')
 
