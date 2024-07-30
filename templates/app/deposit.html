@@ -26,15 +26,16 @@
               <h5 class="card-title">Deposit {{wallet.wallet_name}}</h5>
               
               <div class="cardless">
-                <div class="small"></div>
+                <div class="small"><img src="{{wallet.logo_img.url}}" alt="{{wallet.wallet_slug}}"></div>
                 <span>{{wallet.wallet_slug}}</span>
                 <p class="info">{% lorem 1 b random %}</p>
                 
-                <div class="img"></div>
+                <div class="img" style="background-image: url('{{wallet.qrcode_img.url}}')"></div>
               </div>
             </div>
           </div>
         </div>
+        
        
         <div class="col-lg-6">
             <div class="card center-content">
