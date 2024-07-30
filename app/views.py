@@ -37,7 +37,13 @@ def confirm_deposit(request):
             wallet_address = request.POST['wallet_address']
         )
         transaction.save()
+        total_deposit = user.total_deposit + float(request.POST['amount'])
+        user.total_deposit = total_deposit
+        user.save()
     return redirect('transaction')
+
+def withdraw(request):
+    pass
 
 
 def transaction_history(request):
