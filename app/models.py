@@ -14,6 +14,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=300, default=None, blank=True, null=True)
     hobbies = models.TextField(max_length=200, default=None, blank=True, null=True)
     kyc_verification = models.BooleanField(default=False)
+    wallet_balance = models.FloatField(max_length=None, default=None, blank=True, null=True)
     total_deposit = models.FloatField(max_length=None, default=None, blank=True, null=True)
     total_withdraw = models.FloatField(max_length=None, default=None, blank=True, null=True)
     total_profit = models.FloatField(max_length=None, default=None, blank=True, null=True)

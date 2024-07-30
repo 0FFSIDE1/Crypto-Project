@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['5c0b-102-88-68-24.ngrok-free.app', '127.0.0.1:8000', '127.0.0.1']
 
+CSRF_TRUSTED_ORIGINS = ['https://5c0b-102-88-68-24.ngrok-free.app']
+
 
 # Application definition
 

@@ -28,8 +28,12 @@
           
          
             <p class="">Wallet Balance</p>
-          
-              <p style="font-size:30px; font-weight:bold;">$0.00</p>
+            {% if user %}
+              {% if user.wallet_balance == None %}
+              <p style="font-size:30px; font-weight:bold;">$ 0.00</p>
+              {% else %}
+              <p style="font-size:30px; font-weight:bold;">$ {{user.wallet_balance}}</p>
+              {% endif %}
               <h6 style="font-size: clamp(8px, 12px, 2rem); font-weight:small;">This contains balance on your account that is yet to be invested</h4>
            
             <p><button class="btn btn-warning" style="height:100%; margin-top:30px" type="submit">Withdraw Balance</button></p>
@@ -41,17 +45,25 @@
         <div class="row m-0 row-group text-center border-top border-light-3">
           <div class="col-12 col-lg-6">
             <div class="p-3">
-              <h5 class="mb-0">$ 45.87M</h5>
+              {% if user.total_deposit == None %}
+              <h5 class="mb-0">$ 0.00</h5>
+              {% else %}
+              <h5 class="mb-0">$ {{user.total_deposit}}</h5>
+              {% endif %}
             <small class="mb-0">TOTAL DEPOSIT</small>
             </div>
           </div>
           <div class="col-12 col-lg-6">
             <div class="p-3">
+              {% if user.total_withdraw == None %}
               <h5 class="mb-0">$ 0.00</h5>
+              {% else %}
+              <h5 class="mb-0">$ {{user.total_withdraw}}</h5>
+              {% endif %}
             <small class="mb-0">TOTAL WITHDRAW</small>
             </div>
           </div>
-
+          {% endif %}
         </div>
         
        </div>

@@ -42,23 +42,26 @@
               <div class="card-body ">
                 <h5 class="card-title">Confirm Deposit</h5>
                 <div class="cardless2">
+                    <form method="post" action="{% url "confirm-deposit" %}" enctype="multipart/form-data">
+                        {% csrf_token %}
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label text-black">Wallet</label>
                         <input type="text" name="wallet_name" class="form-control"  id="wallet_name" value={{wallet.wallet_slug}} readOnly>
                     </div>
                     <div class="form-group">
                         <label for="wallet_address" class="col-form-label text-black">Your wallet address</label>
-                        <input type="text" name="wallet_address" class="form-control"  id="wallet_address">
+                        <input type="text" name="wallet_address" class="form-control"  id="wallet_address" required>
                     </div>
                     <div class="form-group">
                         <label for="country" class="col-form-label text-black">Amount</label>
-                        <input type="number" class="form-control" name="amount"  id="amount">
+                        <input type="decimal" class="form-control" name="amount"  id="amount" required>
                     </div>
                     <div class="form-group">
                         <label for="Location" class="col-form-label text-black">Upload File</label>
-                        <input type="file" class="form-control"  id="paymentslip" name="payment_slip">
+                        <input type="file" class="form-control"  id="paymentslip" name="payment_slip" required>
                     </div>
-                    <button>I have made payment</button>
+                    <button type="submit">I have made payment</button>
+                </form>
               </div>
             </div>
             </div>
