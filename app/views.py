@@ -43,7 +43,9 @@ def confirm_deposit(request):
     return redirect('transaction')
 
 def withdraw(request):
-    pass
+    if request.method =='POST':
+        pass
+
 
 
 def transaction_history(request):
