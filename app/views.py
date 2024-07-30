@@ -45,8 +45,13 @@ def get_plan(request, pk):
     }
     return JsonResponse(data, safe=True)
 
-async def settings(request):
-    return render(request, 'app/settings.html')
+def settings(request):
+    user = Profile.objects.get(user=request.user)
+    context = {
+        'user': user
+    }
+
+    return render(request, 'app/my_account.html', context)
 
 async def referral(request):
     return render(request, 'app/referral.html')

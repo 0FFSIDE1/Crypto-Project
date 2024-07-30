@@ -1,28 +1,33 @@
 from uuid import uuid4
 import uuid
 from django.db import models
-
+from django.contrib.auth import get_user_model
 # Create your models here.
-class User(models.Model):
+
+User = get_user_model()
+class Profile(models.Model):
     username = models.CharField(max_length=15, default=None, unique=True)
     firstName = models.CharField(max_length=10, default=None, null=False)
     lastName = models.CharField(max_length=10, default=None, null=False)
     email = models.EmailField(max_length=50, unique=True, default=None, null=False)
     phone = models.CharField(max_length=15, default=None, blank=True)
+    bio = models.TextField(max_length=300, default=None, blank=True, null=True)
+    hobbies = models.TextField(max_length=200, default=None, blank=True, null=True)
     kyc_verification = models.BooleanField(default=False)
     total_deposit = models.FloatField(max_length=None, default=None, blank=True, null=True)
     total_withdraw = models.FloatField(max_length=None, default=None, blank=True, null=True)
     total_profit = models.FloatField(max_length=None, default=None, blank=True, null=True)
-    choices = (('Active', 'Active'),('Inactive', 'Inactive'), ('Suspended', 'Suspended'), ('Pending Review', 'Pending Review'))
+    choices = (('Active', 'Active'),('Inactive', 'Inactive'), ('Suspended', 'Suspended'))
     status = models.CharField(max_length=15, choices=choices, default='Inactive')
     img = models.ImageField(upload_to='user/img', blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user', default=None, blank=True )
     created_at = models.DateField(auto_now=True)
 
     def __str__(self) -> str:
         return self.username
 
 class Kyc(models.Model):
-    user = models.OneToOneField(User, related_name='owner', on_delete=models.CASCADE)
+    user = models.OneToOneField(Profile, related_name='owner', on_delete=models.CASCADE)
     choices = (("Driver's License", "Driver's License"), ("Passport", "Passport"), ("State ID", "State ID"))
     id_type = models.CharField(default=None, choices=choices, max_length=20, blank=True)
     id_number = models.CharField(max_length=20, default=None)
@@ -37,7 +42,7 @@ class Plan(models.Model):
     minPrice = models.IntegerField(default=None, blank=False, null=False)
     profit = models.CharField(max_length=20, default=None)
     planDuration = models.IntegerField(default=None, blank=False, null=False)
-    users = models.ManyToManyField(User, related_name='user', blank=True)
+    users = models.ManyToManyField(Profile, related_name='plan', blank=True)
     created_at = models.DateField(auto_now=True)
     def __str__(self) -> str:
         return self.planName
@@ -69,7 +74,8 @@ class TransactionHistory(models.Model):
     payment_method = models.CharField(max_length=20, default=None, blank=False, null=False)
     status = models.CharField(max_length=10, choices=choices, default='Pending')
     deposit_img = models.ImageField(upload_to='wallet', blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='transaction', blank=True)
+    wallet_address = models.CharField(max_length=150, default=None, blank=True, null=True)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='transaction', blank=True)
     def __str__(self) -> str:
         return f"{self.data_created} |{self.transaction_type} by {self.user}"
     

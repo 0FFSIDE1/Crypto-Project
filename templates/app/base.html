@@ -172,7 +172,7 @@
     border-bottom-left-radius: 20px;
     display: flex;
     flex-direction: column;
-    margin:20px;
+    
     padding:20px
   }
   
@@ -196,16 +196,29 @@
   .cardless .img {
     width: 50%;
     height: 40%;
-    background: white;
     border-radius: 15px;
     margin: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+   
   }
+  {% comment %} .img img{
+    
+    width: ;
+    height: 200px;
+  } {% endcomment %}
+ 
   .cardless .small {
     width: 4.8em;
     height: 4.8em;
-    background: white;
     border-radius: 15px;
     margin: auto;
+  }
+  .small img{
+    width: 4.8em;
+    height: 4.8em;
+
   }
   
   .cardless .share {
@@ -299,7 +312,7 @@
       </li>
       <li>
         <a href="{% url "settings" %}">
-          <i class="zmdi zmdi-lock"></i> <span>Settings</span>
+          <i class="zmdi zmdi-lock"></i> <span>My Account</span>
         </a>
       </li>
       <li>
