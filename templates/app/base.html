@@ -254,7 +254,12 @@
     color: white;
     cursor: pointer;
   } 
-  
+  .alert-success{
+    background-color: green;
+}
+  .alert-error{
+    background-color: red;
+}
   
   
 </style>
@@ -554,6 +559,15 @@
       selector: 'textarea#tiny',
       plugins: 'link',
       
+    });
+    
+    // Display the popup div for 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+      var popupDiv = document.getElementById('popupDiv');
+      popupDiv.style.display = 'block';
+      setTimeout(function(){
+        popupDiv.style.display = 'none';
+      }, 10000); // 10 seconds
     });
 
 

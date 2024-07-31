@@ -1,0 +1,96 @@
+{% extends "app/base.html" %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<body class="bg-theme bg-theme1">
+
+<!-- start loader -->
+   <div id="pageloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner" ><div class="loader"></div></div></div></div>
+   <!-- end loader -->
+
+
+<div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid" >
+      {% block content %}
+    
+      <div class="row">
+        {% if transaction %}
+        <div class="col-12 col-lg-12 col-xl-12">
+           <div class="card">
+              <div class="card-header">Transaction Detail
+              </div>
+              <div class="card-body">
+                <h6 class="text-center" style="font-size: clamp(10px, 16px, 2rem)">
+                  {{transaction.data_created}}
+                </h5> 
+              </div>
+              <table class="table table-sm">
+                <thead>
+                 
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Transaction ID</th>
+                    <td colspan="3">{{transaction.tr_no}}</td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">Transaction Type</th>
+                    <td colspan="3">{{transaction.transaction_type}}</td> 
+                  </tr>
+                  <tr>
+                    <th scope="row">Payment Method</th>
+                    <td colspan="3">{{transaction.payment_method}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Wallet Address</th>
+                    <td colspan="3">{{transaction.wallet_address}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Amount</th>
+                    <td colspan="3">{{transaction.amount}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Status</th>
+                    {% if transaction.status == 'Pending' %}
+                    <td class="text-warning" colspan="3">{{transaction.status}}</td>
+                    {% elif transaction.status == 'Completed' %}
+                    <td class="text-success" colspan="3">{{transaction.status}}</td>
+                    {% elif transaction.status == 'Failed' %}
+                    <td class="text-danger" colspan="3">{{transaction.status}}</td>
+                    {% endif %}
+                  </tr>
+                </tbody>
+              </table>
+             {% endif %}
+            </div>
+        </div>
+     </div><!--End Row-->
+     
+      
+        
+                  
+                       
+                        </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                
+            </div>
+            </div>
+           
+          </div>
+          
+        
+	  {% endblock content %}
+	  <!--start overlay-->
+  
+</body>
+
+</html>
