@@ -22,3 +22,10 @@ def check_kyc_verification(user):
         return True
     else:
         return False
+    
+def check_balance_for_plan(wallet_balance, plan_name):
+    plan = Plan.objects.get(planName=plan_name)
+    if float(wallet_balance) < plan.minPrice or wallet_balance > plan.maxPrice:
+        return False
+    else:
+        return True

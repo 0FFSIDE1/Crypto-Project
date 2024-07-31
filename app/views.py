@@ -1,8 +1,8 @@
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.http import JsonResponse
-from django.views import View
 from .models import *
-from asgiref.sync import sync_to_async
+from .setup import *
+from django.contrib import messages
 
 # Create your views here.
 
@@ -44,7 +44,23 @@ def confirm_deposit(request):
 
 def withdraw(request):
     if request.method =='POST':
-        pass
+        amount = request.POST['amount']
+        wallet = request.POST['wallet']
+        wallet_add = request.POST['wallet_add']
+        if insufficient_balance(amount=amount, user=request.user):
+            messages.error(request, 'Insufficient Balance')
+            return redirect('deposit-withdraw')
+        else:
+            transaction = TransactionHistory.objects.create(
+                user=Profile.objects.get(user=request.user),
+                amount=amount,
+                transaction_type='Withdraw',
+                payment_method=wallet,
+                wallet_address=wallet_add
+            )
+            transaction.save()
+            messages.success(request, 'Withrawal processing, this may take few mintues!')
+            return redirect('transaction')
 
 
 
@@ -55,6 +71,14 @@ def transaction_history(request):
         'transactions': transactions
     }
     return render(request, 'app/transaction.html', context)
+
+def transaction_detail(request, pk):
+    transaction = TransactionHistory.objects.get(pk=pk)
+    
+    context = {
+        'transaction': transaction
+    }
+    return render(request, 'app/user_transaction.html', context)
 
 async def copy_trading(request):
     return render(request, 'app/copytrading.html')
@@ -72,6 +96,28 @@ def get_plan(request, pk):
         'profit': plan.profit
     }
     return JsonResponse(data, safe=True)
+
+def buy_plan(request):
+    if request.method == 'POST':
+        try:
+            if check_kyc_verification(user=request.user):
+                user = Profile.objects.get(user=request.user)
+                wallet_balance = user.wallet_balance
+                plan = request.POST['plan']
+                request_amount = request.POST['amount']
+                if check_balance_for_plan(wallet_balance=wallet_balance, plan_name=plan):
+                    user.wallet_balance = wallet_balance - float(request_amount)
+                    user.save()
+                    transaction = TransactionHistory.objects.create(transaction_type='Invest',
+                    amount=float(request_amount), user=user)
+                    transaction.save()
+                
+                else:
+                    messages.error(request, 'Insufficient balance')
+                    return redirect('plans')            
+        except Exception as e:
+            messages.error(request, 'Cannot Perform action at the moment, Contact Customercare@support.com')
+            return redirect('plans')
 
 def settings(request):
     user = Profile.objects.get(user=request.user)
