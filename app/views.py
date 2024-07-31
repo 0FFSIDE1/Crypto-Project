@@ -114,7 +114,10 @@ def buy_plan(request):
                 
                 else:
                     messages.error(request, 'Insufficient balance')
-                    return redirect('plans')            
+                    return redirect('plans')
+            else:
+                messages.error(request, 'KYC Verification needed to perform action.')
+                return redirect('plans')              
         except Exception as e:
             messages.error(request, 'Cannot Perform action at the moment, Contact Customercare@support.com')
             return redirect('plans')
