@@ -17,6 +17,19 @@
     <div class="container-fluid">
 
       {% block content %}
+      {% if messages %}
+      {% for message in messages %}
+    <div id ="popupDiv" class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+       <div class="alert-icon">
+      <i class="icon-info"></i>
+      </div>
+      
+      <span class="popupContent alert-message" id="popupContent">{{message}}</span>
+      
+    </div>
+    {% endfor %}
+    {% endif %}
     
 {% comment %} <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
