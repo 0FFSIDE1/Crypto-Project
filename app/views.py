@@ -62,6 +62,10 @@ def withdraw(request):
             messages.success(request, 'Withrawal processing, this may take few mintues!')
             return redirect('transaction')
 
+def verify_kyc(request):
+    user = Profile.objects.get(user=request.user)
+    if request.method == 'POST':
+        pass
 
 
 def transaction_history(request):
