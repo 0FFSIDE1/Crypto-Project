@@ -6,8 +6,11 @@ from django.contrib import messages
 
 # Create your views here.
 
-async def dashboard(request):
-    return render(request, 'app/index.html')
+def dashboard(request):
+    if is_admin(user=request.user):
+        return render(request, 'app/admin_dashboard.html') 
+    else:
+        return render(request, 'app/user_dashboard.html')
 
 def deposit_withdraw(request):
     user = Profile.objects.get(user=request.user)
