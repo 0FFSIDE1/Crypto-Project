@@ -66,7 +66,7 @@ def withdraw(request):
 
 def transaction_history(request):
     user = Profile.objects.get(user=request.user)
-    transactions = TransactionHistory.objects.filter(user=user)
+    transactions = TransactionHistory.objects.filter(user=user).order_by('-data_created')
     context = {
         'transactions': transactions
     }
