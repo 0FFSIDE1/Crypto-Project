@@ -73,7 +73,7 @@ def decline_plan(user):
     plan.save()
 
 def is_admin(user):
-    if user.profile.is_admin:
+    if user.user.is_admin:
         return True
     else:
         return False
