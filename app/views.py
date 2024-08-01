@@ -134,5 +134,9 @@ def settings(request):
 
     return render(request, 'app/my_account.html', context)
 
+def update_profile(request):
+    if request.method == 'POST':
+        pass
+
 async def referral(request):
     return render(request, 'app/referral.html')
