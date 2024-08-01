@@ -22,6 +22,7 @@ class Profile(models.Model):
     status = models.CharField(max_length=15, choices=choices, default='Inactive')
     img = models.ImageField(upload_to='user/img', blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user', default=None, blank=True )
+    is_admin = models.BooleanField(default=False)
     created_at = models.DateField(auto_now=True)
 
     def __str__(self) -> str:
@@ -43,6 +44,8 @@ class Plan(models.Model):
     minPrice = models.IntegerField(default=None, blank=False, null=False)
     profit = models.CharField(max_length=20, default=None)
     planDuration = models.IntegerField(default=None, blank=False, null=False)
+    choices = (('Pending', 'Pending'), ('Failed', 'Failed'), ('Active', 'Active'), ('Completed', 'Completed'))
+    status = models.CharField(max_length=15, choices=choices, default='Pending', blank=False, null=False)
     users = models.ManyToManyField(Profile, related_name='plan', blank=True)
     created_at = models.DateField(auto_now=True)
     def __str__(self) -> str:
@@ -67,7 +70,7 @@ class BankAccount(models.Model):
         return f'{self.bank_name} | {self.owner}'
  
 class TransactionHistory(models.Model):
-    tr_no = models.CharField(max_length=200, primary_key=True, default=uuid.uuid4)
+    tr_no = models.CharField(max_length=50, primary_key=True, default=uuid.uuid4)
     data_created = models.DateField(auto_now=True)
     transaction_type = models.CharField(max_length=10, default=None, blank=True, null=False)
     amount = models.CharField(max_length=100, default=None, blank=True)
@@ -75,7 +78,7 @@ class TransactionHistory(models.Model):
     payment_method = models.CharField(max_length=20, default=None, blank=False, null=False)
     status = models.CharField(max_length=10, choices=choices, default='Pending')
     deposit_img = models.ImageField(upload_to='wallet', blank=True, null=True)
-    wallet_address = models.CharField(max_length=150, default=None, blank=True, null=True)
+    wallet_address = models.CharField(max_length=100, default=None, blank=True, null=True)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='transaction', blank=True)
     def __str__(self) -> str:
         return f"{self.data_created} |{self.transaction_type} by {self.user}"

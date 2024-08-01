@@ -97,8 +97,7 @@ def get_plan(request, pk):
     }
     return JsonResponse(data, safe=True)
 
-def buy_plan(request):
-    if request.method == 'POST':
+def buy_plan(request):        
         try:
             if check_kyc_verification(user=request.user):
                 user = Profile.objects.get(user=request.user)
