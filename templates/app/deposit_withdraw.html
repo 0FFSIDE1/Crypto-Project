@@ -29,19 +29,19 @@
             <div class="modal-body">
               <form method='POST' action="{% url "withdraw" %}">
                 {% csrf_token %}
-              <div class="form-group col-sm-12">
-                <label for="input-2" style="text-align:center;">WALLET</label>
-                <select class="form-select form-select-sm" name="wallet" style="margin-left:60px;" required>
-                  <option disabled>Choose...</option>
-                  {% for wallet in wallets  %}
-                  <option style="background-color:white;">{{wallet.wallet_name}}</option>
+                <div class="input-group mb-3 form-group col-sm-12">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">WALLET</label>
+                  </div>
+                  <select class="custom-select" id="inputGroupSelect01">
+                    <option selected>Choose..</option>
+                    {% for wallet in wallets  %}
+                  <option style="background-color:black;">{{wallet.wallet_name}}</option>
                   {% endfor %}
-                  
-                  
-                </select> 
-                
-                
-               </div>
+                    
+                  </select>
+                </div>
+             
               <div class="form-group col-sm-12">
                 <label for="plan" class="col-form-label text-black">WALLET ADDRESS</label>
                 <input type="text" class="form-control" name="wallet_add" id="wallet_add" required>
