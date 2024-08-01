@@ -66,6 +66,7 @@ def verify_kyc(request):
     user = Profile.objects.get(user=request.user)
     if request.method == 'POST':
         pass
+    return render(request, 'app/kyc_verification.html')
 
 
 def transaction_history(request):

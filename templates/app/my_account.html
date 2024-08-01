@@ -44,55 +44,7 @@
             </div>
 
             <div class="card-body border-top border-light">
-                {% comment %} <div class="media align-items-center">
-                   <div>
-                       <img src="{% static "app/assets/images/timeline/html5.svg" %}" class="skill-img" alt="skill img">
-                   </div>
-                     <div class="media-body text-left ml-3">
-                       <div class="progress-wrapper">
-                         <p>HTML5 <span class="float-right">65%</span></p>
-                         <div class="progress" style="height: 5px;">
-                          <div class="progress-bar" style="width:65%"></div>
-                         </div>
-                        </div>                   
-                    </div>
-                  </div> {% endcomment %}
-                
-                  {% comment %} <div class="media align-items-center">
-                   <div><img src="{% static "app/assets/images/timeline/bootstrap-4.svg" %}" class="skill-img" alt="skill img"></div>
-                     <div class="media-body text-left ml-3">
-                       <div class="progress-wrapper">
-                         <p>Bootstrap 4 <span class="float-right">50%</span></p>
-                         <div class="progress" style="height: 5px;">
-                          <div class="progress-bar" style="width:50%"></div>
-                         </div>
-                        </div>                   
-                    </div>
-                  </div> {% endcomment %}
-                
-                  {% comment %} <div class="media align-items-center">
-                   <div><img src="{% static "app/assets/images/timeline/angular-icon.svg" %}" class="skill-img" alt="skill img"></div>
-                     <div class="media-body text-left ml-3">
-                       <div class="progress-wrapper">
-                         <p>AngularJS <span class="float-right">70%</span></p>
-                         <div class="progress" style="height: 5px;">
-                          <div class="progress-bar" style="width:70%"></div>
-                         </div>
-                        </div>                   
-                    </div>
-                  </div> {% endcomment %}
-                    
-                  {% comment %} <div class="media align-items-center">
-                   <div><img src="{% static "app/assets/images/timeline/react.svg" %}" class="skill-img" alt="skill img"></div>
-                     <div class="media-body text-left ml-3">
-                       <div class="progress-wrapper">
-                         <p>React JS <span class="float-right">35%</span></p>
-                         <div class="progress" style="height: 5px;">
-                          <div class="progress-bar" style="width:35%"></div>
-                         </div>
-                        </div>                   
-                    </div>
-                  </div> {% endcomment %}
+              
                   
               </div>
         </div>
@@ -134,7 +86,7 @@
                             <a href="javascript:void();" class="badge badge-danger badge-pill">{{user.status}}</a>
                             {% endif %}
                             {% if user.kyc_verification == False %}
-                            <a href="javascript:void();" class="badge badge-danger badge-pill">KYC Unverified</a>
+                            <a href="{% url "kyc-verification" %}" class="badge badge-danger badge-pill">KYC Unverified</a>
                             {% elif user.kyc_verification == True %}
                             <a href="javascript:void();" class="badge badge-success badge-pill">KYC Verified</a>
                             {% endif %}
