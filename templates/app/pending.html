@@ -1,0 +1,53 @@
+{% extends "app/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+<body class="bg-theme bg-theme1">
+
+<!-- start loader -->
+   <div id="pageloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner" ><div class="loader"></div></div></div></div>
+   <!-- end loader -->
+
+<!-- Start wrapper-->
+
+<div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      {% block content %}
+      
+</div>
+{% if kyc %}
+    
+         <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              
+              <div class="cardkyc">
+                <div class="card-inner">
+                  <div class="card-front" style="background-image: url('{{kyc.front_img.url}}')">
+                    <p>Front Side</p>
+                  </div>
+                  <div class="card-back" style="background-image: url('{{kyc.back_img.url}}')">
+                    <p>Back Side</p>
+                  </div>
+                </div>
+              </div>
+s              
+            </div>
+          </div>
+        </div>
+      </div><!--End Row-->
+      </div>
+
+      {% endif %}
+      
+    </div><!--End Row-->
+    {% endblock content %}
+	
+
+</body>
+</html>

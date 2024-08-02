@@ -66,15 +66,32 @@ def withdraw(request):
             return redirect('transaction')
 
 def verify_kyc(request):
-    user = Profile.objects.get(user=request.user)
+
     if request.method == 'POST':
-        pass
+        user = Profile.objects.get(user=request.user)
+        try:
+            kyc = Kyc.objects.create(
+                user=user,
+                id_type=request.POST['id_type'],
+                id_number=request.POST['id_no'],
+                front_img = request.FILES.get('front_img'),
+                back_img = request.FILES.get('back_img'),
+                expiry_date=request.POST['expiry_date']
+            )
+            kyc.save()
+            context = {
+                'kyc': Kyc.objects.get(user=user)
+            }
+            return render(request, 'app/pending.html', context)        
+        except Exception as e:
+            messages.error(request, e)
+            return render(request, 'app/kyc_verification.html')
     return render(request, 'app/kyc_verification.html')
 
 
 def transaction_history(request):
     user = Profile.objects.get(user=request.user)
-    transactions = TransactionHistory.objects.filter(user=user).order_by('-data_created')
+    transactions = TransactionHistory.objects.filter(user=user).order_by('-date_created')
     context = {
         'transactions': transactions
     }
