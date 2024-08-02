@@ -146,8 +146,7 @@ def buy_plan(request):
                 messages.error(request, 'KYC Verification needed to perform action.')
                 return redirect('plans')              
         except Exception as e:
-            print(e)
-            messages.error(request, 'Cannot Perform action at the moment, Contact Customercare@support.com')
+            messages.error(request, f'{e}')
             return redirect('plans')
 
 def settings(request):

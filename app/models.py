@@ -71,7 +71,7 @@ class TransactionHistory(models.Model):
     tr_no = models.CharField(max_length=50, primary_key=True, default=uuid.uuid4)
     date_created = models.DateField(auto_now=True)
     transaction_type = models.CharField(max_length=10, default=None, blank=True, null=False)
-    amount = models.CharField(max_length=100, default=None, blank=True)
+    amount = models.CharField(max_length=100, default=None, blank=True, null=False)
     choices = (('Pending', 'Pending'), ('Failed', 'Failed'),('Ongoing', 'Ongoing'), ('Completed', 'Completed'))
     planName = models.CharField(max_length=20, default=None, blank=True, null=True)
     payment_method = models.CharField(max_length=20, default=None, blank=False, null=True)
