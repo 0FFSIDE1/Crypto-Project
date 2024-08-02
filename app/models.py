@@ -32,7 +32,7 @@ class Kyc(models.Model):
     user = models.OneToOneField(Profile, related_name='owner', on_delete=models.CASCADE)
     choices = (("Driver's License", "Driver's License"), ("Passport", "Passport"), ("State ID", "State ID"))
     id_type = models.CharField(default=None, choices=choices, max_length=20, blank=True)
-    id_number = models.CharField(max_length=20, default=None)
+    id_number = models.CharField(max_length=20, default=None, unique=True)
     expiry_date = models.DateField(default=None)
     front_img = models.ImageField(upload_to='kyc/img', blank=True, null=True)
     back_img = models.ImageField(upload_to='kyc/img', blank=True, null=True)
@@ -71,7 +71,7 @@ class BankAccount(models.Model):
  
 class TransactionHistory(models.Model):
     tr_no = models.CharField(max_length=50, primary_key=True, default=uuid.uuid4)
-    data_created = models.DateField(auto_now=True)
+    date_created = models.DateField(auto_now=True)
     transaction_type = models.CharField(max_length=10, default=None, blank=True, null=False)
     amount = models.CharField(max_length=100, default=None, blank=True)
     choices = (('Pending', 'Pending'), ('Failed', 'Failed'), ('Completed', 'Completed'))
@@ -81,5 +81,5 @@ class TransactionHistory(models.Model):
     wallet_address = models.CharField(max_length=100, default=None, blank=True, null=True)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='transaction', blank=True)
     def __str__(self) -> str:
-        return f"{self.data_created} |{self.transaction_type} by {self.user}"
+        return f"{self.date_created} |{self.transaction_type} by {self.user}"
     
