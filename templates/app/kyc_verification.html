@@ -11,70 +11,70 @@
 
 
 <div class="clearfix"></div>
-	
+{% comment %} <div class="content-wrapper">
+  <div class="container-fluid" > {% endcomment %}
+
   
       {% block content %}
-      <div class="content-wrapper">
-        <div class="container-fluid" >
-   
+
         <div class="col-lg-6">
-           <div class="card">
-             <div class="card-body">
-             <div class="card-title">Verify Identity</div>
-             <hr>
-              <form method="POST" action="{% url "kyc-verification" %}" enctype="multipart/form-data">
-               
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text" for="inputGroupSelect01">ID type</label>
-                    </div>
-                    <select class="custom-select" id="inputGroupSelect01" name="id_type">
-                      <option selected>Choose...</option>
-                      <option value="State ID">State ID</option>
-                      <option value="Passport">Passport</option>
-                      <option value="Driver's License">Driver's License</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="country" class="col-form-label text-black">ID No</label>
-                    <input type="decimal" class="form-control" name="id_no"  id="id_no" required>
-                </div>
-                  <label for="country" class="col-form-label text-black">Front Image</label>
-                  <div class="input-group mb-3 form-group">
-                   
-                    <div class="custom-file">
-                      <input type="file" id="paymentslip" name="front_img" class="custom-file-input" id="inputGroupFile01" required>
-                      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                    </div>
-                  </div>
-                  <label for="country" class="col-form-label text-black">Back Image</label>
-                  <div class="input-group mb-3 form-group">
-                 
-                   
-                    <div class="custom-file">
-                      <input type="file" id="paymentslip" name="back_img" class="custom-file-input" id="inputGroupFile01" required>
-                      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                    </div>
-                  </div>
-             
-                  <div class="form-group">
-                    <label for="country" class="col-form-label text-black">Expiry Date</label>
-                    <input type="date" class="form-control" name="expiry_date"  id="expiry_date" required>
-                </div>
-             
+          <div class="card">
+            <div class="card-body">
+            <div class="card-title">Verify Identity</div>
+            <hr>
+             <form method="POST" action="{% url "kyc-verification" %}" enctype="multipart/form-data">
+              {% csrf_token %}
+               <div class="input-group mb-3">
+                   <div class="input-group-prepend">
+                     <label class="input-group-text" for="inputGroupSelect01">ID type</label>
+                   </div>
+                   <select class="custom-select" id="inputGroupSelect01" name="id_type">
+                     <option selected>Choose...</option>
+                     <option value="State ID">State ID</option>
+                     <option value="Passport">Passport</option>
+                     <option value="Driver's License">Driver's License</option>
+                   </select>
+                 </div>
+                 <div class="form-group">
+                   <label for="country" class="col-form-label text-black">ID No</label>
+                   <input type="number" class="form-control" name="id_no"  id="id_no" required>
+               </div>
+                 <label for="country" class="col-form-label text-black">Front Image</label>
+                 <div class="input-group mb-3 form-group">
+                  
+                   <div class="custom-file">
+                     <input type="file" id="paymentslip" name="front_img" class="custom-file-input" id="inputGroupFile01" required>
+                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                   </div>
+                 </div>
+                 <label for="country" class="col-form-label text-black">Back Image</label>
+                 <div class="input-group mb-3 form-group">
+                
+                  
+                   <div class="custom-file">
+                     <input type="file" id="paymentslip" name="back_img" class="custom-file-input" id="inputGroupFile01" required>
+                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                   </div>
+                 </div>
             
-             <div class="form-group">
-              <button type="submit" class="btn btn-light px-5"><i class="icon-lock"></i> Verify</button>
-            </div>
-            </form>
+                 <div class="form-group">
+                   <label for="country" class="col-form-label text-black">Expiry Date</label>
+                   <input type="date" class="form-control" name="expiry_date"  id="expiry_date" required>
+               </div>
+            
+           
+            <div class="form-group">
+             <button type="submit" class="btn btn-light px-5"><i class="icon-lock"></i> Verify</button>
            </div>
-           </div>
-        </div>
-  
+           </form>
+          </div>
+          </div>
+       </div>
        
      
                 
-            </div>
+            </div> 
+           
             </div>
           </div>
         

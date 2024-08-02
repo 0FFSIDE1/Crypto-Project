@@ -66,7 +66,6 @@ def withdraw(request):
             return redirect('transaction')
 
 def verify_kyc(request):
-
     if request.method == 'POST':
         user = Profile.objects.get(user=request.user)
         try:
@@ -86,6 +85,7 @@ def verify_kyc(request):
         except Exception as e:
             messages.error(request, e)
             return render(request, 'app/kyc_verification.html')
+
     return render(request, 'app/kyc_verification.html')
 
 

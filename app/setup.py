@@ -89,6 +89,5 @@ def kyc_verification(user):
                 return True
     except Exception as e:
         return e
-
-
+    
         
