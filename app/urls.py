@@ -17,4 +17,6 @@ urlpatterns = [
     path('accounts/wallet/<str:pk>/transaction', transaction_detail, name='transaction-detail'),
     path('accounts/wallet/kyc-verification', verify_kyc, name='kyc-verification'),
     path('accounts/wallet/update/profile', update_profile, name='update-profile'),
+    path('accounts/wallet/invest', buy_plan, name='buy-plan'),
+    
 ]

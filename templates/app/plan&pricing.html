@@ -40,6 +40,8 @@
               </button>
             </div>
             <div class="modal-body">
+              <form method='POST' action={% url "buy-plan" %}>
+                {% csrf_token %}
               <div class="form-group col-sm-12">
                 <label for="plan" class="col-form-label text-black">Plan</label>
                 <input type="text" class="form-control" name="plan" id="plan">
@@ -56,7 +58,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-success">Buy Plan</button>
+              <button type="submit" class="btn btn-success">Buy Plan</button>
             </div>
           </div>
         </div>

@@ -23,9 +23,13 @@ def check_kyc_verification(user):
     else:
         return False
     
-def check_balance_for_plan(wallet_balance, plan_name):
+def check_balance_for_plan(wallet_balance, plan_name, request_amount):
     plan = Plan.objects.get(planName=plan_name)
-    if float(wallet_balance) < plan.minPrice or wallet_balance > plan.maxPrice:
+    if float(wallet_balance) < plan.minPrice:
+        return False
+    elif float(request_amount) < plan.minPrice:
+        return False
+    elif float(request_amount) > plan.maxPrice:
         return False
     else:
         return True
@@ -60,17 +64,6 @@ def decline_withdraw(id):
     withdraw = 'Failed'
     withdraw.save()
 
-def approve_plan(user):
-    user = Profile.objects.get(user=user)
-    plan = Plan.objects.get(users=user)
-    plan.status = 'Active'
-    plan.save()
-
-def decline_plan(user):
-    user = Profile.objects.get(user=user)
-    plan = Plan.objects.get(users=user)
-    plan.status = 'Failed'
-    plan.save()
 
 def is_admin(user):
     if user.user.is_admin:

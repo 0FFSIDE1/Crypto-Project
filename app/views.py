@@ -42,6 +42,7 @@ def confirm_deposit(request):
         transaction.save()
         total_deposit = user.total_deposit + float(request.POST['amount'])
         user.total_deposit = total_deposit
+        user.status = 'Active'
         user.save()
     return redirect('transaction')
 
@@ -78,10 +79,8 @@ def verify_kyc(request):
                 expiry_date=request.POST['expiry_date']
             )
             kyc.save()
-            context = {
-                'kyc': Kyc.objects.get(user=user)
-            }
-            return render(request, 'app/pending.html', context)        
+            messages.success(request, 'KYC Verification Processing, this may take a few days!')
+            return redirect('settings')
         except Exception as e:
             messages.error(request, e)
             return render(request, 'app/kyc_verification.html')
@@ -129,12 +128,16 @@ def buy_plan(request):
                 wallet_balance = user.wallet_balance
                 plan = request.POST['plan']
                 request_amount = request.POST['amount']
-                if check_balance_for_plan(wallet_balance=wallet_balance, plan_name=plan):
+                if check_balance_for_plan(wallet_balance=wallet_balance, plan_name=plan, request_amount=request_amount):
                     user.wallet_balance = wallet_balance - float(request_amount)
                     user.save()
+                    p = Plan.objects.get(planName=plan)
+                    p.user.add(user)
+                    p.save()
                     transaction = TransactionHistory.objects.create(transaction_type='Invest',
-                    amount=float(request_amount), user=user)
+                    amount=float(request_amount), planName=plan, user=user)
                     transaction.save()
+                    return redirect('transaction')
                 
                 else:
                     messages.error(request, 'Insufficient balance')
@@ -143,13 +146,16 @@ def buy_plan(request):
                 messages.error(request, 'KYC Verification needed to perform action.')
                 return redirect('plans')              
         except Exception as e:
+            print(e)
             messages.error(request, 'Cannot Perform action at the moment, Contact Customercare@support.com')
             return redirect('plans')
 
 def settings(request):
     user = Profile.objects.get(user=request.user)
+    
     context = {
-        'user': user
+        'user': user,
+        'plans': Plan.objects.filter(user=user)
     }
 
     return render(request, 'app/my_account.html', context)

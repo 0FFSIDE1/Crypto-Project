@@ -23,7 +23,7 @@ class Profile(models.Model):
     img = models.ImageField(upload_to='user/img', blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user', default=None, blank=True )
     is_admin = models.BooleanField(default=False)
-    created_at = models.DateField(auto_now=True)
+    created_at = models.DateField(auto_created=True)
 
     def __str__(self) -> str:
         return self.username
@@ -44,9 +44,7 @@ class Plan(models.Model):
     minPrice = models.IntegerField(default=None, blank=False, null=False)
     profit = models.CharField(max_length=20, default=None)
     planDuration = models.IntegerField(default=None, blank=False, null=False)
-    choices = (('Pending', 'Pending'), ('Failed', 'Failed'), ('Active', 'Active'), ('Completed', 'Completed'))
-    status = models.CharField(max_length=15, choices=choices, default='Pending', blank=False, null=False)
-    users = models.ManyToManyField(Profile, related_name='plan', blank=True)
+    user = models.ManyToManyField(Profile, related_name='plan', default=None, blank=True)
     created_at = models.DateField(auto_now=True)
     def __str__(self) -> str:
         return self.planName
@@ -74,8 +72,9 @@ class TransactionHistory(models.Model):
     date_created = models.DateField(auto_now=True)
     transaction_type = models.CharField(max_length=10, default=None, blank=True, null=False)
     amount = models.CharField(max_length=100, default=None, blank=True)
-    choices = (('Pending', 'Pending'), ('Failed', 'Failed'), ('Completed', 'Completed'))
-    payment_method = models.CharField(max_length=20, default=None, blank=False, null=False)
+    choices = (('Pending', 'Pending'), ('Failed', 'Failed'),('Ongoing', 'Ongoing'), ('Completed', 'Completed'))
+    planName = models.CharField(max_length=20, default=None, blank=True, null=True)
+    payment_method = models.CharField(max_length=20, default=None, blank=False, null=True)
     status = models.CharField(max_length=10, choices=choices, default='Pending')
     deposit_img = models.ImageField(upload_to='wallet', blank=True, null=True)
     wallet_address = models.CharField(max_length=100, default=None, blank=True, null=True)
