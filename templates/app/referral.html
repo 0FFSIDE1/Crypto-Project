@@ -20,12 +20,12 @@
         <div class="col-lg-6">
            <div class="card">
              <div class="card-body">
-             <div class="card-title">Vertical Form</div>
+             <div class="card-title">Invite Friends</div>
              <hr>
               <form>
              <div class="form-group">
               <label for="input-1">Referral Link</label>
-              <input type="text" class="form-control" value="" id="input-1" placeholder="Referral link" readOnly>
+              <input type="text" class="form-control" value="{{request.user.profile.get_referral_link}}" id="input-1" placeholder="Referral link" readOnly>
              </div>
              
              
@@ -39,7 +39,50 @@
            </div>
         </div>
   
+        <div class="col-12 col-lg-6 col-xl-6">
+          <div class="card">
+         <div class="card-header">Account
+         </div>
+         <div class="card-body">
+          
+          <div class="chart-container-1">
+           
+          
+             <p class="">Referral Bonus</p>
+            
+               <p style="font-size:30px; font-weight:bold;">$ 0.00</p>
+              
+             
+               <h6 style="font-size: clamp(8px, 12px, 2rem); font-weight:small;">This contains your referral bonus, cannot be invested!</h4>
+            
+             <p><button class="btn btn-warning" style="height:100%; margin-top:30px" type="submit" data-toggle="modal" data-target="#exampleModalCenter">Withdraw Balance</button></p>
+          
+          </div>
+          
+         </div>
+         
+         <div class="row m-0 row-group text-center border-top border-light-3">
+           <div class="col-12 col-lg-6">
+             <div class="p-3">
+      
+               <h5 class="mb-0">$ 0.00</h5>
+             
+             <small class="mb-0">TOTAL Bonus</small>
+             </div>
+           </div>
+           <div class="col-12 col-lg-6">
+             <div class="p-3">
+             
+               <h5 class="mb-0">00</h5>
+              
+             <small class="mb-0">TOTAL USERS</small>
+             </div>
+           </div>
        
+         </div>
+         
+        </div>
+       </div>
       </div>  
             </div>
             </div>

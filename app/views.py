@@ -39,7 +39,10 @@ def confirm_deposit(request):
             wallet_address = request.POST['wallet_address']
         )
         transaction.save()
-        total_deposit = user.total_deposit + float(request.POST['amount'])
+        if user.total_deposit == None:
+            user.total_deposit = 0
+            user.save()
+        total_deposit = float(user.total_deposit) + float(request.POST['amount'])
         user.total_deposit = total_deposit
         user.status = 'Active'
         user.save()
@@ -48,7 +51,7 @@ def confirm_deposit(request):
 def withdraw(request):
     if request.method =='POST':
         amount = request.POST['amount']
-        wallet = request.POST['wallet']
+        wallet = request.POST.get('wallet')
         wallet_add = request.POST['wallet_add']
         if insufficient_balance(amount=amount, user=request.user):
             messages.error(request, 'Insufficient Balance')
@@ -127,17 +130,19 @@ def buy_plan(request):
                 wallet_balance = user.wallet_balance
                 plan = request.POST['plan']
                 request_amount = request.POST['amount']
-                if check_balance_for_plan(wallet_balance=wallet_balance, plan_name=plan, request_amount=request_amount):
-                    user.wallet_balance = wallet_balance - float(request_amount)
-                    user.save()
-                    p = Plan.objects.get(planName=plan)
-                    p.user.add(user)
-                    p.save()
-                    transaction = TransactionHistory.objects.create(transaction_type='Invest',
-                    amount=float(request_amount), planName=plan, user=user, payment_method='Internal Transfer')
-                    transaction.save()
-                    messages.success(request, 'Processing investment, this should take only few mintues')
-                    return redirect('transaction')
+                print(insufficient_balance(amount=request_amount, user=request.user))
+                if not insufficient_balance(amount=request_amount, user=request.user):
+                    if check_balance_for_plan(wallet_balance=wallet_balance, plan_name=plan, request_amount=request_amount):
+                        user.wallet_balance = float(wallet_balance) - float(request_amount)
+                        user.save()
+                        p = Plan.objects.get(planName=plan)
+                        p.user.add(user)
+                        p.save()
+                        transaction = TransactionHistory.objects.create(transaction_type='Invest',
+                        amount=float(request_amount), planName=plan, user=user, payment_method='Internal Transfer')
+                        transaction.save()
+                        messages.success(request, 'Processing investment, this should take only few mintues')
+                        return redirect('transaction')
                 
                 else:
                     messages.error(request, 'Insufficient balance')
@@ -174,5 +179,5 @@ def settings(request):
     return render(request, 'app/my_account.html', context)
 
 
-async def referral(request):
+def referral(request):
     return render(request, 'app/referral.html')

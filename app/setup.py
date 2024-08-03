@@ -3,7 +3,7 @@ from .models import *
 def insufficient_balance(amount, user):
     user = Profile.objects.get(user=user)
     balance = user.wallet_balance
-    if balance == None or float(amount) > balance:
+    if balance == None or float(amount) > float(balance):
         return True
     else:
         return False

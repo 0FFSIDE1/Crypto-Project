@@ -2,6 +2,9 @@ from uuid import uuid4
 import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
+from django.conf import settings
+from datetime import date
 # Create your models here.
 
 User = get_user_model()
@@ -15,16 +18,17 @@ class Profile(models.Model):
     bio = models.TextField(max_length=300, default=None, blank=True, null=True)
     hobbies = models.TextField(max_length=200, default=None, blank=True, null=True)
     kyc_verification = models.BooleanField(default=False)
-    wallet_balance = models.FloatField(max_length=None, default=None, blank=True, null=True)
-    total_deposit = models.FloatField(max_length=None, default=None, blank=True, null=True)
-    total_withdraw = models.FloatField(max_length=None, default=None, blank=True, null=True)
-    total_profit = models.FloatField(max_length=None, default=None, blank=True, null=True)
+    wallet_balance = models.DecimalField(max_digits=10, decimal_places=2, default=None, blank=True, null=True)
+    total_deposit = models.DecimalField(max_digits=10, decimal_places=2, default=None, blank=True, null=True)
+    total_withdraw = models.DecimalField(max_digits=10, decimal_places=2, default=None, blank=True, null=True)
+    total_profit = models.DecimalField(max_digits=10, decimal_places=2, default=None, blank=True, null=True)
     choices = (('Active', 'Active'),('Inactive', 'Inactive'), ('Suspended', 'Suspended'))
     status = models.CharField(max_length=15, choices=choices, default='Inactive')
     img = models.ImageField(upload_to='user/img', blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user', default=None, blank=True )
     is_admin = models.BooleanField(default=False)
     referral_code = models.CharField(max_length=10, unique=True, blank=True)
+    referral_bonus = models.DecimalField(max_digits=10, decimal_places=2, default=None, blank=True, null=True)
     created_at = models.DateField(auto_created=True)
 
     def save(self, *args, **kwargs):
@@ -37,8 +41,7 @@ class Profile(models.Model):
         return str(uuid.uuid4())[:10]
 
     def get_referral_link(self):
-        from django.urls import reverse
-        from django.conf import settings
+        
         return f"{settings.SITE_URL}{reverse('register_with_referral', args=[self.referral_code])}"
 
     def __str__(self) -> str:
@@ -85,7 +88,7 @@ class BankAccount(models.Model):
  
 class TransactionHistory(models.Model):
     tr_no = models.CharField(max_length=50, primary_key=True, default=uuid.uuid4)
-    date_created = models.DateField(auto_now=True)
+    date_created = models.DateTimeField(auto_now=True)
     transaction_type = models.CharField(max_length=10, default=None, blank=True, null=False)
     amount = models.CharField(max_length=100, default=None, blank=True, null=False)
     choices = (('Pending', 'Pending'), ('Failed', 'Failed'),('Ongoing', 'Ongoing'), ('Completed', 'Completed'))
