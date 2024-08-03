@@ -157,17 +157,21 @@ def settings(request):
         'plans': Plan.objects.filter(user=user)
     }
     if request.method == 'POST':
-        profile = Profile.objects.get(user=request.user)
-        profile.firstName = request.POST['firstName']
-        profile.lastName = request.POST['lastName']
-        profile.bio = request.POST['bio']
-        profile.hobbies = request.POST['hobbies']
-        profile.img = request.FILES.get('profile_photo')
-        profile.address = request.POST['address']
-        profile.phone = request.POST['phone']
-        profile.save()
-        messages.success(request, 'Profile updated successfully')
-        return redirect('settings')
+        try:
+            profile = Profile.objects.get(user=request.user)
+            profile.firstName = request.POST['firstName']
+            profile.lastName = request.POST['lastName']
+            profile.bio = request.POST['bio']
+            profile.hobbies = request.POST['hobbies']
+            profile.img = request.FILES.get('profile_photo')
+            profile.address = request.POST['address']
+            profile.phone = request.POST['phone']
+            profile.save()
+            messages.success(request, 'Profile updated successfully')
+            return redirect('settings')
+        except Exception as e:
+            messages.error(request, f'{e}')
+            return redirect('settings')
     return render(request, 'app/my_account.html', context)
 
 

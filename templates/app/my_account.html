@@ -24,6 +24,19 @@
   <div class="content-wrapper">
     <div class="container-fluid">
       {% block content %}
+      {% if messages %}
+      {% for message in messages %}
+    <div id ="popupDiv" class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+       <div class="alert-icon">
+      <i class="icon-info"></i>
+      </div>
+      
+      <span class="popupContent alert-message" id="popupContent">{{message}}</span>
+      
+    </div>
+    {% endfor %}
+    {% endif %}
     <div class="row mt-3">
         <div class="col-lg-4">
            <div class="card profile-card-2">
@@ -128,13 +141,13 @@
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">First name</label>
                             <div class="col-lg-9">
-                                <input class="form-control"   name="firstName" type="text" value="{{user.firstName}}">
+                                <input class="form-control"   name="firstName" type="name" value="{{user.firstName}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Last name</label>
                             <div class="col-lg-9">
-                                <input class="form-control"  name="lastName" type="text" value="{{user.lastName}}">
+                                <input class="form-control"  name="lastName" type="name" value="{{user.lastName}}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -146,7 +159,7 @@
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Mobile No.</label>
                             <div class="col-lg-9">
-                                <input class="form-control"  name="phone" type="text" value="{{user.phone}}">
+                                <input class="form-control"  name="phone" type="phonenumber" value="{{user.phone}}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -164,7 +177,7 @@
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Hobbies</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="url" value="{{user.hobbies}}">
+                                <input class="form-control" name='hobbies' value="{{user.hobbies}}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -181,7 +194,7 @@
                             <label class="col-lg-3 col-form-label form-control-label"></label>
                             <div class="col-lg-9">
                                 <input type="reset" class="btn btn-danger" value="Cancel">
-                                <input type="button" class="btn btn-success" value="Save Changes">
+                                <input type="submit" class="btn btn-success" value="Save Changes">
                             </div>
                         </div>
                     </form>
