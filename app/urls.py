@@ -1,7 +1,6 @@
 from django.urls import path
 from .views import *
 
-
 urlpatterns = [
     path('accounts/wallet/dashboard', dashboard, name='dashboard'),
     path('accounts/wallet/deposit', deposit_withdraw, name='deposit-withdraw'),
