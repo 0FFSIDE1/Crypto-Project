@@ -123,7 +123,7 @@ def admin_transaction_detail(request, pk):
         'amount': transaction.amount,
         'user': transaction.user.username
     }
-    return JsonResponse(data, safe=False)
+    return JsonResponse(data, safe=True)
 
 
 async def copy_trading(request):

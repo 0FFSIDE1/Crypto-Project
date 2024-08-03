@@ -321,7 +321,7 @@
  
 <!-- Start wrapper-->
 <div id="wrapper">
-  
+
  
   <!--Start sidebar-wrapper-->
    <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
@@ -331,7 +331,59 @@
        <h5 class="logo-text">Admin</h5>
      </a>
    </div>
+   {% if user.user.is_admin %}
    <ul class="sidebar-menu do-nicescrol">
+      <li class="sidebar-header">MAIN NAVIGATION</li>
+      <li>
+        <a href="{% url "dashboard" %}">
+          <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="{% url "transaction" %}">
+          <i class="zmdi zmdi-grid"></i> <span>Transaction History</span>
+        </a>
+      </li>
+     
+      <li>
+        <a href="">
+          <i class="zmdi zmdi-calendar-check"></i> <span>All Users</span>
+          
+        </a>
+      </li>
+      <li>
+        <a href="{% url "plans" %}">
+          <i class="zmdi zmdi-lock"></i> <span>Plans & Pricing</span>
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <i class="zmdi zmdi-calendar-check"></i> <span>Plan Transactions</span>
+          
+        </a>
+      </li>
+      <li>
+        <a href="{% url "settings" %}">
+          <i class="zmdi zmdi-lock"></i> <span>My Account</span>
+        </a>
+      </li>
+      <li>
+        <a href="{% url "referral" %}">
+          <i class="zmdi zmdi-lock"></i> <span>Invite Friends</span>
+        </a>
+      </li>
+
+       <li>
+        <a href="">
+          <i class="zmdi zmdi-account-circle"></i> <span>Sign Out</span>
+        </a>
+      </li>
+
+      
+    </ul>
+    {% else %}
+    <ul class="sidebar-menu do-nicescrol">
       <li class="sidebar-header">MAIN NAVIGATION</li>
       <li>
         <a href="{% url "dashboard" %}">
@@ -386,7 +438,7 @@
 
       
     </ul>
-   
+    {% endif %}
 </div>
    <!--End sidebar-wrapper-->
 
