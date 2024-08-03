@@ -321,6 +321,7 @@
  
 <!-- Start wrapper-->
 <div id="wrapper">
+  
  
   <!--Start sidebar-wrapper-->
    <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
@@ -750,4 +751,41 @@
   });
 });
 
+document.querySelectorAll('.update').forEach(button => {
+  button.addEventListener('click', function() {
+    const pk = this.getAttribute('data-id');
+    console.log(pk);
+
+    fetch(`/accounts/wallet/admin/${pk}/transaction`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok!');
+       }
+        console.log('Response is ok');
+        return response.json();
+      })
+      .then(data => {
+        console.log(data)
+        if (data) {
+          const transaction_type = document.getElementById('transaction_type');
+          const username = document.getElementById('user');
+          const amount = document.getElementById('amount');
+
+          if (transaction_type && username) {
+          // Set value
+            transaction_type.value = data.transaction_type || '';
+            username.value = data.user || '';
+            amount.value = data.amount || '';
+
+          
+          } else {
+            console.error('Input elements not found');
+          }
+      }
+    })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  });
+});
 </script>

@@ -16,6 +16,57 @@
   <div class="content-wrapper">
     <div class="container-fluid">
       {% block content %}
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Update</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form method='POST' action="">
+                {% csrf_token %}
+                <div class="form-group col-sm-12">
+                  <label for="plan" class="col-form-label text-black">TRANSACTION TYPE</label>
+                  <input type="text" class="form-control" name="transaction_type" id="transaction_type" readOnly required>
+                </div>
+             
+              <div class="form-group col-sm-12">
+                <label for="plan" class="col-form-label text-black">AMOUNT</label>
+                <input type="text" class="form-control" name="amount" readOnly  id="amount" required>
+              </div>
+              
+             
+              <div class="form-group col-sm-12">
+                <label for="amount" class="col-form-label text-black">USERNAME</label>
+                <input type="text" class="form-control" name="user" readOnly  id="user" required>
+              </div>
+              <div class="input-group mb-3 form-group col-sm-12">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">STATUS</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect01" name="status" required>
+                  <option selected disabled>Choose..</option>
+                  
+                <option style="background-color:black;" value="Pending">Pending</option>
+                <option style="background-color:black;" value"Failed">Failed</option>
+                <option style="background-color:black;" value="Completed">Completed</option>
+                
+                  
+                </select>
+              </div> 
+              
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success">Proceed</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
       {% if messages %}
       {% for message in messages %}
     <div id ="popupDiv" class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %} alert-dismissible" role="alert">
@@ -70,7 +121,9 @@
                         {% endif %}
                         <td ><a href="{% url "transaction-detail" transaction.tr_no %}"><button class="btn btn-primary"  style="font-size:10px; background-color: #28a745; color:white;" type="button" >View</button></a>
                           {% if user.user.is_admin %}
-                          <button class="btn btn-warning"  style="font-size:10px; color:white;" type="button" >Update</button>
+                         
+                          <button data-id="{{transaction.tr_no}}" class="btn btn-warning update" data-toggle="modal" data-target="#exampleModalCenter"  style="font-size:10px; color:white;" type="button" >Update</button>
+                        
                           {% endif %}
                         </td>
                     </tr>

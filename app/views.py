@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from .models import *
 from django.contrib import messages
 from .setup import *
+from django.db.models import Q
 # Create your views here.
 
 def dashboard(request):
@@ -93,7 +94,7 @@ def verify_kyc(request):
 def transaction_history(request):
     if is_admin(user=request.user):
         user = Profile.objects.get(user=request.user)
-        transactions = TransactionHistory.objects.all().order_by('-date_created')
+        transactions = TransactionHistory.objects.filter(Q(transaction_type='Deposit') | Q(transaction_type='Withdraw')).order_by('-date_created')
         context = {
             'transactions': transactions
         }
@@ -113,6 +114,17 @@ def transaction_detail(request, pk):
         'transaction': transaction
     }
     return render(request, 'app/user_transaction.html', context)
+
+def admin_transaction_detail(request, pk):
+    transaction = TransactionHistory.objects.get(pk=pk)
+    
+    data = {
+        'transaction_type': transaction.transaction_type,
+        'amount': transaction.amount,
+        'user': transaction.user.username
+    }
+    return JsonResponse(data, safe=False)
+
 
 async def copy_trading(request):
     return render(request, 'app/copytrading.html')
