@@ -15,7 +15,6 @@
 	
   <div class="content-wrapper">
     <div class="container-fluid">
-
       {% block content %}
       {% if messages %}
       {% for message in messages %}
@@ -69,8 +68,11 @@
                         {% elif transaction.status == 'Completed' %}
                         <td class="text-success">{{transaction.status}}</td>
                         {% endif %}
-                        <td ><a href="{% url "transaction-detail" transaction.tr_no %}"><button class="btn btn-primary"  style="font-size:10px; background-color: #28a745; color:white;" type="button" >View</button></a></td>
-                      
+                        <td ><a href="{% url "transaction-detail" transaction.tr_no %}"><button class="btn btn-primary"  style="font-size:10px; background-color: #28a745; color:white;" type="button" >View</button></a>
+                          {% if user.user.is_admin %}
+                          <button class="btn btn-warning"  style="font-size:10px; color:white;" type="button" >Update</button>
+                          {% endif %}
+                        </td>
                     </tr>
                     {% endfor %}
                     {% else %}

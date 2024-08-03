@@ -91,12 +91,20 @@ def verify_kyc(request):
 
 
 def transaction_history(request):
-    user = Profile.objects.get(user=request.user)
-    transactions = TransactionHistory.objects.filter(user=user).order_by('-date_created')
-    context = {
-        'transactions': transactions
-    }
-    return render(request, 'app/transaction.html', context)
+    if is_admin(user=request.user):
+        user = Profile.objects.get(user=request.user)
+        transactions = TransactionHistory.objects.all().order_by('-date_created')
+        context = {
+            'transactions': transactions
+        }
+        return render(request, 'app/transaction.html', context)
+    else:
+        user = Profile.objects.get(user=request.user)
+        transactions = TransactionHistory.objects.filter(user=user).order_by('-date_created')
+        context = {
+            'transactions': transactions
+        }
+        return render(request, 'app/transaction.html', context)
 
 def transaction_detail(request, pk):
     transaction = TransactionHistory.objects.get(pk=pk)
