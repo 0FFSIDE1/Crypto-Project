@@ -177,15 +177,20 @@ def buy_plan(request):
 
 def create_plan(request):
     if request.method == 'POST':
-        plan = Plan.objects.create(
-            planName=request.POST['plan_name'],
-            minPrice=request.POST['min_amount'],
-            maxPrice=request.POST['max_amount'],
-            profit=request.POST['roi'],
-            duration=request.POST['duration']
-        )
-
-
+        try:
+            plan = Plan.objects.create(
+                planName=request.POST['plan_name'],
+                minPrice=request.POST['min_amount'],
+                maxPrice=request.POST['max_amount'],
+                profit=request.POST['roi'],
+                duration=request.POST['duration']
+            )
+            plan.save()
+            messages.success(request, 'Successful, New Plan added!')
+            return redirect('plans')
+        except Exception as e:
+            messages.error(request, f'{e}')
+            return redirect('plans')
 
 
 def settings(request):
