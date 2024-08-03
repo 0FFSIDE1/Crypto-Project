@@ -620,7 +620,16 @@
         popupDiv.style.display = 'none';
       }, 10000); // 10 seconds
     });
-
+    
+    function copyToClipboard() {
+      var copyText = document.getElementById("input-1").value;
+      navigator.clipboard.writeText(copyText).then(function() {
+          alert('Copied to clipboard: ' + copyText);
+      }).catch(function(error) {
+          console.error('Error copying text: ', error);
+      });
+  }
+  
 
 
 {% comment %} 

@@ -24,7 +24,22 @@ class Profile(models.Model):
     img = models.ImageField(upload_to='user/img', blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user', default=None, blank=True )
     is_admin = models.BooleanField(default=False)
+    referral_code = models.CharField(max_length=10, unique=True, blank=True)
     created_at = models.DateField(auto_created=True)
+
+    def save(self, *args, **kwargs):
+        if not self.referral_code:
+            self.referral_code = self.generate_referral_code()
+        super().save(*args, **kwargs)
+
+    def generate_referral_code(self):
+        # Generate a unique referral code
+        return str(uuid.uuid4())[:10]
+
+    def get_referral_link(self):
+        from django.urls import reverse
+        from django.conf import settings
+        return f"{settings.SITE_URL}{reverse('register_with_referral', args=[self.referral_code])}"
 
     def __str__(self) -> str:
         return self.username
