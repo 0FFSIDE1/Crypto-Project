@@ -1,9 +1,8 @@
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from .models import *
-from .setup import *
 from django.contrib import messages
-
+from .setup import *
 # Create your views here.
 
 def dashboard(request):
