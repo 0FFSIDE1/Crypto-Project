@@ -174,6 +174,20 @@ def buy_plan(request):
             messages.error(request, f'{e}')
             return redirect('plans')
 
+
+def create_plan(request):
+    if request.method == 'POST':
+        plan = Plan.objects.create(
+            planName=request.POST['plan_name'],
+            minPrice=request.POST['min_amount'],
+            maxPrice=request.POST['max_amount'],
+            profit=request.POST['roi'],
+            duration=request.POST['duration']
+        )
+
+
+
+
 def settings(request):
     user = Profile.objects.get(user=request.user)
     context = {
