@@ -11,6 +11,7 @@ class Profile(models.Model):
     lastName = models.CharField(max_length=10, default=None, null=False)
     email = models.EmailField(max_length=50, unique=True, default=None, null=False)
     phone = models.CharField(max_length=15, default=None, blank=True)
+    address =models.CharField(max_length=100, default=None, blank=True, null=True)
     bio = models.TextField(max_length=300, default=None, blank=True, null=True)
     hobbies = models.TextField(max_length=200, default=None, blank=True, null=True)
     kyc_verification = models.BooleanField(default=False)

@@ -135,8 +135,9 @@ def buy_plan(request):
                     p.user.add(user)
                     p.save()
                     transaction = TransactionHistory.objects.create(transaction_type='Invest',
-                    amount=float(request_amount), planName=plan, user=user)
+                    amount=float(request_amount), planName=plan, user=user, payment_method='Internal Transfer')
                     transaction.save()
+                    messages.success(request, 'Processing investment, this should take only few mintues')
                     return redirect('transaction')
                 
                 else:
@@ -151,17 +152,24 @@ def buy_plan(request):
 
 def settings(request):
     user = Profile.objects.get(user=request.user)
-    
     context = {
         'user': user,
         'plans': Plan.objects.filter(user=user)
     }
-
+    if request.method == 'POST':
+        profile = Profile.objects.get(user=request.user)
+        profile.firstName = request.POST['firstName']
+        profile.lastName = request.POST['lastName']
+        profile.bio = request.POST['bio']
+        profile.hobbies = request.POST['hobbies']
+        profile.img = request.FILES.get('profile_photo')
+        profile.address = request.POST['address']
+        profile.phone = request.POST['phone']
+        profile.save()
+        messages.success(request, 'Profile updated successfully')
+        return redirect('settings')
     return render(request, 'app/my_account.html', context)
 
-def update_profile(request):
-    if request.method == 'POST':
-        pass
 
 async def referral(request):
     return render(request, 'app/referral.html')

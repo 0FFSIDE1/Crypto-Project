@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
   <meta name="description" content=""/>
-  <meta name="author" content=""/>
+  
   <title>Dashtreme Admin - Free Dashboard for Bootstrap 4 by Codervent</title>  
 </head>
 
@@ -92,7 +92,7 @@
                             {% endif %}
                         </div>
                         <div class="col-md-12">
-                            <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span>My Portfolio</h5>
+                            <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span>Plans</h5>
                              <div class="table-responsive">
                             <table class="table table-hover table-striped">
                                 <tbody> 
@@ -100,6 +100,10 @@
                                     <tr>
                                         <td>
                                             <strong>{{plan.planName}}</strong>
+                                        </td>
+
+                                        <td>
+                                            {% comment %} add stars here {% endcomment %}
                                         </td>
                                     </tr>                                
                                     {% endfor %}
@@ -113,78 +117,71 @@
                 </div>
                
                 <div class="tab-pane" id="edit">
-                    <form>
+                    <form method="POST" action="{% url "settings" %}" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Username</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{user.username}}" readOnly>
+                                <input class="form-control" type="text" value="{{user.username}}" name="username" readOnly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">First name</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{user.firstName}}">
+                                <input class="form-control"   name="firstName" type="text" value="{{user.firstName}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Last name</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{user.lastName}}">
+                                <input class="form-control"  name="lastName" type="text" value="{{user.lastName}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Email</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="email" value="{{user.email}}" readOnly>
+                                <input class="form-control"  name="email" type="email" value="{{user.email}}" readOnly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Mobile No.</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="{{user.phone}}">
+                                <input class="form-control"  name="phone" type="text" value="{{user.phone}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Change profile</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="file">
+                                <input class="form-control"  name="profile_photo" type="file">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Bio</label>
                             <div class="col-lg-9">
-                                <textarea class="form-control" type="url" value=""></textarea>
+                                <textarea class="form-control"  name="bio" type="textarea">{{user.bio}}</textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Hobbies</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="url" value="">
+                                <input class="form-control" type="url" value="{{user.hobbies}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Address</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="" placeholder="Street">
+                                <input class="form-control" type="text" value="" name="address" placeholder="Enter Address in this formart: Street, City, Zip,  State, Country">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label"></label>
-                            <div class="col-lg-6">
-                                <input class="form-control" type="text" value="" placeholder="City">
-                            </div>
-                            <div class="col-lg-3">
-                                <input class="form-control" type="text" value="" placeholder="State">
-                            </div>
-                        </div>
+                        
                        
                        
                         
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label"></label>
                             <div class="col-lg-9">
-                                <input type="reset" class="btn btn-secondary" value="Cancel">
-                                <input type="button" class="btn btn-primary" value="Save Changes">
+                                <input type="reset" class="btn btn-danger" value="Cancel">
+                                <input type="button" class="btn btn-success" value="Save Changes">
                             </div>
                         </div>
                     </form>
