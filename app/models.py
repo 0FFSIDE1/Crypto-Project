@@ -64,7 +64,7 @@ class Plan(models.Model):
     profit = models.CharField(max_length=20, default=None)
     planDuration = models.IntegerField(default=None, blank=False, null=False)
     user = models.ManyToManyField(Profile, related_name='plan', default=None, blank=True)
-    created_at = models.DateField(auto_now=True)
+    created_at = models.DateTimeField(auto_now=True)
     def __str__(self) -> str:
         return self.planName
 
