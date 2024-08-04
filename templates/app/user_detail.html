@@ -28,7 +28,9 @@
                 <h6 class="text-center" style="font-size: clamp(10px, 16px, 2rem)">Joined: 
                   {{users.created_at}}
                 </h5>
+                {% if users.img %}
                 <p><img src="{{users.img.url}}" alt="profile-image" class="profile"></p> 
+                {% endif %}
               </div>
               <table class="table table-sm">
                 <thead>

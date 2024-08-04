@@ -21,5 +21,6 @@ urlpatterns = [
     path('accounts/wallet/admin/users', all_users, name='all-users'),
     path('accounts/wallet/admin/<int:pk>/user-detail', user_detail, name='user-detail'),
     path('accounts/wallet/admin/plan/transactions', plan_transaction, name='plan-transaction'),
+    path('accounts/wallet/admin/transaction/update', update_transaction, name='update-trc'),
     
 ]

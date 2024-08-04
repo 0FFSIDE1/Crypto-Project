@@ -51,16 +51,30 @@ def decline_deposit(id, user):
 
 def approve_withdraw(id, user):
     withdraw = TransactionHistory.objects.get(tr_no=id)
-    withdraw = 'Completed'
+    withdraw.status = 'Completed'
     withdraw.save()
     user = Profile.objects.get(user=user)
+    if user.total_withdraw == None:
+        user.total_withdraw = 0
     user.total_withdraw = float(user.total_withdraw) + float(withdraw.amount)
     user.save()
 
 def decline_withdraw(id):
     withdraw = TransactionHistory.objects.get(tr_no=id)
-    withdraw = 'Failed'
+    withdraw.status = 'Failed'
     withdraw.save()
+
+def approve_invest(id):
+    plan = TransactionHistory.objects.get(tr_no=id)
+    plan.status = 'Completed'
+    plan.save()
+
+def decline_invest(id):
+    plan = TransactionHistory.objects.get(tr_no=id)
+    plan.status = 'Failed'
+    plan.save()
+    
+
 
 
 def is_admin(user):

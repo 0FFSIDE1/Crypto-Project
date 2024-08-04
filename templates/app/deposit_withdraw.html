@@ -31,9 +31,9 @@
                 {% csrf_token %}
                 <div class="input-group mb-3 form-group col-sm-12">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">WALLET</label>
+                    <label class="input-group-text" for="inputGroupSelect01">Payment method</label>
                   </div>
-                  <select class="custom-select" id="inputGroupSelect01" name="wallet" required>
+                  <select class="custom-select"  name="wallet" required>
                     <option selected disabled>Choose..</option>
                     {% for wallet in wallets  %}
                   <option style="background-color:black;">{{wallet.wallet_name}}</option>

@@ -26,7 +26,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form method='POST' action="">
+              <form method='POST' action="{% url "update-trc" %}">
                 {% csrf_token %}
                 <div class="form-group col-sm-12">
                   <label for="plan" class="col-form-label text-black">TRANSACTION ID</label>
@@ -53,8 +53,6 @@
                 </div>
                 <select class="custom-select" id="inputGroupSelect01" name="status" required>
                   <option selected disabled>Choose..</option>
-                  
-                <option style="background-color:black;" value="Pending">Pending</option>
                 <option style="background-color:black;" value"Failed">Failed</option>
                 <option style="background-color:black;" value="Completed">Completed</option>
                 

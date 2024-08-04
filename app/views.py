@@ -7,10 +7,7 @@ from django.db.models import Q
 # Create your views here.
 
 def dashboard(request):
-    if is_admin(user=request.user):
-        return render(request, 'app/admin_dashboard.html') 
-    else:
-        return render(request, 'app/user_dashboard.html')
+    return render(request, 'app/user_dashboard.html')
 
 def deposit_withdraw(request):
     user = Profile.objects.get(user=request.user)
@@ -50,22 +47,45 @@ def confirm_deposit(request):
     return redirect('transaction')
 
 def update_transaction(request):
-    user = Profile.objects.get(user=request.user)
     pk = request.POST['transaction_id']
     tr_type = request.POST['transaction_type']
-    status = request.POST['status']
+    status = request.POST.get('status', None)
     print(status)
     print(pk)
     if request.method == 'POST':
-        transaction = TransactionHistory.objects.get(tr_no=pk)
-        transaction.status = status
-        transaction.save()
-        if tr_type == 'Deposit' or tr_type == 'Withdraw':
-            messages.success(request, 'Updated Successfully')
-            return redirect('transaction')
+        if status is not None:
+            if tr_type == 'Deposit' and status == 'Completed':       
+                approve_deposit(id=pk, user=request.user)
+            elif tr_type == 'Deposit' and status == 'Failed':
+                decline_deposit(id=pk, user=request.user)
+            elif tr_type == 'Withdraw' and status == 'Completed':
+                approve_withdraw(id=pk, user=request.user)
+            elif tr_type == 'Withdraw' and status == 'Failed':
+                decline_withdraw(id=pk)
+            elif tr_type == 'Invest' and status == 'Completed':
+                approve_invest(id=pk)
+            elif tr_type == 'Invest' and status == 'Failed':
+                decline_invest(id=pk)
+            elif tr_type == 'Invest' and status == 'Ongoing':
+                tr = TransactionHistory.objects.get(tr_no=pk)
+                tr.status = 'Ongoing'
+                tr.save()
+        
+            if tr_type == 'Deposit' or tr_type == 'Withdraw':
+                messages.success(request, 'Updated Successfully')
+                return redirect('transaction')
+            else:
+                messages.success(request, 'Updated Successfully')
+                return redirect('plan-transaction')
         else:
-            messages.success(request, 'Updated Successfully')
-            return redirect('plan-transaction')
+            if tr_type == 'Deposit' or tr_type == 'Withdraw':
+                messages.error(request, 'Invalid Request, choose status')
+                return redirect('transaction')
+            else:
+                messages.error(request, 'Invalid Request, choose status')
+                return redirect('plan-transaction')
+            
+
 
 
 
@@ -243,7 +263,7 @@ def plan_transaction(request):
 def settings(request):
     user = Profile.objects.get(user=request.user)
     context = {
-        'user': user,
+        'users': user,
         'plans': Plan.objects.filter(user=user)
     }
     if request.method == 'POST':
