@@ -29,6 +29,10 @@
               <form method='POST' action="">
                 {% csrf_token %}
                 <div class="form-group col-sm-12">
+                  <label for="plan" class="col-form-label text-black">TRANSACTION ID</label>
+                  <input type="text" class="form-control" name="transaction_id" id="transaction_id" readOnly required>
+                </div>
+                <div class="form-group col-sm-12">
                   <label for="plan" class="col-form-label text-black">TRANSACTION TYPE</label>
                   <input type="text" class="form-control" name="transaction_type" id="transaction_type" readOnly required>
                 </div>

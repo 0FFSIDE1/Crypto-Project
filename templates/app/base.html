@@ -820,12 +820,14 @@ document.querySelectorAll('.update').forEach(button => {
       .then(data => {
         console.log(data)
         if (data) {
+          const transaction_id = document.getElementById('transaction_id');
           const transaction_type = document.getElementById('transaction_type');
           const username = document.getElementById('user');
           const amount = document.getElementById('amount');
 
           if (transaction_type && username) {
           // Set value
+            transaction_id.value = data.tr_no || '';
             transaction_type.value = data.transaction_type || '';
             username.value = data.user || '';
             amount.value = data.amount || '';

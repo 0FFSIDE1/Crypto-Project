@@ -49,6 +49,27 @@ def confirm_deposit(request):
         user.save()
     return redirect('transaction')
 
+def update_transaction(request):
+    user = Profile.objects.get(user=request.user)
+    pk = request.POST['transaction_id']
+    tr_type = request.POST['transaction_type']
+    status = request.POST['status']
+    print(status)
+    print(pk)
+    if request.method == 'POST':
+        transaction = TransactionHistory.objects.get(tr_no=pk)
+        transaction.status = status
+        transaction.save()
+        if tr_type == 'Deposit' or tr_type == 'Withdraw':
+            messages.success(request, 'Updated Successfully')
+            return redirect('transaction')
+        else:
+            messages.success(request, 'Updated Successfully')
+            return redirect('plan-transaction')
+
+
+
+
 def withdraw(request):
     if request.method =='POST':
         amount = request.POST['amount']
@@ -116,8 +137,8 @@ def transaction_detail(request, pk):
 
 def admin_transaction_detail(request, pk):
     transaction = TransactionHistory.objects.get(pk=pk)
-    
     data = {
+        'tr_no': transaction.tr_no,
         'transaction_type': transaction.transaction_type,
         'amount': transaction.amount,
         'user': transaction.user.username
