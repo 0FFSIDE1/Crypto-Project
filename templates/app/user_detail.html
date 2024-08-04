@@ -1,0 +1,135 @@
+{% extends "app/base.html" %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<body class="bg-theme bg-theme1">
+
+<!-- start loader -->
+   <div id="pageloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner" ><div class="loader"></div></div></div></div>
+   <!-- end loader -->
+
+
+<div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid" >
+      {% block content %}
+    
+      <div class="row">
+        {% if users %}
+        <div class="col-12 col-lg-12 col-xl-12">
+           <div class="card">
+              <div class="card-header">User Info
+              </div>
+              <div class="card-body">
+                <h6 class="text-center" style="font-size: clamp(10px, 16px, 2rem)">Joined: 
+                  {{users.created_at}}
+                </h5>
+                <p><img src="{{users.img.url}}" alt="profile-image" class="profile"></p> 
+              </div>
+              <table class="table table-sm">
+                <thead>
+                 
+                </thead>
+                <tbody>
+                 
+                  <tr>
+                    <th scope="row">Username</th>
+                    <td colspan="3">{{users.username}}</td> 
+                  </tr>
+                  <tr>
+                    <th scope="row">First Name</th>
+                    <td colspan="3">{{users.firstName}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Last Name</th>
+                    <td colspan="3">{{users.lastName}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Email</th>
+                    <td colspan="3">{{users.email}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Phone</th>
+                    <td colspan="3">{{users.phone}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Address</th>
+                    <td colspan="3">{{users.address}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Bio</th>
+                    <td colspan="3">{{users.bio}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Hobbies</th>
+                    <td colspan="3">{{users.hobbies}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">KYC Verification</th>
+                    {% if users.kyc_verification %}
+                    <td class="text-success" colspan="3">Verified</td>
+                    {% else %}
+                    <td class="text-danger" colspan="3">Unverified</td>
+                    {% endif %}
+
+                  </tr>
+                  <tr>
+                    <th scope="row">Wallet Balance</th>
+                    <td colspan="3">$ {{users.wallet_balance}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Total Deposit</th>
+                    <td colspan="3">$ {{users.total_deposit}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Total Withdraw</th>
+                    <td colspan="3">$ {% if users.wallet_balance%}0 {% else %}{{users.total_withdraw}}{% endif %} </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Is Admin</th>
+                    <td colspan="3">{{users.is_admin}}</td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Status</th>
+                    {% if users.status == 'Suspended' %}
+                    <td class="text-warning" colspan="3">{{users.status}}</td>
+                    {% elif users.status == 'Active' %}
+                    <td class="text-success" colspan="3">{{users.status}}</td>
+                    {% elif users.status == 'Inactive' %}
+                    <td class="text-danger" colspan="3">{{users.status}}</td>
+                    {% endif %}
+                  </tr>
+                </tbody>
+              </table>
+             {% endif %}
+            </div>
+        </div>
+     </div><!--End Row-->
+     
+      
+        
+                  
+                       
+                        </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                
+            </div>
+            </div>
+           
+          </div>
+          
+        
+	  {% endblock content %}
+	  <!--start overlay-->
+  
+</body>
+
+</html>

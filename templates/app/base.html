@@ -347,7 +347,7 @@
       </li>
      
       <li>
-        <a href="">
+        <a href="{% url "all-users" %}">
           <i class="zmdi zmdi-calendar-check"></i> <span>All Users</span>
           
         </a>
@@ -358,7 +358,7 @@
         </a>
       </li>
       <li>
-        <a href="">
+        <a href="{% url "plan-transaction" %}">
           <i class="zmdi zmdi-calendar-check"></i> <span>Plan Transactions</span>
           
         </a>
@@ -783,6 +783,7 @@
       })
       .then(data => {
         if (data) {
+          console.log(data)
           const name_input = document.getElementById('plan');
           const profit_input = document.getElementById('roi');
 

@@ -53,7 +53,7 @@
                   </tr>
                   <tr>
                     <th scope="row">Amount</th>
-                    <td colspan="3">{{transaction.amount}}</td>
+                    <td colspan="3">$ {{transaction.amount}}</td>
                   </tr>
                   <tr>
                     <th scope="row">Status</th>
@@ -65,6 +65,12 @@
                     <td class="text-danger" colspan="3">{{transaction.status}}</td>
                     {% endif %}
                   </tr>
+                  {% if transaction.deposit_img %}
+                  <tr>
+                    <th scope="row">Payment Slip</th>
+                    <td colspan="3"><img src="{{transaction.deposit_img.url}}" alt="payment-slip" class="profile"></td>
+                  </tr>
+                  {% endif %}
                 </tbody>
               </table>
              {% endif %}

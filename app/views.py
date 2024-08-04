@@ -87,7 +87,6 @@ def verify_kyc(request):
         except Exception as e:
             messages.error(request, e)
             return render(request, 'app/kyc_verification.html')
-
     return render(request, 'app/kyc_verification.html')
 
 
@@ -113,7 +112,7 @@ def transaction_detail(request, pk):
     context = {
         'transaction': transaction
     }
-    return render(request, 'app/user_transaction.html', context)
+    return render(request, 'app/transaction_detail.html', context)
 
 def admin_transaction_detail(request, pk):
     transaction = TransactionHistory.objects.get(pk=pk)
@@ -143,47 +142,55 @@ def get_plan(request, pk):
     }
     return JsonResponse(data, safe=True)
 
-def buy_plan(request):        
-        try:
-            if check_kyc_verification(user=request.user):
-                user = Profile.objects.get(user=request.user)
-                wallet_balance = user.wallet_balance
-                plan = request.POST['plan']
-                request_amount = request.POST['amount']
-                print(insufficient_balance(amount=request_amount, user=request.user))
-                if not insufficient_balance(amount=request_amount, user=request.user):
-                    if check_balance_for_plan(wallet_balance=wallet_balance, plan_name=plan, request_amount=request_amount):
-                        user.wallet_balance = float(wallet_balance) - float(request_amount)
-                        user.save()
-                        p = Plan.objects.get(planName=plan)
-                        p.user.add(user)
-                        p.save()
-                        transaction = TransactionHistory.objects.create(transaction_type='Invest',
-                        amount=float(request_amount), planName=plan, user=user, payment_method='Internal Transfer')
-                        transaction.save()
-                        messages.success(request, 'Processing investment, this should take only few mintues')
-                        return redirect('transaction')
-                
+def buy_plan(request): 
+        if request.method == 'POST':       
+            try:
+                if check_kyc_verification(user=request.user):
+                    user = Profile.objects.get(user=request.user)
+                    wallet_balance = user.wallet_balance
+                    plan = request.POST['plan']
+                    request_amount = request.POST['amount']
+                   
+                    if not insufficient_balance(amount=request_amount, user=request.user):
+                        if check_balance_for_plan(wallet_balance=wallet_balance, plan_name=plan, request_amount=request_amount):
+                            user.wallet_balance = float(wallet_balance) - float(request_amount)
+                            user.save()
+                            p = Plan.objects.get(planName=plan)
+                            p.user.add(user)
+                            p.save()
+                            transaction = TransactionHistory.objects.create(transaction_type='Invest',
+                            amount=float(request_amount), planName=plan, user=user, payment_method='Internal Transfer')
+                            transaction.save()
+                            messages.success(request, 'Processing investment, this should take only few mintues')
+                            return redirect('transaction') 
+                        else:
+                            messages.error(request, 'Insufficient balance')
+                            return redirect('plans')
+                    else:
+                        messages.error(request, 'Insufficient balance')
+                        return redirect('plans')
                 else:
-                    messages.error(request, 'Insufficient balance')
-                    return redirect('plans')
-            else:
-                messages.error(request, 'KYC Verification needed to perform action.')
-                return redirect('plans')              
-        except Exception as e:
-            messages.error(request, f'{e}')
-            return redirect('plans')
+                    messages.error(request, 'KYC Verification needed to perform action.')
+                    return redirect('plans')              
+            except Exception as e:
+                messages.error(request, f'{e}')
+                return redirect('plans')
 
 
 def create_plan(request):
     if request.method == 'POST':
         try:
+            plan_name = request.POST['plan_name']
+            minp = request.POST['min_amount']
+            maxp = request.POST['max_amount']
+            profit = request.POST['profit']
+            duration = request.POST['duration']
             plan = Plan.objects.create(
-                planName=request.POST['plan_name'],
-                minPrice=request.POST['min_amount'],
-                maxPrice=request.POST['max_amount'],
-                profit=request.POST['roi'],
-                duration=request.POST['duration']
+                planName=plan_name,
+                minPrice=minp,
+                maxPrice=maxp,
+                profit=profit,
+                planDuration=duration,
             )
             plan.save()
             messages.success(request, 'Successful, New Plan added!')
@@ -191,8 +198,27 @@ def create_plan(request):
         except Exception as e:
             messages.error(request, f'{e}')
             return redirect('plans')
+        
+def all_users(request):
+    users = Profile.objects.all()
+    context = {
+        'users': users
+    }
+    return render(request, 'app/users.html', context)
 
+def user_detail(request, pk):
+    users = Profile.objects.get(pk=pk)
+    context = {
+        'users': users,
+    }
+    return render(request, 'app/user_detail.html', context)
 
+def plan_transaction(request):
+    transactions = TransactionHistory.objects.filter(transaction_type='Invest')
+    context = {
+        'transactions': transactions    
+    }
+    return render(request, 'app/plan_transaction.html', context)
 def settings(request):
     user = Profile.objects.get(user=request.user)
     context = {

@@ -59,12 +59,11 @@ class Kyc(models.Model):
 
 class Plan(models.Model):
     planName = models.CharField(max_length=15, default=None, unique=True)
-    maxPrice = models.IntegerField(default=None, blank=False, null=False)
-    minPrice = models.IntegerField(default=None, blank=False, null=False)
-    profit = models.CharField(max_length=20, default=None)
-    planDuration = models.IntegerField(default=None, blank=False, null=False)
+    maxPrice = models.CharField(max_length=100,default=None, blank=False, null=False)
+    minPrice = models.CharField(max_length=100,default=None, blank=False, null=False)
+    profit = models.CharField(max_length=100, default=None)
+    planDuration = models.CharField(max_length=20,default=None, blank=False, null=False)
     user = models.ManyToManyField(Profile, related_name='plan', default=None, blank=True)
-    created_at = models.DateTimeField(auto_now=True)
     def __str__(self) -> str:
         return self.planName
 
