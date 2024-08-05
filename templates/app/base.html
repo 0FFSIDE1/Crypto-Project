@@ -354,7 +354,13 @@
         </a>
       </li>
       <li>
-        <a href="">
+        <a href="{% url "experts" %}">
+          <i class="zmdi zmdi-calendar-check"></i> <span>Experts Traders</span>
+          
+        </a>
+      </li>
+      <li>
+        <a href="{% url "wallets-banks" %}">
           <i class="zmdi zmdi-lock"></i> <span>Wallets & Banks</span>
         </a>
       </li>
@@ -375,14 +381,10 @@
           
         </a>
       </li>
+     
       <li>
         <a href="{% url "settings" %}">
           <i class="zmdi zmdi-lock"></i> <span>My Account</span>
-        </a>
-      </li>
-      <li>
-        <a href="{% url "referral" %}">
-          <i class="zmdi zmdi-lock"></i> <span>Invite Friends</span>
         </a>
       </li>
 
@@ -700,90 +702,6 @@
   }
   
 
-
-{% comment %} 
-    document.querySelectorAll('.view-btn').forEach(button => {
-      button.addEventListener('click', function(){
-        const id = this.getAttribute('data-user-id');
-        
-        console.log(id)
-        fetch(`/get_recieved_message/${id}`)
-        
-        .then(response => {
-          if (!response.ok){
-            throw new Error("Network response was not ok!");
-          }
-          console.log('response is ok');
-          return response.json();
-        })
-        .then(data => {
-          if (data.messages){  
-            $('.message').html(`<p class="font-italic">${data.messages}</p>`)
-            $('.message').addClass('text-dark')
-            $('#exampleModal').modal('show');
-          }else{
-            console.error('wahala', error)
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching data:', error);
-        });
-      });
-    });
-
-  
-       function openModal(parcelId){
-        
-        document.querySelectorAll('.openBtn').forEach(button => {
-          button.addEventListener('click', function(){
-            const id = this.getAttribute('data-parcel-id');
-           
-            console.log(id)
-            fetch(`/update/${id}`)
-            
-            .then(response => {
-              if (!response.ok){
-                throw new Error("Network response was not ok!");
-              }
-              console.log('response is ok');
-              $('#exampleModal').modal('show')
-              return response.json()
-            .then(data =>{
-              if(data){
-                var name_input = document.getElementById("recipient_name");
-                var no_input = document.getElementById("mobile_no");
-                var address_input = document.getElementById("r_address");
-                var country_input = document.getElementById("country");
-                var Location_input = document.getElementById("current_location");
-                var status_input = document.getElementById("select");
-                var eta_input = document.getElementById("eta");
-                var id = document.getElementById("myId")
-
-                // Set the value
-                id.value = `${data.id}`
-                name_input.value = `${data.name}`;
-                no_input.value = `${data.phone}`;
-                address_input.value = `${data.address}`;
-                country_input.value = `${data.country}`;
-                Location_input.value = `${data.location}`;
-                eta_input.value = `${data.eta}`;
-                status_input.value = `${data.status}`;
-                document.getElementById("recipient_name").readOnly = true;
-                document.getElementById("myId").readOnly = true;
-              }
-            }) 
-            })
-            .catch(error => {
-              console.error('Error fetching data:', error);
-            });
-          });
-        });   
-       }
-
-      
-  
-
- {% endcomment %}
  document.querySelectorAll('.investBtn').forEach(button => {
   button.addEventListener('click', function() {
     const pk = this.getAttribute('data-plan-id');

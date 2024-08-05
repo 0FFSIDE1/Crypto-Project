@@ -1,0 +1,149 @@
+{% extends "app/base.html" %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<body class="bg-theme bg-theme1">
+
+<!-- start loader -->
+   <div id="pageloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner" ><div class="loader"></div></div></div></div>
+   <!-- end loader -->
+
+
+<div class="clearfix"></div>  
+	
+  <div class="content-wrapper">
+    <div class="container-fluid" >
+      {% block content %}
+      {% if messages %}
+      {% for message in messages %}
+    <div id ="popupDiv" class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+       <div class="alert-icon">
+      <i class="icon-info"></i>
+      </div>
+      
+      <span class="popupContent alert-message" id="popupContent">{{message}}</span>
+      
+    </div>
+    {% endfor %}
+    {% endif %}
+    
+    <div class="row">
+        <div class="col-lg-5">
+        <div class="card center-content">
+          <div class="card-body ">
+            <h5 class="card-title">Add Expert</h5>
+            <div class="cardless2">
+                <form method="POST" action="{% url "create-plan" %}">
+                    {% csrf_token %}
+                <div class="form-group small">
+                    <label for="recipient-name" class="col-form-label text-black">Name</label>
+                    <input placeholder="FIRSTNAME AND LASTNAME" type="text" name="name" class="form-control"  id="name">
+                </div>
+                <div class="form-group">
+                    <label for="wallet_address" class="col-form-label text-black">Plan Name</label>
+                    <input placeholder="PLAN" type="text" name="plan_name" class="form-control"  id="planname" required>
+                </div>
+                <div class="input-group  form-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="inputGroupSelect01">Category</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01" name="category" required>
+                      <option  disabled>Choose..</option>
+                    <option style="background-color:black;" value"Expert">Expert</option>
+                    <option style="background-color:black;" value="Moderate">Moderate</option>
+                    <option style="background-color:black;" value="Risk Trader">Risk Trader</option>
+                    <option style="background-color:black;" value="Conservative">Conservative</option>
+                    
+                      
+                    </select>
+                  </div> 
+                <div class="form-group">
+                    <label for="country" class="col-form-label text-black">Commision</label>
+                    <input placeholder="COMMISSION" type="text" class="form-control" name="commisson"  id="max_amount" required>
+                </div>
+                <div class="form-group">
+                  <label for="country" class="col-form-label text-black">Risk</label>
+                  <input type="text" placeholder="RISK" class="form-control" name="risk"  id="" required>
+              </div>
+              <div class="form-group">
+                <label for="country" class="col-form-label text-black">Profit</label>
+                <input type="number" placeholder="ROI" class="form-control" name="profit"  id="duration" required>
+            </div>
+            <div class="form-group">
+                <label for="country" class="col-form-label text-black">Loss</label>
+                <input type="number" placeholder="LOSS" class="form-control" name="loss"  id="duration" required>
+            </div>
+            <div class="form-group">
+                <label for="country" class="col-form-label text-black">Copiers</label>
+                <input type="number" placeholder="COPIERS" class="form-control" name="copiers"  id="duration" required>
+            </div>
+            <div class="form-group">
+                <label for="country" class="col-form-label text-black">Gains</label>
+                <input type="number" class="form-control" name="gains"  id="duration" required>
+            </div>
+                <button type="submit">Add Expert</button>
+            </form>
+          </div>
+        </div>
+        </div>
+      </div>
+     
+
+      <div class="row">
+       
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">profit</th>
+                      <th scope="col">copiers</th>
+                      <th scope="col">loss</th>
+                      <th scope="col">commission</th>
+                      <th scope="col">category</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">#</th>
+                      <td>Cell</td>
+                      <td>Cell</td>
+                      <td>Cell</td>
+                      <td>Cell</td>
+                      <td>Cell</td>
+                      <td>Cell</td>
+                     
+                    </tr>
+                   
+                   
+                   
+                    
+                  </tbody>
+                </table>
+            </div>
+        </div>
+       
+      
+      </div>
+        </div>
+    </div>
+      
+  </div>
+            
+     
+	  {% endblock content %}
+	  <!--start overlay-->
+  
+</body>
+
+</html>
+
+
+    

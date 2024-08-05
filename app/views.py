@@ -326,3 +326,10 @@ def settings(request):
 
 def referral(request):
     return render(request, 'app/referral.html')
+
+def expert_traders(request):
+
+    return render(request, 'app/expert.html')
+
+def wallet_and_banks(request):
+    return render(request, 'app/wallets.html')
