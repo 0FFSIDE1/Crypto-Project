@@ -86,10 +86,6 @@ def update_transaction(request):
                 messages.error(request, 'Invalid Request, choose status')
                 return redirect('plan-transaction')
             
-def approve_kyc(request):
-    pass
-
-
 
 
 def withdraw(request):
@@ -111,6 +107,15 @@ def withdraw(request):
             transaction.save()
             messages.success(request, 'Withrawal processing, this may take few mintues!')
             return redirect('transaction')
+        
+
+
+def approve_kyc(request):
+    kyc = Kyc.objects.all()
+    context = {
+        'kyc': kyc
+    }
+    return render(request, 'app/pending.html', context)
 
 def verify_kyc(request):
     if request.method == 'POST':
@@ -168,7 +173,7 @@ def admin_transaction_detail(request, pk):
     return JsonResponse(data, safe=True)
 
 
-async def copy_trading(request):
+def copy_trading(request):
     return render(request, 'app/copytrading.html')
 
 def plans(request):
@@ -255,6 +260,37 @@ def user_detail(request, pk):
         'users': users,
     }
     return render(request, 'app/user_detail.html', context)
+
+def get_user(request, pk):
+    user = Profile.objects.get(pk=pk)
+    data = {
+        'username': user.username,
+        'status': user.status,
+        'pk': user.pk,
+    }
+    return JsonResponse(data, safe=True)
+
+
+def update_user(request):
+    if request.method == 'POST':
+        try:
+            pk = request.POST['myForm']
+            user = Profile.objects.get(pk=pk)
+            status = request.POST.get('status', None)
+            user.status = status
+            user.save()
+            messages.success(request, 'User updated successfully!')
+            return redirect('all-users')
+        except Exception as e:
+            messages.error(request, f'{e}')
+            return redirect('all-users')
+
+
+def make_user_admin(request, pk):
+    user = Profile.objects.get(pk=pk)
+    user.is_admin = True
+    user.save()
+    return redirect('all-users')
 
 def plan_transaction(request):
     transactions = TransactionHistory.objects.filter(transaction_type='Invest')

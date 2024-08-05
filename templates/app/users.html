@@ -45,6 +45,74 @@
   <div class="content-wrapper">
     <div class="container-fluid">
       {% block content %}
+      <div class="modal fade" id="Modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content  bg-theme3">
+            <div class="modal-header">
+              <h5 class="modal-title text-dark" id="exampleModalLabel">Delete</h5>
+              
+            </div>
+            <div class="modal-body text-dark">
+              
+                DO YOU WANT TO DELETE PARCEL?
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal" data-bs-dismiss="modal">Cancel</button>
+              
+              <button value="" id="deleteBtn" type="button" class="btn btn-danger delete ">Delete</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Update User</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form method='POST' action="{% url "update-user" %}">
+                {% csrf_token %}
+                <div class="form-group col-sm-12">
+                  <label for="id" class="col-form-label text-black">ID</label>
+                  <input type="text" class="form-control" name="myForm" readOnly  id="myForm" required>
+                </div>
+
+              <div class="form-group col-sm-12">
+                <label for="amount" class="col-form-label text-black">USERNAME</label>
+                <input type="text" class="form-control" name="username" readOnly  id="username" required>
+              </div>
+              <div class="input-group mb-3 form-group col-sm-12">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">STATUS</label>
+                </div>
+                <select class="custom-select" id="status" name="status" required>
+                  <option disabled>Choose..</option>
+                <option style="background-color:black;" value"Active">Active</option>
+                <option style="background-color:black;" value="Inactive">Inactive</option>
+                <option style="background-color:black;" value="Suspended">Suspended</option>
+                
+                
+                  
+                </select>
+              </div> 
+              
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success">Proceed</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
      
       <div class="row mt-3">
         
@@ -79,7 +147,7 @@
                       <td>$ {{user.wallet_balance}}</td>
                       <td>{{user.status}}</td>
                       <td ><a href="{% url "user-detail" user.pk %}"><button class="btn btn-success"  style="font-size:5px;" type="button" >View</button></a>
-                        <button data-id="" class="btn btn-warning update" data-toggle="modal" data-target="#exampleModalCenter"  style="font-size:5px;" type="button" >Update</button> <button data-id="" class="btn btn-primary makeAdmin" data-toggle="modal" data-target="#exampleModalCenter"  style="font-size:5px;" type="button" >Make Admin</button> <button data-id="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter"  style="font-size:5px;" type="button" >Delete</button>
+                        <button data-id="{{user.pk}}" class="btn btn-warning updateUser" data-toggle="modal" data-target="#exampleModalCenter"  style="font-size:5px;" type="button" >Update</button> <button data-id="" class="btn btn-primary makeAdmin" data-toggle="modal" data-target="#exampleModalCenter"  style="font-size:5px;" type="button" >Make Admin</button> <button class="btn btn-danger modalBtn" id="modalBtn"   style="font-size:5px;" type="button" data-toggle="modal" data-id="{{user.pk}}">Delete</button>
 
                       
                        

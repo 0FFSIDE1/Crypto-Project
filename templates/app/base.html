@@ -370,6 +370,12 @@
         </a>
       </li>
       <li>
+        <a href="{% url "view-kyc" %}">
+          <i class="zmdi zmdi-calendar-check"></i> <span>KYC Verification</span>
+          
+        </a>
+      </li>
+      <li>
         <a href="{% url "settings" %}">
           <i class="zmdi zmdi-lock"></i> <span>My Account</span>
         </a>
@@ -853,4 +859,71 @@ document.querySelectorAll('.update').forEach(button => {
       });
   });
 });
+
+
+document.querySelectorAll('.updateUser').forEach(button => {
+  button.addEventListener('click', function() {
+    const pk = this.getAttribute('data-id');
+    console.log(pk);
+
+    fetch(`/accounts/wallet/admin/${pk}/user`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok!');
+       }
+        console.log('Response is ok');
+        return response.json();
+      })
+      .then(data => {
+        console.log(data)
+        if (data) {
+          const username = document.getElementById('username');
+          const status = document.getElementById('status');
+          const form = document.getElementById('myForm');
+
+          if (status && username) {
+          // Set value
+            username.value = data.username || '';
+            status.value = data.status || '';
+            form.value = data.pk || '';          
+          } else {
+            console.error('Input elements not found');
+          }
+      }
+    })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  });
+});
+
+document.querySelectorAll('.modalBtn').forEach(button => {
+  button.addEventListener('click', function(){
+    var id = this.getAttribute('data-id')
+    console.log(id)
+    var element = document.getElementById("deleteBtn")
+    element.setAttribute("value", id)
+    console.log(element.value)
+    $('#Modal').modal('show')
+  })
+ 
+})
+document.querySelectorAll('.delete').forEach(button => {
+  button.addEventListener('click', function(){
+    var element = document.getElementById("deleteBtn")
+    id = element.value
+    $.ajax({
+      url: `/accounts/wallet/admin/${pk}/user/delete`,
+      type: 'GET',
+      success: function(response){
+        if(response.success){
+          var url = '/accounts/wallet/admin/users'
+          window.location.href = url
+        }
+      }
+    })
+  })
+})  
+
+
 </script>

@@ -83,8 +83,6 @@ def decline_invest(id):
     plan.status = 'Failed'
     plan.save()
     
-
-
 def is_admin(user):
     if user.user.is_admin:
         return True

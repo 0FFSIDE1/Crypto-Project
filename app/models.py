@@ -46,6 +46,8 @@ class Profile(models.Model):
 
     def __str__(self) -> str:
         return self.username
+    
+
 
 class Kyc(models.Model):
     user = models.OneToOneField(Profile, related_name='owner', on_delete=models.CASCADE)
@@ -100,3 +102,16 @@ class TransactionHistory(models.Model):
     def __str__(self) -> str:
         return f"{self.date_created} |{self.transaction_type} by {self.user}"
     
+class Expert(models.Model):
+    name =  models.CharField(default=None, max_length=20, blank=True, null=True)
+    gains =  models.CharField(default=None, max_length=20, blank=True)
+    copiers = models.CharField(default=None, max_length=20, blank=True)
+    commision = models.CharField(default=None, max_length=20, blank=True)
+    profit = models.CharField(default=None, max_length=20, blank=True)
+    loss = models.CharField(default=None, max_length=20, blank=True)
+    choices = (('Expert', 'Expert'), ('Moderate', 'Moderate'), ('Risk Trader', 'Risk Trader'), ('Conservative', 'Conservative')) 
+    category = models.CharField(default=None, choices=choices, max_length=20, blank=True)
+    risk = models.CharField(default=None, max_length=20, blank=True)
+    planName =  models.ForeignKey(Plan, default=None, on_delete=models.CASCADE, related_name='expert', blank=True)
+    def __str__(self) -> str:
+        return f"{self.category} | {self.name}"

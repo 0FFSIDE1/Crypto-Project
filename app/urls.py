@@ -20,6 +20,9 @@ urlpatterns = [
     path('accounts/wallet/plan/create', create_plan, name='create-plan'),
     path('accounts/wallet/admin/users', all_users, name='all-users'),
     path('accounts/wallet/admin/<int:pk>/user-detail', user_detail, name='user-detail'),
+    path('accounts/wallet/admin/<int:pk>/user', get_user, name='get-user'),
+    path('accounts/wallet/admin/user/update', update_user, name='update-user'),
     path('accounts/wallet/admin/plan/transactions', plan_transaction, name='plan-transaction'),
-    path('accounts/wallet/admin/transaction/update', update_transaction, name='update-trc'),   
+    path('accounts/wallet/admin/transaction/update', update_transaction, name='update-trc'),  
+    path('accounts/wallet/admin/kyc', approve_kyc, name='view-kyc'),  
 ]
