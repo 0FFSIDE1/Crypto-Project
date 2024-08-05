@@ -108,9 +108,17 @@ def withdraw(request):
             messages.success(request, 'Withrawal processing, this may take few mintues!')
             return redirect('transaction')
         
+def get_kyc(request, pk):
+    kyc = Kyc.objects.get(pk=pk)
+    data = {
+        'front_img': kyc.front_img.url if kyc.front_img else None,
+        'back_img': kyc.back_img.url if kyc.back_img else None,
+
+    }
+    return JsonResponse(data, safe=False)
 
 
-def approve_kyc(request):
+def kyc(request):
     kyc = Kyc.objects.all()
     context = {
         'kyc': kyc

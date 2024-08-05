@@ -17,8 +17,8 @@
  
 
       {% block content %}
-     
       
+
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
@@ -49,10 +49,10 @@
                         <td>{{kyc.id_type}}</td>
                         <td>{{kyc.id_number}}</td>
                         <td>{{kyc.expiry_date}}</td>
-                        <td ><a href=""><button class="btn btn-primary"  style="font-size:10px; background-color: #28a745; color:white;" type="button" >View</button></a>
+                        <td >
                          
                          
-                          <button data-id="" class="btn btn-warning update" data-toggle="modal" data-target="#exampleModalCenter"  style="font-size:10px; color:white;" type="button" >Update</button>
+                          <button data-id="{{kyc.pk}}" class="btn btn-warning updatekyc" data-toggle="modal" data-target="#exampleModalCenter"  style="font-size:10px; color:white;" type="button" >Update</button>
                         
                         </td>
                         
@@ -70,7 +70,51 @@
               </div>
             </div>
           </div>
-{% if kyc %}
+
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Update</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">         
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title"></h5>
+                          
+                          <div class="cardkyc">
+                            <div class="card-inner">
+                              <div class="card-front" id="card-front">
+                                <p>Front Side</p>
+                              </div>
+                              <div class="card-back" id="card-back">
+                                <p>Back Side</p>
+                              </div>
+                            </div>
+                          </div>
+                         
+                        </div>
+                      </div>
+                  
+               
+                  
+                 
+               
+                  
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Proceed</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          
+{% comment %} {% if kyc %}
     
          <div class="col-lg-12">
           <div class="card">
@@ -87,14 +131,14 @@
                   </div>
                 </div>
               </div>
-s              
+             
             </div>
           </div>
         </div>
       </div><!--End Row-->
       </div>
 
-      {% endif %}
+      {% endif %} {% endcomment %}
       
     </div><!--End Row-->
     {% endblock content %}

@@ -24,8 +24,9 @@ urlpatterns = [
     path('accounts/wallet/admin/user/update', update_user, name='update-user'),
     path('accounts/wallet/admin/plan/transactions', plan_transaction, name='plan-transaction'),
     path('accounts/wallet/admin/transaction/update', update_transaction, name='update-trc'),  
-    path('accounts/wallet/admin/kyc', approve_kyc, name='view-kyc'),
+    path('accounts/wallet/admin/kyc', kyc, name='view-kyc'),
+    path('accounts/wallet/admin/<int:pk>/kyc', get_kyc, name='get-kyc'), 
     path('accounts/wallet/user/<int:pk>/make-admin', make_user_admin, name='make-admin'), 
     path('accounts/wallet/experts', expert_traders, name='experts'),
-    path('accounts/wallet', wallet_and_banks, name='wallets-banks'),    
+    path('accounts/wallet/kyc/update', update_kyc, name='update-kyc'),    
 ]
