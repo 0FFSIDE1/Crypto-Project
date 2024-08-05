@@ -290,6 +290,7 @@ def make_user_admin(request, pk):
     user = Profile.objects.get(pk=pk)
     user.is_admin = True
     user.save()
+    messages.success(request, 'User is Now an Admin!')
     return redirect('all-users')
 
 def plan_transaction(request):

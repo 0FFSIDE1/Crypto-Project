@@ -49,16 +49,17 @@
         <div class="modal-dialog">
           <div class="modal-content  bg-theme3">
             <div class="modal-header">
-              <h5 class="modal-title text-dark" id="exampleModalLabel">Delete</h5>
+              <h5 class="modal-title text-white" id="exampleModalLabel">Delete</h5>
               
             </div>
-            <div class="modal-body text-dark">
+            <div class="modal-body text-white">
               
-                DO YOU WANT TO DELETE PARCEL?
+                DO YOU WANT TO DELETE THIS USER?
+                <small class="text-warning">Can not reverse this action!</small>
               
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-success" data-dismiss="modal" data-bs-dismiss="modal">Cancel</button>
               
               <button value="" id="deleteBtn" type="button" class="btn btn-danger delete ">Delete</button>
               
@@ -113,7 +114,19 @@
           </div>
         </div>
       </div>
-     
+      {% if messages %}
+      {% for message in messages %}
+    <div id ="popupDiv" class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+       <div class="alert-icon">
+      <i class="icon-info"></i>
+      </div>
+      
+      <span class="popupContent alert-message" id="popupContent">{{message}}</span>
+      
+    </div>
+    {% endfor %}
+    {% endif %}
       <div class="row mt-3">
         
           
@@ -147,7 +160,7 @@
                       <td>$ {{user.wallet_balance}}</td>
                       <td>{{user.status}}</td>
                       <td ><a href="{% url "user-detail" user.pk %}"><button class="btn btn-success"  style="font-size:5px;" type="button" >View</button></a>
-                        <button data-id="{{user.pk}}" class="btn btn-warning updateUser" data-toggle="modal" data-target="#exampleModalCenter"  style="font-size:5px;" type="button" >Update</button> <button data-id="" class="btn btn-primary makeAdmin" data-toggle="modal" data-target="#exampleModalCenter"  style="font-size:5px;" type="button" >Make Admin</button> <button class="btn btn-danger modalBtn" id="modalBtn"   style="font-size:5px;" type="button" data-toggle="modal" data-id="{{user.pk}}">Delete</button>
+                        <button data-id="{{user.pk}}" class="btn btn-warning updateUser" data-toggle="modal" data-target="#exampleModalCenter"  style="font-size:5px;" type="button" >Update</button> <a href="{% url "make-admin" user.pk %}"><button class="btn btn-primary makeAdmin"   style="font-size:5px;" type="button" >Make Admin</button></a> <button class="btn btn-danger modalBtn" id="modalBtn"   style="font-size:5px;" type="button" data-toggle="modal" data-id="{{user.pk}}">Delete</button>
 
                       
                        
