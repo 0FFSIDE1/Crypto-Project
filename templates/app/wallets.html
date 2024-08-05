@@ -32,60 +32,37 @@
     {% endif %}
     
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-6">
         <div class="card center-content">
           <div class="card-body ">
-            <h5 class="card-title">Add Expert</h5>
+            <h5 class="card-title">Add Wallet</h5>
             <div class="cardless2">
-                <form method="POST" action="{% url "create-plan" %}">
+                <form method="POST" action="">
                     {% csrf_token %}
-                <div class="form-group small">
-                    <label for="recipient-name" class="col-form-label text-black">Name</label>
-                    <input placeholder="FIRSTNAME AND LASTNAME" type="text" name="name" class="form-control"  id="name">
-                </div>
-                <div class="form-group">
-                    <label for="wallet_address" class="col-form-label text-black">Plan Name</label>
-                    <input placeholder="PLAN" type="text" name="plan_name" class="form-control"  id="planname" required>
-                </div>
-                <div class="input-group  form-group">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text" for="inputGroupSelect01">Category</label>
+                    <div class="form-group small">
+                        <label for="recipient-name" class="col-form-label text-black">Wallet Logo</label>
+                        <input  type="file" name="wallet_name" class="form-control"  id="name">
                     </div>
-                    <select class="custom-select" id="inputGroupSelect01" name="category" required>
-                      <option  disabled>Choose..</option>
-                    <option style="background-color:black;" value"Expert">Expert</option>
-                    <option style="background-color:black;" value="Moderate">Moderate</option>
-                    <option style="background-color:black;" value="Risk Trader">Risk Trader</option>
-                    <option style="background-color:black;" value="Conservative">Conservative</option>
-                    
-                      
-                    </select>
-                  </div> 
-                <div class="form-group">
-                    <label for="country" class="col-form-label text-black">Commision</label>
-                    <input placeholder="COMMISSION" type="text" class="form-control" name="commisson"  id="max_amount" required>
+                <div class="form-group small">
+                    <label for="recipient-name" class="col-form-label text-black">Wallet Name</label>
+                    <input placeholder="eg. Bitcoin" type="text" name="wallet_name" class="form-control"  id="name">
                 </div>
                 <div class="form-group">
-                  <label for="country" class="col-form-label text-black">Risk</label>
-                  <input type="text" placeholder="RISK" class="form-control" name="risk"  id="" required>
-              </div>
+                    <label for="wallet_address" class="col-form-label text-black">wallet slug</label>
+                    <input placeholder="eg. BTC" type="text" name="plan_name" class="form-control"  id="planname" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="country" class="col-form-label text-black">wallet address</label>
+                    <input placeholder="0x9ebfsdjfusfbwebfuydfsdfyfsfugssdfbywfdsfyfdfhghdghfgd" type="text" class="form-control" name="wallet_address"  id="wallet_address" required>
+                </div>
+               
               <div class="form-group">
-                <label for="country" class="col-form-label text-black">Profit</label>
-                <input type="number" placeholder="ROI" class="form-control" name="profit"  id="duration" required>
+                <label for="country" class="col-form-label text-black">QR code</label>
+                <input type="file"  class="form-control" name="qr_code" required>
             </div>
-            <div class="form-group">
-                <label for="country" class="col-form-label text-black">Loss</label>
-                <input type="number" placeholder="LOSS" class="form-control" name="loss"  id="duration" required>
-            </div>
-            <div class="form-group">
-                <label for="country" class="col-form-label text-black">Copiers</label>
-                <input type="number" placeholder="COPIERS" class="form-control" name="copiers"  id="duration" required>
-            </div>
-            <div class="form-group">
-                <label for="country" class="col-form-label text-black">Gains</label>
-                <input type="number" class="form-control" name="gains"  id="duration" required>
-            </div>
-                <button type="submit">Add Expert</button>
+            
+                <button type="submit">Add Wallet</button>
             </form>
           </div>
         </div>
@@ -95,61 +72,37 @@
 
      
        
-        <div class="col-lg-12">
+        <div class="col-lg-6">
            
                 <div class="card center-content">
                   <div class="card-body ">
-                    <h5 class="card-title">Add Expert</h5>
+                    <h5 class="card-title">Add Bank</h5>
                     <div class="cardless2">
                         <form method="POST" action="{% url "create-plan" %}">
                             {% csrf_token %}
                         <div class="form-group small">
-                            <label for="recipient-name" class="col-form-label text-black">Name</label>
-                            <input placeholder="FIRSTNAME AND LASTNAME" type="text" name="name" class="form-control"  id="name">
+                            <label for="recipient-name" class="col-form-label text-black">Bank Name</label>
+                            <input placeholder="eg. Chase Bank" type="text" name="bank_name" class="form-control"  id="name">
                         </div>
                         <div class="form-group">
-                            <label for="wallet_address" class="col-form-label text-black">Plan Name</label>
-                            <input placeholder="PLAN" type="text" name="plan_name" class="form-control"  id="planname" required>
+                            <label for="wallet_address" class="col-form-label text-black">Bank Address</label>
+                            <input type="text" name="bank_address" class="form-control"  required>
                         </div>
-                        <div class="input-group  form-group">
-                            <div class="input-group-prepend">
-                              <label class="input-group-text" for="inputGroupSelect01">Category</label>
-                            </div>
-                            <select class="custom-select" id="inputGroupSelect01" name="category" required>
-                              <option  disabled>Choose..</option>
-                            <option style="background-color:black;" value"Expert">Expert</option>
-                            <option style="background-color:black;" value="Moderate">Moderate</option>
-                            <option style="background-color:black;" value="Risk Trader">Risk Trader</option>
-                            <option style="background-color:black;" value="Conservative">Conservative</option>
-                            
-                              
-                            </select>
-                          </div> 
+                        
                         <div class="form-group">
-                            <label for="country" class="col-form-label text-black">Commision</label>
-                            <input placeholder="COMMISSION" type="text" class="form-control" name="commisson"  id="max_amount" required>
+                            <label for="owner" class="col-form-label text-black">Owner</label>
+                            <input placeholder="owner" type="text" class="form-control"   required>
                         </div>
                         <div class="form-group">
-                          <label for="country" class="col-form-label text-black">Risk</label>
-                          <input type="text" placeholder="RISK" class="form-control" name="risk"  id="" required>
+                          <label for="routing-no" class="col-form-label text-black">Routing No</label>
+                          <input type="text" placeholder="03726483648" class="form-control" name="risk"  id="" required>
                       </div>
                       <div class="form-group">
-                        <label for="country" class="col-form-label text-black">Profit</label>
-                        <input type="number" placeholder="ROI" class="form-control" name="profit"  id="duration" required>
+                        <label for="account-no" class="col-form-label text-black">Account No</label>
+                        <input type="number" placeholder="00006565533" class="form-control" name="account_no"   required>
                     </div>
-                    <div class="form-group">
-                        <label for="country" class="col-form-label text-black">Loss</label>
-                        <input type="number" placeholder="LOSS" class="form-control" name="loss"  id="duration" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="country" class="col-form-label text-black">Copiers</label>
-                        <input type="number" placeholder="COPIERS" class="form-control" name="copiers"  id="duration" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="country" class="col-form-label text-black">Gains</label>
-                        <input type="number" class="form-control" name="gains"  id="duration" required>
-                    </div>
-                        <button type="submit">Add Expert</button>
+                   
+                        <button type="submit">Add Bank</button>
                     </form>
                   </div>
                 </div>
