@@ -36,7 +36,7 @@
                   <select class="custom-select"  name="wallet" required>
                     <option selected disabled>Choose..</option>
                     {% for wallet in wallets  %}
-                  <option style="background-color:black;">{{wallet.wallet_name}}</option>
+                  <option style="background-color:black;">{{wallet.wallet_slug}}</option>
                   {% endfor %}
                     
                   </select>
@@ -139,6 +139,7 @@
               <div class="table-responsive">
                 <table class="table table-sm table-hover align-items-center">
                   <tbody>
+                    {% if wallets %}
                     {% for wallet in wallets %}
                     <tr>
                       <td><i class="fa fa-circle text-white mr-2"></i>{{wallet.wallet_name}}</td>
@@ -146,6 +147,7 @@
                                       <td>Processing Time: Instant - 30 minutes <br>Fee: 0%</td>
                     </tr>
                     {% endfor %}
+                    {% endif %}
                     {% if banks %}
                     <tr>
                       <td><i class="fa fa-circle text-light-3 mr-2"></i>Other</td>

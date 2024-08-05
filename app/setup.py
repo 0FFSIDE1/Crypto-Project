@@ -3,13 +3,15 @@ from .models import *
 def insufficient_balance(amount, user):
     user = Profile.objects.get(user=user)
     balance = user.wallet_balance
-    if balance == None or float(amount) > float(balance):
+    if balance == None:
+        balance = 0
+    if float(amount) > float(balance):
         return True
     else:
         return False
 
 def withdraw_funds(amount, user):
-    user = Profile.objects.get(user=user)
+    user = Profile.objects.get(username=user)
     balance = user.wallet_balance
     new_balance = float(balance) - float(amount)
     user.wallet_balance = new_balance
@@ -36,16 +38,22 @@ def approve_deposit(id, user):
     deposit = TransactionHistory.objects.get(tr_no=id)
     deposit.status = 'Completed'
     deposit.save()
-    user = Profile.objects.get(user=user)
-    user.wallet_balance = float(user.wallet_balance) + float(deposit.amount)
+    user = Profile.objects.get(username=user)
+    if user.wallet_balance is None:
+        user.wallet_balance = 0
+    
+    balance = float(user.wallet_balance) + float(deposit.amount)
+    user.wallet_balance = balance
     user.save()
+    print(user.wallet_balance)
+    print(deposit.amount)
 
 
 def decline_deposit(id, user):
     deposit = TransactionHistory.objects.get(tr_no=id)
     deposit.status = 'Failed'
     deposit.save()
-    user = Profile.objects.get(user=user)
+    user = Profile.objects.get(username=user)
     user.total_deposit = float(user.total_deposit) - float(deposit.amount)
     user.save()
 
@@ -53,11 +61,12 @@ def approve_withdraw(id, user):
     withdraw = TransactionHistory.objects.get(tr_no=id)
     withdraw.status = 'Completed'
     withdraw.save()
-    user = Profile.objects.get(user=user)
-    if user.total_withdraw == None:
-        user.total_withdraw = 0
-    user.total_withdraw = float(user.total_withdraw) + float(withdraw.amount)
-    user.save()
+    profile = Profile.objects.get(username=user)
+    if profile.total_withdraw == None:
+        profile.total_withdraw = 0
+    profile.total_withdraw = float(profile.total_withdraw) + float(withdraw.amount)
+    profile.save()
+    withdraw_funds(amount=withdraw.amount, user=user)
 
 def decline_withdraw(id):
     withdraw = TransactionHistory.objects.get(tr_no=id)
@@ -76,7 +85,6 @@ def decline_invest(id):
     
 
 
-
 def is_admin(user):
     if user.user.is_admin:
         return True
@@ -86,9 +94,9 @@ def is_admin(user):
 def kyc_verification(user):
     try:
         kyc = Kyc.objects.all()
+        profile = Profile.objects.get(user=user)
         for k in kyc:
             if k.user == user:
-                profile = Profile.objects.get(user=user)
                 profile.kyc_verification = True
                 profile.save()
                 return True

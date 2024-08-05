@@ -121,6 +121,8 @@
                         <td class="text-danger">{{transaction.status}}</td>
                         {% elif transaction.status == 'Completed' %}
                         <td class="text-success">{{transaction.status}}</td>
+                        {% elif transaction.status == 'Ongoing' %}
+                        <td class="text-primary">{{transaction.status}}</td>
                         {% endif %}
                         <td ><a href="{% url "transaction-detail" transaction.tr_no %}"><button class="btn btn-primary"  style="font-size:10px; background-color: #28a745; color:white;" type="button" >View</button></a>
                           {% if user.user.is_admin %}

@@ -38,28 +38,29 @@ def confirm_deposit(request):
         )
         transaction.save()
         if user.total_deposit == None:
-            user.total_deposit = 0
-            user.save()
-        total_deposit = float(user.total_deposit) + float(request.POST['amount'])
+            user.total_deposit = 0.00
+        user.save()
+        print(user.total_deposit)
+        total_deposit = float(user.total_deposit) + float(transaction.amount)
         user.total_deposit = total_deposit
         user.status = 'Active'
         user.save()
+        messages.success(request, 'Processing Payment, this should take few mintues')
     return redirect('transaction')
 
 def update_transaction(request):
     pk = request.POST['transaction_id']
     tr_type = request.POST['transaction_type']
     status = request.POST.get('status', None)
-    print(status)
-    print(pk)
+    username = request.POST['user']
     if request.method == 'POST':
         if status is not None:
             if tr_type == 'Deposit' and status == 'Completed':       
-                approve_deposit(id=pk, user=request.user)
+                approve_deposit(id=pk, user=username)
             elif tr_type == 'Deposit' and status == 'Failed':
-                decline_deposit(id=pk, user=request.user)
+                decline_deposit(id=pk, user=username)
             elif tr_type == 'Withdraw' and status == 'Completed':
-                approve_withdraw(id=pk, user=request.user)
+                approve_withdraw(id=pk, user=username)
             elif tr_type == 'Withdraw' and status == 'Failed':
                 decline_withdraw(id=pk)
             elif tr_type == 'Invest' and status == 'Completed':
@@ -85,14 +86,15 @@ def update_transaction(request):
                 messages.error(request, 'Invalid Request, choose status')
                 return redirect('plan-transaction')
             
-
+def approve_kyc(request):
+    pass
 
 
 
 
 def withdraw(request):
     if request.method =='POST':
-        amount = request.POST['amount']
+        amount = float(request.POST['amount'])
         wallet = request.POST.get('wallet')
         wallet_add = request.POST['wallet_add']
         if insufficient_balance(amount=amount, user=request.user):
