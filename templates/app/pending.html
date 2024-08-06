@@ -18,7 +18,19 @@
 
       {% block content %}
       
-
+      {% if messages %}
+      {% for message in messages %}
+    <div id ="popupDiv" class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+       <div class="alert-icon">
+      <i class="icon-info"></i>
+      </div>
+      
+      <span class="popupContent alert-message" id="popupContent">{{message}}</span>
+      
+    </div>
+    {% endfor %}
+    {% endif %}
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
@@ -84,31 +96,49 @@
                       <div class="card">
                         <div class="card-body">
                           <h5 class="card-title"></h5>
+                          <form method="POST" action="{% url "update-kyc" %}" > 
+                        
+                            {% csrf_token %}
+                                    
+                                  <div class="cardkyc">
+                                    <div class="card-inner">
+                                      <div class="card-front" id="card-front">
+                                        <p>Front Side</p>
+                                      </div>
+                                      <div class="card-back" id="card-back">
+                                        <p>Back Side</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <input name="user" type="text" id="username" style="width:1px; height:2px;border:none;outline:none;" class="bg-dark bg-radiant text-dark">
+                                  <div class="input-group mb-3 form-group col-sm-12">
+                                    <div class="input-group-prepend">
+                                      <label class="input-group-text" for="inputGroupSelect01">STATUS</label>
+                                    </div>
+                                    <select class="custom-select" id="inputGroupSelect01" name="status" required>
+                                      <option disabled>Choose..</option>
+                                    <option style="background-color:black;" value"Decline">Decline</option>
+                                    <option style="background-color:black;" value="Approve">Approve</option>
+                                    
+                                      
+                                    </select>
+                                  </div> 
+                                  
+                                
+                                
+                                </div>
+                              </div>
                           
-                          <div class="cardkyc">
-                            <div class="card-inner">
-                              <div class="card-front" id="card-front">
-                                <p>Front Side</p>
-                              </div>
-                              <div class="card-back" id="card-back">
-                                <p>Back Side</p>
-                              </div>
-                            </div>
+                      
+                          
+                        
+                      
+                          
                           </div>
-                         
-                        </div>
-                      </div>
-                  
-               
-                  
-                 
-               
-                  
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success">Proceed</button>
-                  </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Proceed</button>
+                          </div>
                 </form>
               </div>
             </div>

@@ -28,5 +28,6 @@ urlpatterns = [
     path('accounts/wallet/admin/<int:pk>/kyc', get_kyc, name='get-kyc'), 
     path('accounts/wallet/user/<int:pk>/make-admin', make_user_admin, name='make-admin'), 
     path('accounts/wallet/experts', expert_traders, name='experts'),
-    path('accounts/wallet/kyc/update', update_kyc, name='update-kyc'),    
+    path('accounts/wallet', wallet_and_banks, name='wallets-banks'),  
+    path('accounts/wallet/admin/kyc/update', update_kyc, name='update-kyc'),
 ]

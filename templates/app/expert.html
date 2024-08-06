@@ -37,7 +37,7 @@
           <div class="card-body ">
             <h5 class="card-title">Add Expert</h5>
             <div class="cardless2">
-                <form method="POST" action="{% url "create-plan" %}">
+                <form method="POST" action="{% url "experts" %}">
                     {% csrf_token %}
                 <div class="form-group small">
                     <label for="recipient-name" class="col-form-label text-black">Name</label>
@@ -111,18 +111,25 @@
                     </tr>
                   </thead>
                   <tbody>
+                  {% if experts %}  
                     <tr>
                       <th scope="row">#</th>
-                      <td>Cell</td>
-                      <td>Cell</td>
-                      <td>Cell</td>
-                      <td>Cell</td>
-                      <td>Cell</td>
-                      <td>Cell</td>
+                      <td>{{expert.name}}</td>
+                      <td>{{expert.profit}}</td>
+                      <td>{{expert.copiers}}</td>
+                      <td>{{expert.loss}}</td>
+                      <td>{{expert.commision}}</td>
+                      <td>{{expert.category}}</td>
                      
                     </tr>
-                   
-                   
+                   {% else %}
+                   <tr>
+                   <th scope="row">#</th>
+                      <td colspan="4">No Experts available</td>
+                        </tr>
+                      
+
+                    {% endif %} 
                    
                     
                   </tbody>

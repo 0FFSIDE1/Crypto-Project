@@ -111,6 +111,8 @@ def withdraw(request):
 def get_kyc(request, pk):
     kyc = Kyc.objects.get(pk=pk)
     data = {
+        
+        'name': kyc.user.username,
         'front_img': kyc.front_img.url if kyc.front_img else None,
         'back_img': kyc.back_img.url if kyc.back_img else None,
 
@@ -122,8 +124,31 @@ def kyc(request):
     kyc = Kyc.objects.all()
     context = {
         'kyc': kyc
-    }
+    }        
     return render(request, 'app/pending.html', context)
+
+def update_kyc(request):
+    if request.method == 'POST':
+        status = request.POST.get('status', None)
+        print(status)
+        if status is not None:
+            user = request.POST['user']
+            print(user)
+            profile = Profile.objects.get(username=user)
+            print(profile)
+            try:
+                profile.kyc_verification = True
+                profile.save()
+                messages.success(request, 'Update successfully')
+                return redirect('view-kyc')
+            except Exception as e:
+                messages.error(request, f'{e}')
+                return redirect('view-kyc')
+        else:
+            messages.error(request, 'Invalid Request!, choose status')
+            return redirect('view-kyc')
+    return redirect('view-kyc')
+
 
 def verify_kyc(request):
     if request.method == 'POST':
@@ -336,8 +361,30 @@ def referral(request):
     return render(request, 'app/referral.html')
 
 def expert_traders(request):
+    experts = Expert.objects.all()
+    if request.method == 'POST':
+        try:
+            expert = Expert.objects.create(
+                name=request.POST['name'],
+                gains=request.POST['gains'],
+                copiers=request.POST['copiers'],
+                loss=request.POST['loss'],
+                risk=request.POST['risk'],
+                category=request.POST.get('category', None),
+                commission=request.POST['commision'],
+                plan_name=request.POST['plan_name'],
+            )
+            expert.save()
+            messages.success(request, 'Expert trader created successfully')
+            return redirect('experts')
+        except Exception as e:
+            messages.error(request, f'{e}')
+            return redirect('experts')
 
-    return render(request, 'app/expert.html')
+    context = {
+        'experts': experts,
+    }  
+    return render(request, 'app/expert.html', context)
 
 def wallet_and_banks(request):
     return render(request, 'app/wallets.html')

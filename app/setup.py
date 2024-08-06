@@ -92,12 +92,11 @@ def is_admin(user):
 def kyc_verification(user):
     try:
         kyc = Kyc.objects.all()
-        profile = Profile.objects.get(user=user)
+        profile = Profile.objects.get(username=user)
         for k in kyc:
             if k.user == user:
                 profile.kyc_verification = True
                 profile.save()
-                return True
     except Exception as e:
         return e
     
