@@ -398,10 +398,27 @@ def wallet_and_banks(request):
                 wallet_slug=request.POST['wallet_slug'],
                 logo_img= request.FILES.get('logo_img'),
                 qrcode_img= request.FILES.get('qrcode_img'),
-
             )
             wallet.save()
             messages.success(request, 'Wallet added successfully')
+            return redirect('wallets-banks')
+        except Exception as e:
+            messages.error(request, f'{e}')
+            return redirect('wallets-banks')
+    return render(request, 'app/wallets.html')
+
+def add_banks(request):
+    if request.method == 'POST':
+        try:
+            bank = BankAccount.objects.create(
+                bank_name=request.POST['bank_name'],
+                bank_address=request.POST['bank_address'],
+                owner=request.POST['owner'],
+                routing_no=request.POST['routing_no'],
+                accout_no=request.POST['account_no'],
+            )
+            bank.save()
+            messages.success(request, 'Bank added successfully')
             return redirect('wallets-banks')
         except Exception as e:
             messages.error(request, f'{e}')

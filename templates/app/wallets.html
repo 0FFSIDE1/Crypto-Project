@@ -78,7 +78,7 @@
                   <div class="card-body ">
                     <h5 class="card-title">Add Bank</h5>
                     <div class="cardless2">
-                        <form method="POST" action="" >
+                        <form method="POST" action="{% url "add-bank" %}" >
                             {% csrf_token %}
                         <div class="form-group small">
                             <label for="recipient-name" class="col-form-label text-black">Bank Name</label>
@@ -91,11 +91,11 @@
                         
                         <div class="form-group">
                             <label for="owner" class="col-form-label text-black">Owner</label>
-                            <input type="text" class="form-control"   required>
+                            <input name="owner" type="text" class="form-control"   required>
                         </div>
                         <div class="form-group">
                           <label for="routing-no" class="col-form-label text-black">Routing No</label>
-                          <input type="text" placeholder="03726483648" class="form-control" name="risk"  id="" required>
+                          <input type="text" placeholder="03726483648" class="form-control" name="routing_no" required>
                       </div>
                       <div class="form-group">
                         <label for="account-no" class="col-form-label text-black">Account No</label>
