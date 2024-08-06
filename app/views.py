@@ -371,7 +371,7 @@ def expert_traders(request):
                 loss=request.POST['loss'],
                 risk=request.POST['risk'],
                 category=request.POST.get('category', None),
-                commission=request.POST['commision'],
+                commission=request.POST['commisson'],
                 plan_name=request.POST['plan_name'],
             )
             expert.save()

@@ -112,6 +112,7 @@
                   </thead>
                   <tbody>
                   {% if experts %}  
+                  {% for expert in experts %}
                     <tr>
                       <th scope="row">#</th>
                       <td>{{expert.name}}</td>
@@ -122,6 +123,7 @@
                       <td>{{expert.category}}</td>
                      
                     </tr>
+                    {% endfor %}
                    {% else %}
                    <tr>
                    <th scope="row">#</th>
