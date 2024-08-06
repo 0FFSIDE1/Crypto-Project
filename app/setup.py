@@ -1,4 +1,6 @@
 from .models import *
+from django.contrib.auth.models import User
+from django.contrib import messages
 
 def insufficient_balance(amount, user):
     user = Profile.objects.get(user=user)
@@ -101,3 +103,16 @@ def kyc_verification(user):
         return e
     
         
+def validate_data(request, password1, password2, username, email):
+    user = User.objects.filter(username=username).exists()
+    email = User.objects.filter(email=email).exists()
+    if password1 != password2:
+        return messages.error(request, 'Password do not match!')
+    elif user:
+        return messages.error(request, 'User with username already exists!')
+    elif email:
+        return messages.error(request, 'User with that Email already exists!')
+    else:
+        return True
+
+    

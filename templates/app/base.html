@@ -259,7 +259,7 @@
 
 
 .cardkyc {
- height: 300px;
+ height: 300px
   
   perspective: 1000px;
 }
@@ -859,11 +859,11 @@ document.querySelectorAll('.updatekyc').forEach(button => {
       .then(data => {
         console.log(data)
         if (data) {
-          
+          var input = document.getElementById('myId');
           var user = document.getElementById('username');
           $('#card-front').css('background-image', `url(${data.front_img})`)
           $('#card-back').css('background-image', `url(${data.back_img})`)
-         
+          input.value = data.pk || '';
           user.value = data.name || '';
          
       }

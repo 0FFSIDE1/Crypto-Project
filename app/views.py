@@ -4,6 +4,7 @@ from .models import *
 from django.contrib import messages
 from .setup import *
 from django.db.models import Q
+from django.contrib.auth.models import User
 # Create your views here.
 
 def dashboard(request):
@@ -424,3 +425,33 @@ def add_banks(request):
             messages.error(request, f'{e}')
             return redirect('wallets-banks')
     return render(request, 'app/wallets.html')
+
+def register(request):
+    if request.method == 'POST':
+        password1 = request.POST['password']
+        password2 = request.POST['password2']
+        email = request.POST['email']
+        firstName = request.POST['firstname']
+        lastName = request.POST['lastname']
+        username = request.POST['username']
+        if validate_data(request, password1=password1, password2=password2, email=email, username=username):
+            try:
+                user = User.objects.create_user(
+                    username=username,
+                    email=email,
+                    first_name=firstName,
+                    last_name=lastName,
+                    password=password1,
+                )
+                user.save()
+                messages.success(request, 'Registration successful!')
+                return redirect('login')
+            except Exception as e:
+                messages.error(request, f'{e}')
+                return redirect('register')
+        else:
+            return redirect('register')
+    return render(request, 'app/register.html')
+
+def login(request):
+    return render(request, 'app/login.html')

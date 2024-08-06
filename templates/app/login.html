@@ -1,43 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    {% load static %}
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
-    <title>Dashtreme Admin - Free Dashboard for Bootstrap 4 by Codervent</title>
-  
-    <link href="{% static "app/assets/plugins/fullcalendar/css/fullcalendar.css" %}" rel='stylesheet'/>
-    <link href="{% static "app/assets/plugins/fullcalendar/css/fullcalendar.min.css" %}" rel='stylesheet'/>
-    <link href="{% static "app/assets/plugins/fullcalendar/css/fullcalendar.print.css" %}" rel='stylesheet'/>
-    <link href="{% static "app/assets/plugins/fullcalendar/css/fullcalendar.print.min.css" %}" rel='stylesheet'/>
-   
-    <!-- loader-->
-   <!-- Vector CSS -->
-   <link href="{% static "app/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" %}" rel="stylesheet"/>
-    <link href="{% static "app/assets/css/pace.min.css" %} " rel="stylesheet"/>
-    <script src="{% static "app/assets/js/pace.min.js" %} "></script>
-    <!--favicon-->
-    <link rel="icon" href="{% static "app/assets/images/favicon.ico" %}" type="image/x-icon">
-    
-    <!-- simplebar CSS-->
-    <link href="{% static "app/assets/plugins/simplebar/css/simplebar.css" %}" rel="stylesheet"/>
-    <!-- Bootstrap core CSS-->
-    <link href="{% static "app/assets/css/bootstrap.min.css" %}" rel="stylesheet"/>
-    <!-- animate CSS-->
-    <link href="{% static "app/assets/css/animate.css" %}" rel="stylesheet" type="text/css"/>
-    <!-- Icons CSS-->
-    <link href="{% static "app/assets/css/icons.css" %}" rel="stylesheet" type="text/css"/>
-    <!-- Sidebar CSS-->
-    <link href="{% static "app/assets/css/sidebar-menu.css" %}" rel="stylesheet"/>
-    <!-- Custom app/Style-->
-    <link href="{% static "app/assets/css/app-style.css" %}" rel="stylesheet"/>
-    
-  </head>
+<head>
+	{% load static %}
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="description" content=""/>
+  <meta name="author" content=""/>
+  <title>Login Apotradeshub</title>
+  <!-- loader-->
+  <link href="{% static "app/assets/plugins/fullcalendar/css/fullcalendar.min.css" %}" rel='stylesheet'/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- loader-->
+ <!-- Vector CSS -->
+ <link href="{% static "app/assets/plugins/vectormap/jquery-jvectormap-2.0.5.css" %}" rel="stylesheet"/>
+  <link href="{% static "app/assets/css/pace.min.css" %} " rel="stylesheet"/>
 
-<body class="bg-theme bg-theme1">
+  <!--favicon-->
+  <link rel="icon" href="{% static "app/assets/images/favicon.ico" %}" type="image/x-icon">
+
+  <!-- simplebar CSS-->
+  <link href="{% static "app/assets/plugins/simplebar/css/simplebar.css" %}" rel="stylesheet"/>
+  <!-- Bootstrap core CSS-->
+  <link href="{% static "app/assets/css/bootstrap.min.css" %}" rel="stylesheet"/>
+  <!-- animate CSS-->
+  <link href="{% static "app/assets/css/animate.css" %}" rel="stylesheet" type="text/css"/>
+  <!-- Icons CSS-->
+  <link href="{% static "app/assets/css/icons.css" %}" rel="stylesheet" type="text/css"/>
+  <!-- Sidebar CSS-->
+  <link href="{% static "app/assets/css/sidebar-menu.css" %}" rel="stylesheet"/>
+  <!-- Custom app/Style-->
+  <link href="{% static "app/assets/css/app-style.css" %}" rel="stylesheet"/>
+
+<style>
+  
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+}
+
+.title {
+  font-size: 28px;
+  color: royalblue;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+}
+
+.title::before,.title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: royalblue;
+}
+
+.title::before {
+  width: 18px;
+  height: 18px;
+  background-color: royalblue;
+}
+
+.title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
+
+.message, .signin {
+  font-size: 14px;
+}
+
+.signin {
+  text-align: center;
+}
+
+.signin a {
+  color: royalblue;
+}
+
+.signin a:hover {
+  text-decoration: underline royalblue;
+}
+
+.flex {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+}
+
+.form label {
+  position: relative;
+}
+
+.form label .input {
+  width: 100%;
+  padding: 10px 10px 20px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+.form label .input + span {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.form label .input:placeholder-shown + span {
+  top: 15px;
+  font-size: 0.9em;
+}
+
+.form label .input:focus + span,.form label .input:valid + span {
+  top: 0px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.form label .input:valid + span {
+  color: green;
+}
+
+.submit {
+  border: none;
+  outline: none;
+  background-color: royalblue;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: .3s ease;
+}
+
+.submit:hover {
+  background-color: rgb(56, 90, 194);
+  cursor: pointer;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+.alert-success{
+  background-color: green;
+}
+.alert-error{
+  background-color: red;
+}
+
+</style>
+</head>
+
+<body class="bg-theme bg-theme9">
 
 <!-- start loader -->
    <div id="pageloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner" ><div class="loader"></div></div></div></div>
@@ -45,78 +180,117 @@
 
 <!-- Start wrapper-->
  <div id="wrapper">
+  {% if messages %}
+  {% for message in messages %}
+<div id ="popupDiv" class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %} alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+   <div class="alert-icon">
+  <i class="icon-info"></i>
+  </div>
+  
+  <span class="popupContent alert-message" id="popupContent">{{message}}</span>
+  
+</div>
+{% endfor %}
+{% endif %}
 
- <div class="loader-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
-	<div class="card card-authentication1 mx-auto my-5">
+	<div class="card card-authentication1 mx-auto my-4">
 		<div class="card-body">
 		 <div class="card-content p-2">
 		 	<div class="text-center">
-		 		<img src="{% static "app/assets/images/logo-icon.png" %}" alt="logo icon">
+		 		<img src="{% static "app/assets/images/ICM-logo-w-black.png" %}" alt="logo icon" style="height:60px;">
 		 	</div>
-		  <div class="card-title text-uppercase text-center py-3">Sign In</div>
-		    <form method="post" action="{% url "admin" %}">
-			 {% csrf_token %}
-			  <div class="form-group">
-			  <label for="exampleInputUsername" class="sr-only">Username</label>
-			   <div class="position-relative has-icon-right">
-				  <input type="text" name="username" id="exampleInputUsername" class="form-control input-shadow" placeholder="Enter Username" required>
-				  <div class="form-control-position">
-					  <i class="icon-user"></i>
-				  </div>
-			   </div>
-			  </div>
-			  <div class="form-group">
-			  <label for="exampleInputPassword" class="sr-only">Password</label>
-			   <div class="position-relative has-icon-right">
-				  <input type="password" name="password" id="exampleInputPassword" class="form-control input-shadow" placeholder="Enter Password" required>
-				  <div class="form-control-position">
-					  <i class="icon-lock"></i>
-				  </div>
-			   </div>
-			  </div>
-			<div class="form-row">
-			 <div class="form-group col-6">
-			   <div class="icheck-material-white">
-                <input type="checkbox" id="user-checkbox" checked="" />
-                <label for="user-checkbox">Remember me</label>
-			  </div>
-			 </div>
-			 <div class="form-group col-6 text-right">
-			  <a href="">Reset Password</a>
-			 </div>
-			</div>
-			 <button type="submit" class="btn btn-light btn-block">Sign In</button>
-			 
-			 
-			 </form>
+		  <div class="card-title text-uppercase text-center py-3">Login</div>
+     
+      <form class="form">
+          <p class="title">Login</p>
+          <p class="message text-white">Login now and get full access to our app. </p>
+          <label>
+            <input class="input" type="text" name="username" placeholder="" required="">
+            <span>Username</span>
+        </label>
+              
+          <label>
+              <input class="input" type="password" name="password" placeholder="" required="">
+              <span>Password</span>
+          </label>
+          <button class="submit" type="submit">Submit</button>
+          <div class="flex">
+            <p class="signin">Not yet registered ? <a href="{% url "register" %}">Register</a> </p>
+           <p style="margin-left:40px;"> <a class="signin" href="#">Forgot Password?</a> </p>   
+            
+          </div> 
+
+      </form>
 		   </div>
 		  </div>
-		  <div class="card-footer text-center py-3">
-		    <p class="text-warning mb-0">Do not have an account? <a href="register.html"> Sign Up here</a></p>
-		  </div>
+		 
 	     </div>
     
      <!--Start Back To Top Button-->
     <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
     <!--End Back To Top Button-->
 	
+	<!--start color switcher-->
+   <div class="right-sidebar">
+    <div class="switcher-icon">
+      <i class="zmdi zmdi-settings zmdi-hc-spin"></i>
+    </div>
+    <div class="right-sidebar-content">
 
+      <p class="mb-0">Gaussion Texture</p>
+      <hr>
+      
+      <ul class="switcher">
+        <li id="theme1"></li>
+        <li id="theme2"></li>
+        <li id="theme3"></li>
+        <li id="theme4"></li>
+        <li id="theme5"></li>
+        <li id="theme6"></li>
+      </ul>
+
+      <p class="mb-0">Gradient Background</p>
+      <hr>
+      
+      <ul class="switcher">
+        <li id="theme7"></li>
+        <li id="theme8"></li>
+        <li id="theme9"></li>
+        <li id="theme10"></li>
+        <li id="theme11"></li>
+        <li id="theme12"></li>
+		<li id="theme13"></li>
+        <li id="theme14"></li>
+        <li id="theme15"></li>
+      </ul>
+      
+     </div>
+   </div>
+  <!--end color switcher-->
 	
 	</div><!--wrapper-->
 	
   <!-- Bootstrap core JavaScript-->
+  <script src="{% static "app/assets/js/pace.min.js" %} "></script>
   <script src="{% static "app/assets/js/jquery.min.js" %}"></script>
   <script src="{% static "app/assets/js/popper.min.js" %}"></script>
   <script src="{% static "app/assets/js/bootstrap.min.js" %}"></script>
-	
- <!-- simplebar{% static "" %}app/ js -->
-  <script src="{% static "app/assets/plugins/simplebar/js/simplebar.js" %}"></script>
   <!-- sidebar-js -->
   <script src="{% static "app/assets/js/sidebar-menu.js" %}"></script>
-  <!-- loader scripts -->
-  
-  <!-- Custom scripts -->
   <script src="{% static "app/assets/js/app-script.js" %}"></script>
+
+
+  <script>
+    // Display the popup div for 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+     var popupDiv = document.getElementById('popupDiv');
+     popupDiv.style.display = 'block';
+     setTimeout(function(){
+       popupDiv.style.display = 'none';
+     }, 10000); // 10 seconds
+   });
+ </script>
   
 </body>
 </html>
