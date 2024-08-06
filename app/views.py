@@ -5,11 +5,16 @@ from django.contrib import messages
 from .setup import *
 from django.db.models import Q
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required
 def dashboard(request):
     return render(request, 'app/user_dashboard.html')
 
+
+@login_required
 def deposit_withdraw(request):
     user = Profile.objects.get(user=request.user)
     context = {
@@ -19,6 +24,7 @@ def deposit_withdraw(request):
     }
     return render(request, 'app/deposit_withdraw.html', context)
 
+@login_required
 def deposit(request, pk):
     wallets = Wallet.objects.get(wallet_name=pk)
     context ={
@@ -26,6 +32,7 @@ def deposit(request, pk):
     }
     return render(request,'app/deposit.html', context)
 
+@login_required
 def confirm_deposit(request):
     user = Profile.objects.get(user=request.user)
     if request.method == 'POST':
@@ -49,6 +56,7 @@ def confirm_deposit(request):
         messages.success(request, 'Processing Payment, this should take few mintues')
     return redirect('transaction')
 
+@login_required
 def update_transaction(request):
     pk = request.POST['transaction_id']
     tr_type = request.POST['transaction_type']
@@ -88,7 +96,7 @@ def update_transaction(request):
                 return redirect('plan-transaction')
             
 
-
+@login_required
 def withdraw(request):
     if request.method =='POST':
         amount = float(request.POST['amount'])
@@ -108,7 +116,8 @@ def withdraw(request):
             transaction.save()
             messages.success(request, 'Withrawal processing, this may take few mintues!')
             return redirect('transaction')
-        
+
+@login_required       
 def get_kyc(request, pk):
     kyc = Kyc.objects.get(pk=pk)
     data = {
@@ -120,7 +129,7 @@ def get_kyc(request, pk):
     }
     return JsonResponse(data, safe=False)
 
-
+@login_required
 def kyc(request):
     kyc = Kyc.objects.all()
     context = {
@@ -128,6 +137,7 @@ def kyc(request):
     }        
     return render(request, 'app/pending.html', context)
 
+@login_required
 def update_kyc(request):
     if request.method == 'POST':
         status = request.POST.get('status', None)
@@ -150,7 +160,7 @@ def update_kyc(request):
             return redirect('view-kyc')
     return redirect('view-kyc')
 
-
+@login_required
 def verify_kyc(request):
     if request.method == 'POST':
         user = Profile.objects.get(user=request.user)
@@ -171,7 +181,7 @@ def verify_kyc(request):
             return render(request, 'app/kyc_verification.html')
     return render(request, 'app/kyc_verification.html')
 
-
+@login_required
 def transaction_history(request):
     if is_admin(user=request.user):
         user = Profile.objects.get(user=request.user)
@@ -188,6 +198,7 @@ def transaction_history(request):
         }
         return render(request, 'app/transaction.html', context)
 
+@login_required
 def transaction_detail(request, pk):
     transaction = TransactionHistory.objects.get(pk=pk)
     
@@ -196,6 +207,7 @@ def transaction_detail(request, pk):
     }
     return render(request, 'app/transaction_detail.html', context)
 
+@login_required
 def admin_transaction_detail(request, pk):
     transaction = TransactionHistory.objects.get(pk=pk)
     data = {
@@ -206,16 +218,18 @@ def admin_transaction_detail(request, pk):
     }
     return JsonResponse(data, safe=True)
 
-
+@login_required
 def copy_trading(request):
     return render(request, 'app/copytrading.html')
 
+@login_required
 def plans(request):
     context = {
         'plans': Plan.objects.all()
     }
     return render(request, 'app/plan&pricing.html', context)
 
+@login_required
 def get_plan(request, pk):
     plan = Plan.objects.get(pk=pk)
     data = {
@@ -224,6 +238,7 @@ def get_plan(request, pk):
     }
     return JsonResponse(data, safe=True)
 
+@login_required
 def buy_plan(request): 
         if request.method == 'POST':       
             try:
@@ -259,6 +274,7 @@ def buy_plan(request):
                 return redirect('plans')
 
 
+@login_required
 def create_plan(request):
     if request.method == 'POST':
         try:
@@ -281,6 +297,7 @@ def create_plan(request):
             messages.error(request, f'{e}')
             return redirect('plans')
         
+@login_required       
 def all_users(request):
     users = Profile.objects.all()
     context = {
@@ -288,6 +305,7 @@ def all_users(request):
     }
     return render(request, 'app/users.html', context)
 
+@login_required
 def user_detail(request, pk):
     users = Profile.objects.get(pk=pk)
     context = {
@@ -295,6 +313,7 @@ def user_detail(request, pk):
     }
     return render(request, 'app/user_detail.html', context)
 
+@login_required
 def get_user(request, pk):
     user = Profile.objects.get(pk=pk)
     data = {
@@ -304,7 +323,7 @@ def get_user(request, pk):
     }
     return JsonResponse(data, safe=True)
 
-
+@login_required
 def update_user(request):
     if request.method == 'POST':
         try:
@@ -319,7 +338,7 @@ def update_user(request):
             messages.error(request, f'{e}')
             return redirect('all-users')
 
-
+@login_required
 def make_user_admin(request, pk):
     user = Profile.objects.get(pk=pk)
     user.is_admin = True
@@ -327,12 +346,15 @@ def make_user_admin(request, pk):
     messages.success(request, 'User is Now an Admin!')
     return redirect('all-users')
 
+@login_required
 def plan_transaction(request):
     transactions = TransactionHistory.objects.filter(transaction_type='Invest')
     context = {
         'transactions': transactions    
     }
     return render(request, 'app/plan_transaction.html', context)
+
+@login_required
 def settings(request):
     user = Profile.objects.get(user=request.user)
     context = {
@@ -357,10 +379,11 @@ def settings(request):
             return redirect('settings')
     return render(request, 'app/my_account.html', context)
 
-
+@login_required
 def referral(request):
     return render(request, 'app/referral.html')
 
+@login_required
 def expert_traders(request):
     experts = Expert.objects.all()
     if request.method == 'POST':
@@ -390,6 +413,7 @@ def expert_traders(request):
     }  
     return render(request, 'app/expert.html', context)
 
+@login_required
 def wallet_and_banks(request):
     if request.method == 'POST':
         try:
@@ -408,6 +432,7 @@ def wallet_and_banks(request):
             return redirect('wallets-banks')
     return render(request, 'app/wallets.html')
 
+@login_required
 def add_banks(request):
     if request.method == 'POST':
         try:
@@ -425,6 +450,7 @@ def add_banks(request):
             messages.error(request, f'{e}')
             return redirect('wallets-banks')
     return render(request, 'app/wallets.html')
+
 
 def register(request):
     if request.method == 'POST':
@@ -444,6 +470,14 @@ def register(request):
                     password=password1,
                 )
                 user.save()
+                profile = Profile.objects.create(
+                    username=username,
+                    firstName=firstName,
+                    lastName=lastName,
+                    email=email,
+                    user=user,
+                )
+                profile.save()
                 messages.success(request, 'Registration successful!')
                 return redirect('login')
             except Exception as e:
@@ -454,4 +488,9 @@ def register(request):
     return render(request, 'app/register.html')
 
 def login(request):
+
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
     return render(request, 'app/login.html')
