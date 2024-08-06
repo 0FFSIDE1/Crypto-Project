@@ -112,7 +112,7 @@
                       
                         <td>{{transaction.date_created}}</td>
                         <td>{{transaction.transaction_type}}</td>
-                        <td>{{transaction.amount}}</td>
+                        <td>$ {{transaction.amount}}</td>
                         <td>{{transaction.payment_method}}</td>
                         {% if transaction.status == 'Pending' %}
                         <td class="text-warning">{{transaction.status}}</td>

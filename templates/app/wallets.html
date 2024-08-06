@@ -37,11 +37,11 @@
           <div class="card-body ">
             <h5 class="card-title">Add Wallet</h5>
             <div class="cardless2">
-                <form method="POST" action="">
+                <form method="POST" action="{% url "wallets-banks" %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group small">
                         <label for="recipient-name" class="col-form-label text-black">Wallet Logo</label>
-                        <input  type="file" name="wallet_name" class="form-control"  id="name">
+                        <input  type="file" name="logo_img" class="form-control"  id="name">
                     </div>
                 <div class="form-group small">
                     <label for="recipient-name" class="col-form-label text-black">Wallet Name</label>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="form-group">
                     <label for="wallet_address" class="col-form-label text-black">wallet slug</label>
-                    <input placeholder="eg. BTC" type="text" name="plan_name" class="form-control"  id="planname" required>
+                    <input placeholder="eg. BTC" type="text" name="wallet_slug" class="form-control"  id="planname" required>
                 </div>
                 
                 <div class="form-group">
@@ -59,7 +59,7 @@
                
               <div class="form-group">
                 <label for="country" class="col-form-label text-black">QR code</label>
-                <input type="file"  class="form-control" name="qr_code" required>
+                <input type="file"  class="form-control" name="qrcode_img" required>
             </div>
             
                 <button type="submit">Add Wallet</button>
@@ -78,7 +78,7 @@
                   <div class="card-body ">
                     <h5 class="card-title">Add Bank</h5>
                     <div class="cardless2">
-                        <form method="POST" action="{% url "create-plan" %}">
+                        <form method="POST" action="" >
                             {% csrf_token %}
                         <div class="form-group small">
                             <label for="recipient-name" class="col-form-label text-black">Bank Name</label>

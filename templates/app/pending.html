@@ -44,6 +44,7 @@
                         <th scope="col">ID TYPE</th>
                         <th scope="col">ID No</th>
                         <th scope="col">Expiry DATE</th>
+                        <th scope="col">status</th>
                         <th scope="col">Actions</th>
 
                         
@@ -61,6 +62,7 @@
                         <td>{{kyc.id_type}}</td>
                         <td>{{kyc.id_number}}</td>
                         <td>{{kyc.expiry_date}}</td>
+                        {% if kyc.user.kyc_verification %} <td class="text-success">Verified</td>{% else %} <td class="text-danger">Unverified</td>{% endif %}
                         <td >
                          
                          

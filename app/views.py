@@ -364,6 +364,7 @@ def expert_traders(request):
     experts = Expert.objects.all()
     if request.method == 'POST':
         try:
+            plan = Plan.objects.get(planName=request.POST.get('plan_name'))
             expert = Expert.objects.create(
                 name=request.POST['name'],
                 gains=request.POST['gains'],
@@ -371,8 +372,9 @@ def expert_traders(request):
                 loss=request.POST['loss'],
                 risk=request.POST['risk'],
                 category=request.POST.get('category', None),
-                commission=request.POST['commisson'],
-                plan_name=request.POST['plan_name'],
+                commision=request.POST['commisson'],
+                planName=plan,
+                profit=request.POST['profit']
             )
             expert.save()
             messages.success(request, 'Expert trader created successfully')
@@ -383,8 +385,25 @@ def expert_traders(request):
 
     context = {
         'experts': experts,
+        'plans': Plan.objects.all()
     }  
     return render(request, 'app/expert.html', context)
 
 def wallet_and_banks(request):
+    if request.method == 'POST':
+        try:
+            wallet = Wallet.objects.create(
+                wallet_name=request.POST['wallet_name'],
+                wallet_address=request.POST['wallet_address'],
+                wallet_slug=request.POST['wallet_slug'],
+                logo_img= request.FILES.get('logo_img'),
+                qrcode_img= request.FILES.get('qrcode_img'),
+
+            )
+            wallet.save()
+            messages.success(request, 'Wallet added successfully')
+            return redirect('wallets-banks')
+        except Exception as e:
+            messages.error(request, f'{e}')
+            return redirect('wallets-banks')
     return render(request, 'app/wallets.html')
