@@ -9,7 +9,6 @@
   <meta name="author" content=""/>
   <title>Login Apotradeshub</title>
   <!-- loader-->
-  <link href="{% static "app/assets/plugins/fullcalendar/css/fullcalendar.min.css" %}" rel='stylesheet'/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- loader-->
  <!-- Vector CSS -->
@@ -218,7 +217,7 @@
           <button class="submit" type="submit">Submit</button>
           <div class="flex">
             <p class="signin">Not yet registered ? <a href="{% url "register" %}">Register</a> </p>
-           <p style="margin-left:40px;"> <a class="signin" href="#">Forgot Password?</a> </p>   
+           <p style="margin-left:40px;"> <a class="signin" href="{% url "forgot-password" %}">Forgot Password?</a> </p>   
             
           </div> 
 

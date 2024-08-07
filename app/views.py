@@ -516,7 +516,7 @@ def otp_verification(request):
     pass
 
 def forgot_password(request):
-    pass
+    return render(request, 'app/reset-password.html')
 
 def change_password(request):
     user = User.objects.get(username=request.user)

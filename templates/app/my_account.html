@@ -81,7 +81,23 @@
                 <div class="tab-pane active" id="profile">
                     <div class="row">
                         <div class="col-md-6">
-                            <h5 class="card-title">Username: {{users.username}}</h5>
+                            <h6>Username: {{users.username}}</h6>
+                            <h6>DOB</h6>
+                            {% if users.hobbies %}
+                            <p>
+                                {{users.hobbies}}
+                            </p>
+                            {% else %}
+                            <p>No hobbies</p>
+                            {% endif %}
+                            <h6>Address</h6>
+                            {% if users.hobbies %}
+                            <p>
+                                {{users.hobbies}}
+                            </p>
+                            {% else %}
+                            <p>No hobbies</p>
+                            {% endif %}
                             <h6>Hobbies</h6>
                             {% if users.hobbies %}
                             <p>
@@ -135,7 +151,7 @@
                     <form method="POST" action="{% url "my-account" %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">usersname</label>
+                            <label class="col-lg-3 col-form-label form-control-label">username</label>
                             <div class="col-lg-9">
                                 <input class="form-control" type="text" value="{{users.username}}" name="username" readOnly>
                             </div>
