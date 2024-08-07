@@ -22,18 +22,19 @@
              <div class="card-body">
              <div class="card-title">Change Password</div>
              <hr>
-              <form>
+              <form method="POST" action="{% url "change-password" %}">
+                {% csrf_token %}
              <div class="form-group">
               <label for="input-1">Current Password</label>
-              <input type="password" class="form-control" value="*********" id="input-1" placeholder="">
+              <input type="password1" class="form-control" value="*********" id="input-1" placeholder="">
              </div>
              <div class="form-group">
                 <label for="input-1">New Password</label>
-                <input type="password" class="form-control" value="" id="input-1" placeholder="">
+                <input type="password2" class="form-control" value="" id="input-1" placeholder="New password">
                </div>
                <div class="form-group">
                 <label for="input-1">Confirm Password</label>
-                <input type="password" class="form-control" value="" id="input-1" placeholder="">
+                <input type="password3" class="form-control" value="" id="input-1" placeholder="Confirm password">
                </div>
             
              
@@ -53,11 +54,7 @@
          <div class="card-body">
           
           <div class="chart-container-1">
-           
-          
-             <p class="">2FA Authentication</p>
-            
-              <p class="">Two-factor authentication (2FA) adds an extra layer of security to your
+            <p class="">Two-factor authentication (2FA) adds an extra layer of security to your
                account by requiring you to provide a second form of verification, in addition to your password.</p>
                <p class="">Click here to enable 2FA by following these steps:</p>
              <a href="{% url "two_factor:setup" %}"><p><button class="btn btn-warning" style="height:100%; margin-top:30px" type="submit" >Enable 2FA Authentication</button></p>

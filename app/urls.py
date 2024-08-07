@@ -35,5 +35,7 @@ urlpatterns = [
     path('accounts/wallet/banks', add_banks, name='add-bank'),
     path('accounts/wallet/settings', settings, name='settings'),
     path('accounts/wallet/payment/others', view_bank, name='view-others'),
-    path('accounts/wallet/security/settings', security_authentication, name='2fa-authentication')
+    path('accounts/wallet/security/settings', security_authentication, name='2fa-authentication'),
+    path('accounts/wallet/settings/change-password', change_password, name='change-password'),
+    path('accounts/wallet/settings/forgot-password', forgot_password, name='forgot-password'),
 ]

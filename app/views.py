@@ -519,7 +519,29 @@ def forgot_password(request):
     pass
 
 def change_password(request):
-    pass
+    user = User.objects.get(username=request.user)
+    print(user)
+    if request.methood == 'POST':
+        current_password = request.POST['password1']
+        new_password = request.POST['password2']
+        confirm_password = request.POST['password3']
+        if user.check_password(current_password):
+            if new_password == confirm_password:
+                try:
+                    user.set_password(new_password)
+                    user.save()
+                    messages.success(request, 'Password Changed Successfully')
+                    return redirect('settings')
+                except Exception as e:
+                    messages.error(request, f'{e}')
+                    return redirect(request, 'settings')
+            else:
+                messages.error(request, 'Passwords do not match')
+                return redirect('settings')
+        else:
+            messages.error(request, 'Password is Incorrect')
+            return redirect('settings')
+
 
 def settings(request):
 
