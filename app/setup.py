@@ -116,3 +116,5 @@ def validate_data(request, password1, password2, username, email):
         return True
 
     
+def send_otp():
+    pass

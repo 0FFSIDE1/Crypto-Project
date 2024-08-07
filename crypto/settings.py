@@ -34,6 +34,10 @@ CSRF_TRUSTED_ORIGINS = ['https://5352-102-89-22-20.ngrok-free.app']
 # Application definition
 
 INSTALLED_APPS = [
+    'django_otp',
+    'django_otp.plugins.otp_static',
+    'django_otp.plugins.otp_totp',
+    'two_factor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,15 +49,16 @@ INSTALLED_APPS = [
 ]
 
 
-LOGIN_URL = '/login'
-LOGIN_REDIRECT_URL = '/'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -63,7 +68,7 @@ ROOT_URLCONF = 'crypto.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR, 'Templates'],
+        'DIRS': [BASE_DIR, 'Templates', 'two_factor'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,3 +142,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # settings.py
 SITE_URL = "https://www.example.com"
+
+TWO_FACTOR_FORCE_OTP = True
+LOGIN_URL = 'two_factor:login'
+LOGIN_REDIRECT_URL = '/auth/accounts/wallet/login'

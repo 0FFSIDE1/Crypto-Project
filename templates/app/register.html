@@ -199,7 +199,7 @@
 		 	<div class="text-center">
 		 		<img src="{% static "app/assets/images/ICM-logo-w-black.png" %}" alt="logo icon" style="height:60px;">
 		 	</div>
-		  <div class="card-title text-uppercase text-center py-3">Register</div>
+		 
      
       <form class="form" action="{% url "register" %}" method="POST">
         {% csrf_token %}
@@ -235,7 +235,7 @@
               <input class="input" type="password" name="password2" placeholder="" required="">
               <span>Confirm password</span>
           </label>
-          <button class="submit" type="submit">Submit</button>
+          <button class="submit" type="submit">Register</button>
           <p class="signin">Already have an acount ? <a href="{% url "login" %}">Login</a> </p>
       </form>
 		   </div>

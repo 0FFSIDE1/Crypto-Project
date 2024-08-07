@@ -7,7 +7,7 @@ urlpatterns = [
     path('accounts/wallet/transactions', transaction_history, name='transaction'),
     path('accounts/wallet/copy-trading', copy_trading, name='copytrading'),
     path('accounts/wallet/plans', plans, name='plans'),
-    path('accounts/wallet/settings', settings, name='settings'),
+    path('accounts/wallet/profile', my_account, name='my-account'),
     path('accounts/wallet/referrals', referral, name='referral'),
     path('accounts/wallet/<int:pk>/plan', get_plan, name='get-plan'),
     path('accounts/wallet/<str:pk>/deposit', deposit, name='deposit'),
@@ -32,5 +32,6 @@ urlpatterns = [
     path('accounts/wallet/admin/kyc/update', update_kyc, name='update-kyc'),
     path('accounts/wallet/banks', add_banks, name='add-bank'),
     path('auth/accounts/wallet/register', register, name='register'),
-    path('auth/accounts/wallet/login', login, name='login')
+    path('auth/accounts/wallet/login', login, name='login'),
+     path('auth/accounts/wallet/settings', settings, name='settings')
 ]

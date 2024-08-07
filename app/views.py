@@ -175,7 +175,7 @@ def verify_kyc(request):
             )
             kyc.save()
             messages.success(request, 'KYC Verification Processing, this may take a few days!')
-            return redirect('settings')
+            return redirect('my-account')
         except Exception as e:
             messages.error(request, e)
             return render(request, 'app/kyc_verification.html')
@@ -355,7 +355,7 @@ def plan_transaction(request):
     return render(request, 'app/plan_transaction.html', context)
 
 @login_required
-def settings(request):
+def my_account(request):
     user = Profile.objects.get(user=request.user)
     context = {
         'users': user,
@@ -373,10 +373,10 @@ def settings(request):
             profile.phone = request.POST['phone']
             profile.save()
             messages.success(request, 'Profile updated successfully')
-            return redirect('settings')
+            return redirect('my-account')
         except Exception as e:
             messages.error(request, f'{e}')
-            return redirect('settings')
+            return redirect('my-account')
     return render(request, 'app/my_account.html', context)
 
 @login_required
@@ -493,4 +493,20 @@ def login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('otp-verification')
     return render(request, 'app/login.html')
+
+
+def otp_verification(request):
+    pass
+
+def forgot_password(request):
+    pass
+
+def change_password(request):
+    pass
+
+def settings(request):
+    pass
