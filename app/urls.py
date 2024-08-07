@@ -2,6 +2,8 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
+    path('auth/accounts/wallet/register', register, name='register'),
+    path('auth/accounts/wallet/login', signin, name='app-login'),
     path('accounts/wallet/dashboard', dashboard, name='dashboard'),
     path('accounts/wallet/deposit', deposit_withdraw, name='deposit-withdraw'),
     path('accounts/wallet/transactions', transaction_history, name='transaction'),
@@ -31,8 +33,7 @@ urlpatterns = [
     path('accounts/wallet', wallet_and_banks, name='wallets-banks'),  
     path('accounts/wallet/admin/kyc/update', update_kyc, name='update-kyc'),
     path('accounts/wallet/banks', add_banks, name='add-bank'),
-    path('auth/accounts/wallet/register', register, name='register'),
-    path('auth/accounts/wallet/login', signin, name='app-login'),
-    path('/accounts/wallet/settings', settings, name='settings'),
-    path('/accounts/wallet/payment/others', view_bank, name='view-others')
+    path('accounts/wallet/settings', settings, name='settings'),
+    path('accounts/wallet/payment/others', view_bank, name='view-others'),
+    path('accounts/wallet/security/settings', security_authentication, name='2fa-authentication')
 ]

@@ -508,6 +508,10 @@ def view_bank(request):
     }
     return render(request, 'app/banks_view.html', context)
 
+def security_authentication(request):
+    return render(request, 'app/2fa.html')
+
+
 def otp_verification(request):
     pass
 
@@ -518,5 +522,5 @@ def change_password(request):
     pass
 
 def settings(request):
-    
+
     return render(request, 'app/settings.html')
