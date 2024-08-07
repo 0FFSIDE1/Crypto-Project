@@ -38,4 +38,5 @@ urlpatterns = [
     path('accounts/wallet/security/settings', security_authentication, name='2fa-authentication'),
     path('accounts/wallet/settings/change-password', change_password, name='change-password'),
     path('accounts/wallet/settings/forgot-password', forgot_password, name='forgot-password'),
+    path('referral/<str:referral_code>/', register_with_referral, name='register_with_referral'),
 ]

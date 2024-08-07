@@ -480,6 +480,12 @@ def register(request):
                     phone=phone,
                 )
                 profile.save()
+                referral_id = request.session.get('referrer_id')
+                if referral_id:
+                    referrer = User.objects.get(id=referral_id)
+                    referrer.user.referral_bonus += 10.0
+                    referrer.user.save()
+                    del request.session['referrer_id']
                 messages.success(request, 'Registration successful!')
                 return redirect('app-login')
             except Exception as e:
@@ -546,3 +552,16 @@ def change_password(request):
 def settings(request):
 
     return render(request, 'app/settings.html')
+
+
+def register_with_referral(request, referral_code):
+    # Check if the referral code exists
+    try:
+        referrer_profile = Profile.objects.get(referral_code=referral_code)
+        request.session['referrer_id'] = referrer_profile.user.id
+    except Profile.DoesNotExist:
+        # Handle case where referral code does not exist (optional)
+        pass
+
+    # Redirect to the registration page
+    return redirect('register')

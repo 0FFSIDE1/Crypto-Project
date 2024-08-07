@@ -22,10 +22,11 @@
              <div class="card-body">
              <div class="card-title">Invite Friends</div>
              <hr>
+             {% if user.is_authenticated %}{% endif %}
               <form>
              <div class="form-group">
               <label for="input-1">Referral Link</label>
-              <input type="text" class="form-control" value="{{request.user.profile.get_referral_link}}" id="input-1" placeholder="Referral link" readOnly>
+              <input type="text" class="form-control" value="{{user.user.get_referral_link}}" id="input-1" placeholder="Referral link" readOnly>
              </div>
              
              
