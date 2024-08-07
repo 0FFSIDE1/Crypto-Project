@@ -151,7 +151,7 @@
                     {% if banks %}
                     <tr>
                       <td><i class="fa fa-circle text-light-3 mr-2"></i>Other</td>
-                      <td><button class="btn btn-success" style="width:100%; height:20%" type="submit">Bank/Zelle/Cashapp</button></td>
+                      <td><a href="{% url "view-others" %}"><button class="btn btn-success" style="width:100%; height:20%" type="submit">Bank/Zelle/Cashapp</button></a></td>
                                       <td>Processing Time: Instant - 30 minutes <br>Fee: 0%</td>
                     </tr>
                     {% endif %}

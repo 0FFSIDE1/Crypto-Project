@@ -1,0 +1,95 @@
+{% extends "app/base.html" %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<body class="bg-theme bg-theme1">
+
+<!-- start loader -->
+   <div id="pageloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner" ><div class="loader"></div></div></div></div>
+   <!-- end loader -->
+
+
+<div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid" >
+      {% block content %}
+    
+      <div class="row">
+        {% if banks %}
+        {% for bank in banks %}
+        <div class="col-12 col-lg-12 col-xl-12">
+           <div class="card">
+              <div class="card-header">Bank Info
+              </div>
+              <div class="card-body">
+                <h6 class="text-center text-warning" style="font-size: clamp(10px, 16px, 2rem)">
+                  use only provided info to make payment 
+                </h5>
+              
+              </div>
+              <table class="table table-sm text-wrap">
+                <thead>
+                 
+                </thead>
+                <tbody>
+                
+                  <tr>
+                    <th scope="row">Bank Name</th>
+                    <td>{{bank.bank_name}}</td> 
+                  </tr>
+                  <tr>
+                    <th scope="row">Bank Address</th>
+                    <td>{{bank.bank_address}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Owner</th>
+                    <td>{{bank.owner}}</td>
+                  </tr>
+                  
+                  <tr>
+                    <th scope="row">Routing No</th>
+                    <td>{{bank.routing_no}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Account No</th>
+
+                    <td>{{bank.accout_no}}</td>
+                
+                  </tr>
+                  
+                </tbody>
+              </table>
+            
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+       
+     </div><!--End Row-->
+     
+      
+        
+                  
+                       
+                        </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                
+            </div>
+            </div>
+           
+          </div>
+          
+        
+	  {% endblock content %}
+	  <!--start overlay-->
+  
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+{% extends "app/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<body class="bg-theme bg-theme1">
+
+<!-- start loader -->
+   <div id="pageloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner" ><div class="loader"></div></div></div></div>
+   <!-- end loader -->
+
+
+<div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid" >
+      {% block content %}
+      
+      <div class="row mt-3">
+        <div class="col-lg-6">
+           <div class="card">
+             <div class="card-body">
+             <div class="card-title">Change Password</div>
+             <hr>
+              <form>
+             <div class="form-group">
+              <label for="input-1">Current Password</label>
+              <input type="password" class="form-control" value="*********" id="input-1" placeholder="">
+             </div>
+             <div class="form-group">
+                <label for="input-1">New Password</label>
+                <input type="password" class="form-control" value="" id="input-1" placeholder="">
+               </div>
+               <div class="form-group">
+                <label for="input-1">Confirm Password</label>
+                <input type="password" class="form-control" value="" id="input-1" placeholder="">
+               </div>
+            
+             
+             <div class="form-group">
+              <button type="submit"  class="btn btn-light px-5">Change Password</button>
+            </div>
+            <a href="#"><p class="text-warning">Forgot Password ?</p></a>
+            </form>
+           </div>
+           </div>
+        </div>
+        
+        <div class="col-12 col-lg-6 col-xl-6">
+          <div class="card">
+         <div class="card-header">Account Security
+         </div>
+         <div class="card-body">
+          
+          <div class="chart-container-1">
+           
+          
+             <p class="">2FA Authentication</p>
+            
+              <p class="">Two-factor authentication (2FA) adds an extra layer of security to your
+               account by requiring you to provide a second form of verification, in addition to your password.</p>
+               <p class="">Click here to enable 2FA by following these steps:</p>
+             <p><button class="btn btn-warning" style="height:100%; margin-top:30px" type="submit" >Enable 2FA Authentication</button></p>
+          
+          </div>
+          
+         </div>
+         
+         
+         
+        </div>
+       </div>
+      </div>  
+            </div>
+            </div>
+          </div>
+        
+	  {% endblock content %}
+	  <!--start overlay-->
+		  
+
+
+
+	
+</body>
+</html>

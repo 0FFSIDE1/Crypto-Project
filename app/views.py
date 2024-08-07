@@ -481,7 +481,7 @@ def register(request):
                 )
                 profile.save()
                 messages.success(request, 'Registration successful!')
-                return redirect('login')
+                return redirect('app-login')
             except Exception as e:
                 messages.error(request, f'{e}')
                 return redirect('register')
@@ -489,7 +489,7 @@ def register(request):
             return redirect('register')
     return render(request, 'app/register.html')
 
-def login(request):
+def signin(request):
 
     if request.method == 'POST':
         username = request.POST['username']
@@ -501,6 +501,12 @@ def login(request):
             return redirect('dashboard')
     return render(request, 'app/login.html')
 
+def view_bank(request):
+    bank = BankAccount.objects.all()
+    context = {
+        'banks': bank
+    }
+    return render(request, 'app/banks_view.html', context)
 
 def otp_verification(request):
     pass
@@ -512,4 +518,5 @@ def change_password(request):
     pass
 
 def settings(request):
-    pass
+    
+    return render(request, 'app/settings.html')

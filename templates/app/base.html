@@ -30,6 +30,19 @@
   <!-- Custom app/Style-->
   <link href="{% static "app/assets/css/app-style.css" %}" rel="stylesheet"/>
 <style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid black;
+    word-wrap: break-word; /* Break long words */
+    white-space: normal; /* Allow text to wrap */
+}
+
+
+
   .button {
     position: relative;
     width: 150px;
@@ -452,7 +465,7 @@
       </li>
 
        <li>
-        <a href="{% url "login" %}">
+        <a href="">
           <i class="zmdi zmdi-account-circle"></i> <span>Sign Out</span>
         </a>
       </li>

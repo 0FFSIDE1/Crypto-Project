@@ -132,7 +132,7 @@
                 </div>
                
                 <div class="tab-pane" id="edit">
-                    <form method="POST" action="{% url "settings" %}" enctype="multipart/form-data">
+                    <form method="POST" action="{% url "my-account" %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">usersname</label>

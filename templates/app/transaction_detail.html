@@ -27,50 +27,51 @@
               <div class="card-body">
                 <h6 class="text-center" style="font-size: clamp(10px, 16px, 2rem)">
                   {{transaction.date_created}}
-                </h5> 
+                </h5>
+                <h6 class="text-center" style="font-size: clamp(10px, 14px, 2rem)">
+                 <span class="text-warning">Wallet Address:</span> {{transaction.wallet_address}}
+                </h6> 
               </div>
-              <table class="table table-sm">
+              <table class="table table-sm text-wrap">
                 <thead>
                  
                 </thead>
                 <tbody>
                   <tr>
                     <th scope="row">Transaction ID</th>
-                    <td colspan="3">{{transaction.tr_no}}</td>
+                    <td style="font-size: clamp(8px, 13px, 3rem)" class="text-wrap text-left">{{transaction.tr_no}}</td>
                     
                   </tr>
                   <tr>
                     <th scope="row">Transaction Type</th>
-                    <td colspan="3">{{transaction.transaction_type}}</td> 
+                    <td>{{transaction.transaction_type}}</td> 
                   </tr>
                   <tr>
                     <th scope="row">Payment Method</th>
-                    <td colspan="3">{{transaction.payment_method}}</td>
+                    <td>{{transaction.payment_method}}</td>
                   </tr>
-                  <tr>
-                    <th scope="row">Wallet Address</th>
-                    <td colspan="3">{{transaction.wallet_address}}</td>
-                  </tr>
+                  
                   <tr>
                     <th scope="row">Amount</th>
-                    <td colspan="3">$ {{transaction.amount}}</td>
+                    <td>$ {{transaction.amount}}</td>
                   </tr>
                   <tr>
                     <th scope="row">Status</th>
                     {% if transaction.status == 'Pending' %}
-                    <td class="text-warning" colspan="3">{{transaction.status}}</td>
+                    <td class="text-warning">{{transaction.status}}</td>
                     {% elif transaction.status == 'Completed' %}
-                    <td class="text-success" colspan="3">{{transaction.status}}</td>
+                    <td class="text-success">{{transaction.status}}</td>
                     {% elif transaction.status == 'Failed' %}
-                    <td class="text-danger" colspan="3">{{transaction.status}}</td>
+                    <td class="text-danger">{{transaction.status}}</td>
                     {% endif %}
                   </tr>
                   {% if transaction.deposit_img %}
                   <tr>
                     <th scope="row">Payment Slip</th>
-                    <td colspan="3"><img src="{{transaction.deposit_img.url}}" alt="payment-slip" class="profile"></td>
+                    <td><img src="{{transaction.deposit_img.url}}" style="height:150px; width:100px;" alt="payment-slip" class="profile"></td>
                   </tr>
                   {% endif %}
+                  
                 </tbody>
               </table>
              {% endif %}
