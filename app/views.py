@@ -460,6 +460,7 @@ def register(request):
         firstName = request.POST['firstname']
         lastName = request.POST['lastname']
         username = request.POST['username']
+        phone = request.POST['phone']
         if validate_data(request, password1=password1, password2=password2, email=email, username=username):
             try:
                 user = User.objects.create_user(
@@ -476,6 +477,7 @@ def register(request):
                     lastName=lastName,
                     email=email,
                     user=user,
+                    phone=phone,
                 )
                 profile.save()
                 messages.success(request, 'Registration successful!')
@@ -493,9 +495,10 @@ def login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
+        print(user)
         if user is not None:
             login(request, user)
-            return redirect('otp-verification')
+            return redirect('dashboard')
     return render(request, 'app/login.html')
 
 

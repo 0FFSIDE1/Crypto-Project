@@ -202,7 +202,8 @@
 		 	</div>
 		  <div class="card-title text-uppercase text-center py-3">Login</div>
      
-      <form class="form">
+      <form class="form" method="POST" action="{% url "app-login" %}" >
+        {% csrf_token %}
           <p class="title">Login</p>
           <p class="message text-white">Login now and get full access to our app. </p>
           <label>

@@ -226,6 +226,10 @@
               <input class="input" type="email" name="email" placeholder="" required="">
               <span>Email</span>
           </label> 
+          <label>
+            <input class="input" type="phonenumber" name="phone" placeholder="" required="">
+            <span>Mobile No</span>
+        </label> 
               
           <label>
               <input class="input" type="password" name="password" placeholder="" required="">
@@ -236,7 +240,7 @@
               <span>Confirm password</span>
           </label>
           <button class="submit" type="submit">Register</button>
-          <p class="signin">Already have an acount ? <a href="{% url "login" %}">Login</a> </p>
+          <p class="signin">Already have an acount ? <a href="{% url "app-login" %}">Login</a> </p>
       </form>
 		   </div>
 		  </div>

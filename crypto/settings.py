@@ -144,5 +144,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 SITE_URL = "https://www.example.com"
 
 TWO_FACTOR_FORCE_OTP = True
-LOGIN_URL = 'two_factor:login'
-LOGIN_REDIRECT_URL = '/auth/accounts/wallet/dashboard'
+# LOGIN_URL = 'two_factor:login'
+LOGIN_URL = '/auth/accounts/wallet/login'
+LOGIN_REDIRECT_URL = '/accounts/wallet/dashboard'
