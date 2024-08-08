@@ -122,9 +122,9 @@ def get_kyc(request, pk):
     kyc = Kyc.objects.get(pk=pk)
     data = {
         
-        'name': kyc.user.username,
         'front_img': kyc.front_img.url if kyc.front_img else None,
         'back_img': kyc.back_img.url if kyc.back_img else None,
+        'name': kyc.user.username,
 
     }
     return JsonResponse(data, safe=False)
@@ -220,7 +220,11 @@ def admin_transaction_detail(request, pk):
 
 @login_required
 def copy_trading(request):
-    return render(request, 'app/copytrading.html')
+    expert_traders = Expert.objects.all()
+    context = {
+        'expert_traders': expert_traders
+    }
+    return render(request, 'app/copytrading.html', context)
 
 @login_required
 def plans(request):
@@ -505,7 +509,16 @@ def signin(request):
         if user is not None:
             login(request, user)
             return redirect('dashboard')
+        else:
+            messages.error(request, 'Invalid username or password')
+            return redirect('app-login')
     return render(request, 'app/login.html')
+
+def log_out(request):
+    logout(request)
+    messages.success(request, 'Logout Successful!')
+    return redirect('app-login')
+
 
 def view_bank(request):
     bank = BankAccount.objects.all()

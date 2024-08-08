@@ -4,6 +4,7 @@ from .views import *
 urlpatterns = [
     path('auth/accounts/wallet/register', register, name='register'),
     path('auth/accounts/wallet/login', signin, name='app-login'),
+    path('auth/accounts/wallet/logout', log_out, name='logout'),
     path('accounts/wallet/dashboard', dashboard, name='dashboard'),
     path('accounts/wallet/deposit', deposit_withdraw, name='deposit-withdraw'),
     path('accounts/wallet/transactions', transaction_history, name='transaction'),

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$7!sd-n947ivap*toi)j8kqzevmc!t=+gf)dieh2u34!d+!ie&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8f06-102-88-36-209.ngrok-free.app', '127.0.0.1',]
+ALLOWED_HOSTS = ['8f06-102-88-36-209.ngrok-free.app', '127.0.0.1:8000', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = ['https://8f06-102-88-36-209.ngrok-free.app']
 
@@ -141,7 +141,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # settings.py
-SITE_URL = "https://www.example.com"
+SITE_URL = CSRF_TRUSTED_ORIGINS[0]
 
 TWO_FACTOR_FORCE_OTP = True
 # LOGIN_URL = 'two_factor:login'

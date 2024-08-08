@@ -272,9 +272,8 @@ td, th {
 
 
 .cardkyc {
- height: 300px
-  
-  perspective: 1000px;
+height: 300px;
+perspective: 1000px;
 }
 
 .card-inner {
@@ -402,7 +401,7 @@ td, th {
       </li>
 
        <li>
-        <a href="">
+        <a href="{% url "logout" %}">
           <i class="zmdi zmdi-account-circle"></i> <span>Sign Out</span>
         </a>
       </li>
@@ -465,7 +464,7 @@ td, th {
       </li>
 
        <li>
-        <a href="">
+        <a href="{% url "logout" %}">
           <i class="zmdi zmdi-account-circle"></i> <span>Sign Out</span>
         </a>
       </li>
@@ -705,13 +704,13 @@ td, th {
   <!-- Index js{% static "" %}app/ -->
   <script src="{% static "app/assets/js/index.js" %}"></script>
   
-  <script src="https://cdn.tiny.cloud/1/q9cf0s0h5ja2508nlc33gkop5w7dab7lpo1gfxyzllf0f5ii/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+  {% comment %} <script src="https://cdn.tiny.cloud/1/q9cf0s0h5ja2508nlc33gkop5w7dab7lpo1gfxyzllf0f5ii/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script> {% endcomment %}
   <script>
-    tinymce.init({
+    {% comment %} tinymce.init({
       selector: 'textarea#tiny',
       plugins: 'link',
       
-    });
+    }); {% endcomment %}
     
     // Display the popup div for 5 seconds
     document.addEventListener('DOMContentLoaded', function() {
@@ -889,13 +888,11 @@ document.querySelectorAll('.updatekyc').forEach(button => {
       .then(data => {
         console.log(data)
         if (data) {
-          var input = document.getElementById('myId');
-          var user = document.getElementById('username');
-          $('#card-front').css('background-image', `url(${data.front_img})`)
-          $('#card-back').css('background-image', `url(${data.back_img})`)
-          input.value = data.pk || '';
-          user.value = data.name || '';
          
+          $('#card-front1').css('background-image', `url(${data.front_img})`)
+          $('#card-back1').css('background-image', `url(${data.back_img})`)
+          var user = document.getElementById('username');
+          user.value = data.name || '';
       }
     })
       .catch(error => {
