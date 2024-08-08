@@ -498,7 +498,7 @@ perspective: 1000px;
   <ul class="navbar-nav align-items-center right-nav-link">
     <li class="nav-item dropdown-lg">
       <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect"  href="">
-      <i class="fa fa-envelope-open-o"></i>
+     
         </a>
     </li>
 
@@ -530,13 +530,15 @@ perspective: 1000px;
            {% endif %}
           </a>
         </li>
+       
+        
         <li class="dropdown-divider"></li>
-        <a href=""><li class="dropdown-item"><i class="icon-envelope mr-2"></i> Notification</li></a>
+        <a href="{% url "deposit-withdraw" %}"><li class="dropdown-item"><i class="icon-wallet mr-2"></i>Account Balance: $ {% if user.is_authenticated %}{% if user.user.wallet_balance %}<span class="text-success">{{user.user.wallet_balance}}</span>{% else %}<span class="text-danger"> $ 0.00</span>{% endif %}{% endif %}</li></a>
         <li class="dropdown-divider"></li>
-        <a href=""><li class="dropdown-item"><i class="icon-wallet mr-2"></i> Account</li></a>
-        <li class="dropdown-divider"></li>
+        <a href="{% url "my-account" %}"><li class="dropdown-item"><i class="icon-user mr-2"></i>Profile</li></a>
+        <a href="{% url "settings" %}"><li class="dropdown-item"><i class="icon-settings mr-2"></i>Settings</li></a>
 
-        <a href=""><li class="dropdown-item"><i class="icon-power mr-2"></i> Logout</li></a>
+        <a href="{% url "logout" %}"><li class="dropdown-item"><i class="icon-power mr-2"></i> Logout</li></a>
       </ul>
     </li>
   </ul>
