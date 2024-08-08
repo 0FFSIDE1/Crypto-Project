@@ -1,3 +1,4 @@
+import random
 import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
@@ -46,7 +47,23 @@ class Profile(models.Model):
 
     def __str__(self) -> str:
         return self.username
-    
+
+class OTP(models.Model):
+    code = models.CharField(max_length=6, blank=True)
+    user = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name='otp')
+
+    def __str__(self):
+        return str(self.code)
+
+    def save(self, *args, **kwargs):
+        code_list = [x for x in range(10)]
+        code_items = []
+        for i in range(5):
+            num = random.choice(code_list)
+            code_items.append(num)
+        code = "".join(str(n) for n in code_items)
+        self.code = code
+        super().save(*args, **kwargs)    
 
 
 class Kyc(models.Model):
