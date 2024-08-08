@@ -160,7 +160,10 @@
                       <td>$ {{user.wallet_balance}}</td>
                       <td>{{user.status}}</td>
                       <td ><a href="{% url "user-detail" user.pk %}"><button class="btn btn-success"  style="font-size:5px;" type="button" >View</button></a>
-                        <button data-id="{{user.pk}}" class="btn btn-warning updateUser" data-toggle="modal" data-target="#exampleModalCenter"  style="font-size:5px;" type="button" >Update</button> <a href="{% url "make-admin" user.pk %}"><button class="btn btn-primary makeAdmin"   style="font-size:5px;" type="button" >Make Admin</button></a> <button class="btn btn-danger modalBtn" id="modalBtn"   style="font-size:5px;" type="button" data-toggle="modal" data-id="{{user.pk}}">Delete</button>
+                        <button data-id="{{user.pk}}" class="btn btn-warning updateUser" data-toggle="modal" data-target="#exampleModalCenter"  style="font-size:5px;" type="button" >Update</button> {% if user.is_admin %} 
+                        <a href="{% url "make-user" user.pk %}"><button class="btn btn-info makeAdmin"   style="font-size:5px;" type="button" >Make User</button></a>{% else %}
+                        <a href="{% url "make-admin" user.pk %}"><button class="btn btn-primary makeAdmin"   style="font-size:5px;" type="button">Make Admin</button></a>
+                        {% endif %} <button class="btn btn-danger modalBtn" id="modalBtn"   style="font-size:5px;" type="button" data-toggle="modal" data-id="{{user.pk}}">Delete</button>
 
                       
                        

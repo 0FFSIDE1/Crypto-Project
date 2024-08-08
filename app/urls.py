@@ -30,6 +30,7 @@ urlpatterns = [
     path('accounts/wallet/admin/kyc', kyc, name='view-kyc'),
     path('accounts/wallet/admin/<int:pk>/kyc', get_kyc, name='get-kyc'), 
     path('accounts/wallet/user/<int:pk>/make-admin', make_user_admin, name='make-admin'), 
+    path('accounts/wallet/user/<int:pk>/make-user', make_admin_user, name='make-user'), 
     path('accounts/wallet/experts', expert_traders, name='experts'),
     path('accounts/wallet', wallet_and_banks, name='wallets-banks'),  
     path('accounts/wallet/admin/kyc/update', update_kyc, name='update-kyc'),
@@ -40,4 +41,6 @@ urlpatterns = [
     path('accounts/wallet/settings/change-password', change_password, name='change-password'),
     path('accounts/wallet/settings/forgot-password', forgot_password, name='forgot-password'),
     path('referral/<str:referral_code>/', register_with_referral, name='register_with_referral'),
+    path('accounts/wallet/admin/<int:pk>/user/delete', delete_user, name='delete'),
+    
 ]

@@ -859,13 +859,14 @@ document.querySelectorAll('.delete').forEach(button => {
   button.addEventListener('click', function(){
     var element = document.getElementById("deleteBtn")
     id = element.value
+    console.log(id)
     $.ajax({
-      url: `/accounts/wallet/admin/${pk}/user/delete`,
+      url: `/accounts/wallet/admin/${id}/user/delete`,
       type: 'GET',
       success: function(response){
         if(response.success){
-          var url = '/accounts/wallet/admin/users'
-          window.location.href = url
+           var url = '/accounts/wallet/admin/users'
+           window.location.href = url
         }
       }
     })

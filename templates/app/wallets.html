@@ -106,16 +106,90 @@
                     </form>
                   </div>
                 </div>
-                </div>
-             
-       
-       
-      
+                </div> 
       </div>
         </div>
     </div>
-      
+
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Wallets</h5>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  
+                  <th scope="col">Wallet</th>
+                  <th scope="col">Slug</th>
+                  
+                  <th scope="col">Address</th>                
+                  <th scope="col">Actions</th>
+                 
+                </tr>
+              </thead>
+              <tbody>
+                {% for wallet in wallets  %}
+                <tr>
+                  
+                  <td>{{wallet.wallet_name}}</td>
+                  <td>{{wallet.wallet_slug}}</td>
+                  <td>{{wallet.wallet_address}}</td>
+                  <td >
+                    <button data-id="" class="btn btn-warning updateUser" data-toggle="modal" data-target="#exampleModalCenter"  style="font-size:5px;" type="button" >Update</button>
+                  </td>
+                  
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Banks</h5>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  
+                  <th scope="col">Name</th>
+                  <th scope="col">Owner</th>
+                  
+                  <th scope="col">Address</th>
+                  <th scope="col">Account No</th>
+                  <th scope="col">Routing No</th>                
+                  <th scope="col">Actions</th>
+                 
+                </tr>
+              </thead>
+              <tbody>
+                {% for bank in banks  %}
+                <tr>
+                  
+                  <td>{{bank.bank_name}}</td>
+                  <td>{{bank.owner}}</td>
+                  <td>{{bank.bank_address}}</td>
+                  <td>{{bank.accout_no}}</td>
+                  <td>{{bank.routing_no}}</td>
+                  <td >
+                    <button data-id="" class="btn btn-warning updateUser" data-toggle="modal" data-target="#exampleModalCenter"  style="font-size:5px;" type="button" >Update</button>
+                  </td>
+                  
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  
             
      
 	  {% endblock content %}

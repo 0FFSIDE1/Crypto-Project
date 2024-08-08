@@ -281,7 +281,7 @@ def buy_plan(request):
 @login_required
 def create_plan(request):
     if request.method == 'POST':
-        try:
+        try: 
             plan_name = request.POST['plan_name']
             minp = request.POST['min_amount']
             maxp = request.POST['max_amount']
@@ -344,11 +344,30 @@ def update_user(request):
 
 @login_required
 def make_user_admin(request, pk):
+    try:
+        user = Profile.objects.get(pk=pk)
+        user.is_admin = True
+        user.save()
+        messages.success(request, 'Profile now has Admin privilege!')
+        return redirect('all-users')
+    except Exception as e:
+        messages.error(request, f'{e}')
+        return redirect('all-users')
+
+@login_required
+def make_admin_user(request, pk):
     user = Profile.objects.get(pk=pk)
-    user.is_admin = True
+    user.is_admin = False
     user.save()
-    messages.success(request, 'User is Now an Admin!')
+    messages.success(request, 'Profile now has user privilege!')
     return redirect('all-users')
+
+@login_required
+def delete_user(request, pk):
+    profile = Profile.objects.get(pk=pk)
+    profile.delete()
+    return JsonResponse({'success': True}, safe=True)
+   
 
 @login_required
 def plan_transaction(request):
@@ -419,6 +438,8 @@ def expert_traders(request):
 
 @login_required
 def wallet_and_banks(request):
+    wallet =  Wallet.objects.all()
+    bank = BankAccount.objects.all()
     if request.method == 'POST':
         try:
             wallet = Wallet.objects.create(
@@ -434,7 +455,11 @@ def wallet_and_banks(request):
         except Exception as e:
             messages.error(request, f'{e}')
             return redirect('wallets-banks')
-    return render(request, 'app/wallets.html')
+    context = {
+        'wallets': wallet,
+        'banks': bank
+    }
+    return render(request, 'app/wallets.html', context)
 
 @login_required
 def add_banks(request):
@@ -500,7 +525,6 @@ def register(request):
     return render(request, 'app/register.html')
 
 def signin(request):
-
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -519,7 +543,7 @@ def log_out(request):
     messages.success(request, 'Logout Successful!')
     return redirect('app-login')
 
-
+@login_required
 def view_bank(request):
     bank = BankAccount.objects.all()
     context = {
@@ -527,6 +551,7 @@ def view_bank(request):
     }
     return render(request, 'app/banks_view.html', context)
 
+@login_required
 def security_authentication(request):
     return render(request, 'app/2fa.html')
 
@@ -537,6 +562,7 @@ def otp_verification(request):
 def forgot_password(request):
     return render(request, 'app/reset-password.html')
 
+@login_required
 def change_password(request):
     user = User.objects.get(username=request.user)
     print(user)
@@ -561,9 +587,8 @@ def change_password(request):
             messages.error(request, 'Password is Incorrect')
             return redirect('settings')
 
-
+@login_required
 def settings(request):
-
     return render(request, 'app/settings.html')
 
 
