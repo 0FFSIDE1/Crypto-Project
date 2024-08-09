@@ -7,6 +7,8 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from twilio.rest import Client
+import os
 # Create your views here.
 
 @login_required
@@ -125,7 +127,6 @@ def get_kyc(request, pk):
         'front_img': kyc.front_img.url if kyc.front_img else None,
         'back_img': kyc.back_img.url if kyc.back_img else None,
         'name': kyc.user.username,
-
     }
     return JsonResponse(data, safe=False)
 
@@ -201,7 +202,6 @@ def transaction_history(request):
 @login_required
 def transaction_detail(request, pk):
     transaction = TransactionHistory.objects.get(pk=pk)
-    
     context = {
         'transaction': transaction
     }
@@ -555,7 +555,20 @@ def otp(request):
             return redirect('my-account')
     else:
         # send sms otp
-        pass
+        try:
+            account_sid = os.environ.get('ACCOUNT_SID')
+            auth_token = os.environ.get('AUTH_TOKEN')
+            client = Client(account_sid, auth_token)
+            message = client.messages.create(
+            from_= os.environ.get('TWILIO_NO'),
+            body=f"Verification code for\nusername: {profile.username}\nOTP:{otp.code}",
+            to=profile.phone,
+            )
+            print(message.status)
+            return redirect('my-account')
+        except Exception as e:
+            messages.error(request, f'{e}')
+            return redirect('otp')
     return render(request, 'app/otp.html')
 
 @login_required
@@ -578,8 +591,33 @@ def number_verification(request):
 def forgot_password(request):
     return render(request, 'app/reset-password.html')
 
+# @login_required
+# def change_password(request):
+#     user = User.objects.get(username=request.user)
+#     print(user)
+#     if request.methood == 'POST':
+#         current_password = request.POST['password1']
+#         new_password = request.POST['password2']
+#         confirm_password = request.POST['password3']
+#         if user.check_password(current_password):
+#             if new_password == confirm_password:
+#                 try:
+#                     user.set_password(new_password)
+#                     user.save()
+#                     messages.success(request, 'Password Changed Successfully')
+#                     return redirect('settings')
+#                 except Exception as e:
+#                     messages.error(request, f'{e}')
+#                     return redirect(request, 'settings')
+#             else:
+#                 messages.error(request, 'Passwords do not match')
+#                 return redirect('settings')
+#         else:
+#             messages.error(request, 'Password is Incorrect')
+#             return redirect('settings')
+
 @login_required
-def change_password(request):
+def settings(request):
     user = User.objects.get(username=request.user)
     print(user)
     if request.methood == 'POST':
@@ -602,9 +640,6 @@ def change_password(request):
         else:
             messages.error(request, 'Password is Incorrect')
             return redirect('settings')
-
-@login_required
-def settings(request):
     return render(request, 'app/settings.html')
 
 
