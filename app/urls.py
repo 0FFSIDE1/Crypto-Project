@@ -42,5 +42,7 @@ urlpatterns = [
     path('accounts/wallet/settings/forgot-password', forgot_password, name='forgot-password'),
     path('referral/<str:referral_code>/', register_with_referral, name='register_with_referral'),
     path('accounts/wallet/admin/<int:pk>/user/delete', delete_user, name='delete'),
+    path('auth/accounts/wallet/verify-mobile', number_verification, name='verify-no'),
+    path('auth/accounts/wallet/one-time-password', otp, name='otp'),
     
 ]

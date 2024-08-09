@@ -366,6 +366,7 @@ def make_admin_user(request, pk):
 def delete_user(request, pk):
     profile = Profile.objects.get(pk=pk)
     profile.delete()
+    messages.success(request, 'User deleted successfully!')
     return JsonResponse({'success': True}, safe=True)
    
 
@@ -509,6 +510,8 @@ def register(request):
                     phone=phone,
                 )
                 profile.save()
+                user = authenticate(request, username=username, password=password1)
+                login(request, user)
                 referral_id = request.session.get('referrer_id')
                 if referral_id:
                     referrer = User.objects.get(id=referral_id)
@@ -516,7 +519,7 @@ def register(request):
                     referrer.user.save()
                     del request.session['referrer_id']
                 messages.success(request, 'Registration successful!')
-                return redirect('app-login')
+                return redirect('otp')
             except Exception as e:
                 messages.error(request, f'{e}')
                 return redirect('register')
@@ -543,6 +546,18 @@ def log_out(request):
     messages.success(request, 'Logout Successful!')
     return redirect('app-login')
 
+def otp(request):
+    profile = Profile.objects.get(user=request.user)
+    otp = OTP.objects.get(user=profile)
+    if request.method == 'POST':
+        input_code = request.POST['otp']
+        if otp.code == input_code:
+            return redirect('my-account')
+    else:
+        # send sms otp
+        pass
+    return render(request, 'app/otp.html')
+
 @login_required
 def view_bank(request):
     bank = BankAccount.objects.all()
@@ -556,8 +571,9 @@ def security_authentication(request):
     return render(request, 'app/2fa.html')
 
 
-def otp_verification(request):
-    pass
+def number_verification(request):
+    return render(request, 'app/mobile_verification.html')
+    
 
 def forgot_password(request):
     return render(request, 'app/reset-password.html')
@@ -600,6 +616,5 @@ def register_with_referral(request, referral_code):
     except Profile.DoesNotExist:
         # Handle case where referral code does not exist (optional)
         pass
-
     # Redirect to the registration page
     return redirect('register')

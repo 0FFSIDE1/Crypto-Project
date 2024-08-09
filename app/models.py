@@ -29,7 +29,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user', default=None, blank=True )
     is_admin = models.BooleanField(default=False)
     referral_code = models.CharField(max_length=10, unique=True, blank=True)
-    referral_bonus = models.DecimalField(max_digits=10, decimal_places=2, default=None, blank=True, null=True)
+    referral_bonus = models.DecimalField(max_digits=190000000, decimal_places=2, default=None, blank=True, null=True)
     created_at = models.DateField(auto_created=True, auto_now_add=True)
 
     def save(self, *args, **kwargs):
@@ -106,7 +106,7 @@ class BankAccount(models.Model):
  
 class TransactionHistory(models.Model):
     tr_no = models.CharField(max_length=50, primary_key=True, default=uuid.uuid4)
-    date_created = models.DateTimeField(auto_now=True)
+    date_created = models.DateTimeField(auto_created=True)
     transaction_type = models.CharField(max_length=10, default=None, blank=True, null=False)
     amount = models.CharField(max_length=100, default=None, blank=True, null=False)
     choices = (('Pending', 'Pending'), ('Failed', 'Failed'),('Ongoing', 'Ongoing'), ('Completed', 'Completed'))

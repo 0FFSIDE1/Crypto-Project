@@ -109,7 +109,7 @@ def validate_data(request, password1, password2, username, email):
     if password1 != password2:
         return messages.error(request, 'Password do not match!')
     elif user:
-        return messages.error(request, 'User with username already exists!')
+        return messages.error(request, 'Username already taken!')
     elif email:
         return messages.error(request, 'User with that Email already exists!')
     else:
